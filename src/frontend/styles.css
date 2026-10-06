@@ -1,0 +1,223 @@
+/* ==========================================================================
+   SAICI · Hoja de estilos compartida
+   Cubre: página, marco de la app, sidebar y topbar.
+   El HTML de sidebar/topbar lo genera layout.js
+   ========================================================================== */
+
+:root {
+  --saici-font: Inter, sans-serif;
+
+  /* Sidebar */
+  --sidebar-bg: #123B22;
+  --sidebar-link-active-bg: #27613A;
+  --sidebar-link-text: #E8F2E9;
+  --sidebar-tagline: #C4D9C7;
+  --sidebar-heading: #A9C5AE;
+
+  /* Topbar */
+  --topbar-border: #E6EBE6;
+  --topbar-title: #193A22;
+  --topbar-subtitle: #727C73;
+  --badge-bg: #FFF3D5;
+  --badge-text: #79520C;
+
+  /* Marco */
+  --frame-bg: #F5F7F5;
+  --frame-outline: #D7DCE3;
+  --page-bg: #E9ECEF;
+}
+
+/* ---------- Página ---------- */
+body {
+  margin: 0;
+  padding: 24px;
+  background: var(--page-bg);
+  font-family: var(--saici-font);
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+.wrap { width: max-content; margin: 0 auto; }
+
+/* ---------- Marco de escritorio (1180 × 860) ---------- */
+.app-frame {
+  width: 1180px;
+  height: 860px;
+  padding: 1px;
+  background: var(--frame-bg);
+  overflow: hidden;
+  border-radius: 18px;
+  outline: 1px var(--frame-outline) solid;
+  outline-offset: -1px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  display: inline-flex;
+}
+
+/* ---------- Sidebar ---------- */
+.app-sidebar {
+  width: 230px;
+  align-self: stretch;
+  padding: 26px 16px;
+  background: var(--sidebar-bg);
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 22px;
+  display: inline-flex;
+}
+
+.app-brand {
+  align-self: stretch;
+  padding: 0 10px 12px;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 5px;
+  display: flex;
+}
+.app-brand__name {
+  color: white;
+  font-size: 21px;
+  font-family: var(--saici-font);
+  font-weight: 800;
+  line-height: 25.20px;
+  word-wrap: break-word;
+}
+.app-brand__tagline {
+  align-self: stretch;
+  color: var(--sidebar-tagline);
+  font-size: 11px;
+  font-family: var(--saici-font);
+  font-weight: 400;
+  line-height: 13.20px;
+  word-wrap: break-word;
+}
+
+.app-nav {
+  align-self: stretch;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 5px;
+  display: flex;
+}
+.app-nav__heading {
+  align-self: stretch;
+  padding: 10px 0 4px 10px;
+  overflow: hidden;
+  justify-content: flex-start;
+  align-items: flex-start;
+  display: inline-flex;
+}
+.app-nav__heading-text {
+  color: var(--sidebar-heading);
+  font-size: 10px;
+  font-family: var(--saici-font);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 12px;
+  word-wrap: break-word;
+}
+.app-nav__link {
+  align-self: stretch;
+  padding: 11px 10px;
+  background: rgba(0, 0, 0, 0);
+  overflow: hidden;
+  border-radius: 8px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  display: inline-flex;
+  text-decoration: none;
+  cursor: pointer;
+}
+.app-nav__text {
+  flex: 1 1 0;
+  color: var(--sidebar-link-text);
+  font-size: 12px;
+  font-family: var(--saici-font);
+  font-weight: 400;
+  line-height: 14.40px;
+  word-wrap: break-word;
+}
+.app-nav__link.is-active { background: var(--sidebar-link-active-bg); }
+.app-nav__link.is-active .app-nav__text { color: white; }
+.app-nav__spacer { align-self: stretch; flex: 1 1 0; }
+
+/* ---------- Columna principal ---------- */
+.app-main {
+  flex: 1 1 0;
+  align-self: stretch;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  display: inline-flex;
+}
+
+/* ---------- Topbar ---------- */
+.app-topbar {
+  align-self: stretch;
+  height: 72px;
+  padding: 14px 28px;
+  background: white;
+  overflow: hidden;
+  border-bottom: 1px var(--topbar-border) solid;
+  justify-content: space-between;
+  align-items: center;
+  display: inline-flex;
+}
+.app-topbar__titles {
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 3px;
+  display: inline-flex;
+}
+.app-topbar__title {
+  color: var(--topbar-title);
+  font-size: 14px;
+  font-family: var(--saici-font);
+  font-weight: 700;
+  line-height: 16.80px;
+  word-wrap: break-word;
+}
+.app-topbar__subtitle {
+  color: var(--topbar-subtitle);
+  font-size: 11px;
+  font-family: var(--saici-font);
+  font-weight: 400;
+  line-height: 13.20px;
+  word-wrap: break-word;
+}
+.app-badge {
+  padding: 7px 10px;
+  background: var(--badge-bg);
+  overflow: hidden;
+  border-radius: 20px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  display: flex;
+}
+.app-badge__text {
+  color: var(--badge-text);
+  font-size: 10px;
+  font-family: var(--saici-font);
+  font-weight: 700;
+  line-height: 12px;
+  word-wrap: break-word;
+}
+
+/* ---------- Área de contenido de cada pantalla ---------- */
+.app-content {
+  align-self: stretch;
+  padding: 28px;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  display: flex;
+}
