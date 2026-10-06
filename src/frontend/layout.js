@@ -80,6 +80,16 @@
     side.appendChild(brand);
 
     NAV.forEach(function (group) {
+      //Logica separacion de roles
+      if (section === 'usuario' && group.heading === 'Administración') {
+        return;
+      }
+
+      if (section === 'admin' && (group.heading === 'Usuario' || group.heading === null)) {
+        return;
+      }
+      //Fin
+      
       var nav = el('nav', 'app-nav');
       if (group.heading) {
         var h = el('div', 'app-nav__heading');
