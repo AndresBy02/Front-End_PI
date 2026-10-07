@@ -6,12 +6,10 @@
 <title>Iniciar sesión · SAICI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-  body { margin: 0; padding: 24px; background: #E9ECEF; font-family: Inter, sans-serif; min-height: 100vh; box-sizing: border-box; }
-  .wrap { width: max-content; margin: 0 auto; }
-</style>
+<link rel="stylesheet" href="login.css">
 </head>
 <body>
+<script src="login.js"></script>
 <div class="wrap">
 <div style="width: 400px; height: 700px; position: relative; background: white; overflow: hidden; border-radius: 15px; outline: 1px #D7DCE3 solid; outline-offset: -1px">
 <div style="width: 358px; left: 21px; top: 670px; position: absolute; text-align: center; color: #9A9A96; font-size: 10px; font-family: Inter; font-weight: 400; line-height: 12px; word-wrap: break-word">GUI-02 - Login | CU-01 Iniciar sesion | HU-01</div>
@@ -32,11 +30,12 @@
 </div>
 <div style="align-self: stretch; height: 20px"></div>
 
+<form id="login-form">
 <!--Correo electronicoo-->
 <div style="align-self: stretch; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 4px; display: flex">
 <label style="align-self: stretch; color: #444441; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 14.40px; word-wrap: break-word">Correo electrónico</label>
 <div style="align-self: stretch; height: 44px; padding-left: 13px; padding-right: 13px; background: #F7F8FA; overflow: hidden; border-radius: 8px; outline: 1px #C7CCD3 solid; outline-offset: -1px; justify-content: flex-start; align-items: center; display: flex">
-<input type="email" placeholder="nombre@correo.com" style="flex: 1 1 0; background: transparent; border: none; outline: none; color: #111; font-size: 16px; font-family: Inter; width: 100%;">
+<input type="email" id="email" placeholder="nombre@correo.com" style="flex: 1 1 0; background: transparent; border: none; outline: none; color: #111; font-size: 16px; font-family: Inter; width: 100%;">
 </div>
 </div>
 <div style="align-self: stretch; height: 10px"></div>
@@ -45,8 +44,8 @@
 <div style="align-self: stretch; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 4px; display: flex">
 <label style="align-self: stretch; color: #444441; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 14.40px; word-wrap: break-word">Contraseña</label>
 <div style="align-self: stretch; height: 44px; padding-left: 13px; padding-right: 13px; background: #F7F8FA; overflow: hidden; border-radius: 8px; outline: 1px #C7CCD3 solid; outline-offset: -1px; justify-content: flex-start; align-items: center; display: flex">
-<input type="password" placeholder="••••••••" style="flex: 1 1 0; background: transparent; border: none; outline: none; color: #111; font-size: 16px; font-family: Inter; width: 100%;">
-<div style="color: #5F5E5A; font-size: 11px; font-family: Inter; font-weight: 400; line-height: 13.20px; word-wrap: break-word; cursor: pointer;">Ver</div>
+<input type="password"  id="password" placeholder="••••••••" style="flex: 1 1 0; background: transparent; border: none; outline: none; color: #111; font-size: 16px; font-family: Inter; width: 100%;">
+<div  id="toggle-password" style="color: #5F5E5A; font-size: 11px; font-family: Inter; font-weight: 400; line-height: 13.20px; word-wrap: break-word; cursor: pointer;">Ver</div>
 </div>
 </div>
 <div style="align-self: stretch; height: 8px"></div>
@@ -56,9 +55,13 @@
 <div style="align-self: stretch; height: 17px"></div>
 
 <!--Entrar-->
-<a href="../usuario/01-inicio.html" style="align-self: stretch; height: 46px; padding-left: 8px; padding-right: 8px; background: #35AB35; overflow: hidden; border-radius: 7px; outline: 1px #35AB35 solid; outline-offset: -1px; justify-content: center; align-items: center; display: flex; text-decoration: none; cursor: pointer;">
+<button type="submit" id="btn-login" style="align-self: stretch; height: 46px; padding-left: 8px; padding-right: 8px; background: #35AB35; overflow: hidden; border-radius: 7px; outline: 1px #35AB35 solid; outline-offset: -1px; justify-content: center; align-items: center; display: flex; text-decoration: none; cursor: pointer; border: none; width: 100%;">
 <div style="color: white; font-size: 14px; font-family: Inter; font-weight: 700; line-height: 16.80px; word-wrap: break-word;">Ingresar</div>
-</a>
+</button>
+
+<div id="error-message" style="color: #d32f2f; font-size: 12px; font-family: Inter; margin-top: 8px; text-align: center; display: none;"></div>
+
+</form>
 
 <div style="align-self: stretch; height: 24px"></div>
 <a href="../usuario/01-inicio.html" style="align-self: stretch; text-align: center; color: #111111; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 14.40px; word-wrap: break-word; text-decoration: none; cursor: pointer">Explorar pantallas del prototipo</a>
