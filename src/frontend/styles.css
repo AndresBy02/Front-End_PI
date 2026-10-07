@@ -42,6 +42,7 @@ body {
 .app-frame {
   width: 1180px;
   height: 860px;
+  box-sizing: border-box;
   padding: 1px;
   background: var(--frame-bg);
   overflow: hidden;
