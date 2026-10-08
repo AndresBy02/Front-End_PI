@@ -24,24 +24,28 @@
         <div aria-hidden="true">⌘</div><h2>Laboratorio de Sistemas 1</h2>
         <p class="screen-muted">Edificio de Sistemas · Capacidad para 24 personas</p>
         <span class="app-badge"><span class="app-badge__text">Disponible · ejemplo</span></span>
-        <a class="demo-link" href="12-seleccionar-fecha.html">Elegir este espacio</a>
+        <button class="demo-link demo-choice" type="button" data-select-space="sistemas" aria-pressed="false">Seleccionar espacio</button>
       </article>
       <article class="demo-card">
         <div aria-hidden="true">⌘</div><h2>Laboratorio de Redes</h2>
         <p class="screen-muted">Bloque académico · Capacidad para 20 personas</p>
-        <span class="app-badge"><span class="app-badge__text">Ocupado ahora · ejemplo</span></span>
-        <a class="demo-link" href="12-seleccionar-fecha.html">Ver fechas</a>
+        <span class="app-badge"><span class="app-badge__text">Disponibilidad ilustrativa</span></span>
+        <button class="demo-link demo-choice" type="button" data-select-space="redes" aria-pressed="false">Seleccionar espacio</button>
       </article>
       <article class="demo-card">
         <div aria-hidden="true">▤</div><h2>Sala de estudio biblioteca</h2>
         <p class="screen-muted">Biblioteca central · Capacidad para 8 personas</p>
         <span class="app-badge"><span class="app-badge__text">Disponible · ejemplo</span></span>
-        <a class="demo-link" href="12-seleccionar-fecha.html">Elegir este espacio</a>
+        <button class="demo-link demo-choice" type="button" data-select-space="biblioteca" aria-pressed="false">Seleccionar espacio</button>
       </article>
     </div>
-    <div class="demo-actions"><a class="demo-link is-secondary" href="04-asistente-reserva.html">Volver al asistente</a></div>
+    <p class="demo-error" data-error="space" role="alert" tabindex="-1" hidden></p>
+    <div class="demo-actions">
+      <button class="demo-link" type="button" data-next="12-seleccionar-fecha.html">Continuar a fecha</button>
+      <a class="demo-link is-secondary" href="04-asistente-reserva.html">Volver al asistente</a>
+    </div>
   </main>
 </div></div>
-<script src="../layout.js"></script>
+<script src="../layout.js"></script><script src="asistente-reserva.js"></script>
 </body>
 </html>
