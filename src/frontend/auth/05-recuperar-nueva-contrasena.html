@@ -3,50 +3,74 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Recuperar contraseña · 3 Nueva contraseña · SAICI</title>
+<title>Nueva contraseña · SAICI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-  body { margin: 0; padding: 24px; background: #E9ECEF; font-family: Inter, sans-serif; min-height: 100vh; box-sizing: border-box; }
-  .wrap { width: max-content; margin: 0 auto; }
-</style>
-<link rel="stylesheet" href="responsive.css">
+<link rel="stylesheet" href="auth.css">
 </head>
-<body>
-<div class="wrap">
-<div style="width: 400px; height: 700px; position: relative; background: white; overflow: hidden; border-radius: 15px; outline: 1px #D7DCE3 solid; outline-offset: -1px">
-<div style="width: 358px; left: 21px; top: 670px; position: absolute; text-align: center; color: #9A9A96; font-size: 10px; font-family: Inter; font-weight: 400; line-height: 12px; word-wrap: break-word">CU-06 Recuperar contrasena | token temporal</div>
-<div style="width: 354px; left: 23px; top: 23px; position: absolute; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; display: inline-flex">
-<div style="align-self: stretch; overflow: hidden; justify-content: flex-start; align-items: center; gap: 10px; display: inline-flex">
-<div style="width: 33px; height: 33px; background: #35AB35; overflow: hidden; border-radius: 16777200px; justify-content: center; align-items: center; display: flex">
-<div style="color: white; font-size: 13px; font-family: Inter; font-weight: 700; line-height: 15.60px; word-wrap: break-word">3</div>
-</div>
-<div style="flex: 1 1 0; color: #113711; font-size: 13px; font-family: Inter; font-weight: 700; line-height: 15.60px; word-wrap: break-word">Nueva contrasena</div>
-</div>
-<div style="align-self: stretch; height: 20px"></div>
-<div style="align-self: stretch; color: #113711; font-size: 18px; font-family: Inter; font-weight: 700; line-height: 21.60px; word-wrap: break-word">Crea una nueva contrasena</div>
-<div style="align-self: stretch; height: 15px"></div>
-<div style="align-self: stretch; color: #5F5E5A; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 17.40px; word-wrap: break-word">Debe tener minimo 8 caracteres</div>
-<div style="align-self: stretch; height: 35px"></div>
-<div style="align-self: stretch; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 4px; display: flex">
-<div style="align-self: stretch; color: #444441; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 14.40px; word-wrap: break-word">Nueva contrasena</div>
-<div style="align-self: stretch; height: 44px; padding-left: 13px; padding-right: 13px; background: #F7F8FA; overflow: hidden; border-radius: 8px; outline: 1px #C7CCD3 solid; outline-offset: -1px; justify-content: flex-start; align-items: center; display: inline-flex">
-<div style="flex: 1 1 0; color: #9A9A96; font-size: 16px; font-family: Inter; font-weight: 400; line-height: 19.20px; word-wrap: break-word">••••••••</div>
-</div>
-</div>
-<div style="align-self: stretch; height: 14px"></div>
-<div style="align-self: stretch; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 4px; display: flex">
-<div style="align-self: stretch; color: #444441; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 14.40px; word-wrap: break-word">Confirmar contrasena</div>
-<div style="align-self: stretch; height: 44px; padding-left: 13px; padding-right: 13px; background: #F7F8FA; overflow: hidden; border-radius: 8px; outline: 1px #C7CCD3 solid; outline-offset: -1px; justify-content: flex-start; align-items: center; display: inline-flex">
-<div style="flex: 1 1 0; color: #9A9A96; font-size: 16px; font-family: Inter; font-weight: 400; line-height: 19.20px; word-wrap: break-word">••••••••</div>
-</div>
-</div>
-<div style="align-self: stretch; height: 43px"></div>
-<div style="align-self: stretch; height: 46px; padding-left: 8px; padding-right: 8px; background: #35AB35; overflow: hidden; border-radius: 7px; outline: 1px #35AB35 solid; outline-offset: -1px; justify-content: center; align-items: center; display: inline-flex">
-<a href="01-login.html" style="color: white; font-size: 14px; font-family: Inter; font-weight: 700; line-height: 16.80px; word-wrap: break-word; text-decoration: none; cursor: pointer">Guardar contrasena</a>
-</div>
-</div>
-</div>
-</div>
+<body data-page="reset">
+<main class="shell">
+  <aside class="brand-panel" aria-hidden="true">
+    <div>
+      <div class="logo">S</div>
+      <h2>SAICI</h2>
+      <p>Reserva de laboratorios para egresados</p>
+    </div>
+    <p class="proto">Prototipo · datos de ejemplo</p>
+  </aside>
+
+  <div class="form-side">
+    <header class="mobile-brand">
+      <span class="logo" aria-hidden="true">S</span>
+      <div><strong>SAICI</strong><span class="tagline">Reserva de laboratorios para egresados</span></div>
+    </header>
+
+    <ol class="steps" aria-label="Progreso de recuperación">
+      <li class="is-done">Solicitar código</li>
+      <li class="is-done">Verificar código</li>
+      <li class="is-current" aria-current="step">Nueva contraseña</li>
+    </ol>
+
+    <div id="reset-intro">
+      <h1>Crea una nueva contraseña</h1>
+      <p class="lead">Debe tener mínimo 8 caracteres.</p>
+    </div>
+
+    <form id="reset-form" novalidate>
+      <div class="summary" role="alert" tabindex="-1" hidden></div>
+      <div class="field" data-field="password">
+        <label for="password">Nueva contraseña</label>
+        <div class="input-wrap">
+          <input class="control has-toggle" id="password" name="password" type="password" placeholder="••••••••" autocomplete="new-password" aria-describedby="password-error" >
+          <button type="button" class="pw-toggle" data-toggle-password="password" data-label="nueva contraseña" aria-pressed="false" aria-label="Mostrar nueva contraseña">Ver</button>
+        </div>
+        <p class="error" id="password-error" hidden></p>
+      </div>
+      <div class="field" data-field="confirm">
+        <label for="confirm">Confirmar contraseña</label>
+        <div class="input-wrap">
+          <input class="control has-toggle" id="confirm" name="confirm" type="password" placeholder="••••••••" autocomplete="new-password" aria-describedby="confirm-error" >
+          <button type="button" class="pw-toggle" data-toggle-password="confirm" data-label="confirmación de contraseña" aria-pressed="false" aria-label="Mostrar confirmación de contraseña">Ver</button>
+        </div>
+        <p class="error" id="confirm-error" hidden></p>
+      </div>
+      <ul class="reqs" aria-label="Requisitos de la contraseña">
+        <li data-req="length"><span class="req-icon" aria-hidden="true"></span><span class="sr-only req-state">Pendiente: </span>Mínimo 8 caracteres</li>
+        <li data-req="match"><span class="req-icon" aria-hidden="true"></span><span class="sr-only req-state">Pendiente: </span>Las dos contraseñas coinciden</li>
+      </ul>
+      <button class="btn" type="submit" id="btn-submit">Guardar contraseña</button>
+    </form>
+
+    <div class="success" id="success" role="status" hidden>
+      <div class="tick" aria-hidden="true">✓</div>
+      <h2>Contraseña actualizada</h2>
+      <p>Tu nueva contraseña quedó guardada (demostración).</p>
+      <a class="btn" id="go-login" href="01-login.html?reset=ok">Ir a iniciar sesión</a>
+    </div>
+
+    <p class="caption">CU-06 Recuperar contraseña | token temporal</p>
+  </div>
+</main>
+<script src="auth.js"></script>
 </body>
 </html>
