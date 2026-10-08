@@ -6,84 +6,88 @@
 <title>Registro de egresado · SAICI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-  body { margin: 0; padding: 24px; background: #E9ECEF; font-family: Inter, sans-serif; min-height: 100vh; box-sizing: border-box; }
-  .wrap { width: max-content; margin: 0 auto; }
-</style>
-<link rel="stylesheet" href="responsive.css">
+<link rel="stylesheet" href="auth.css">
 </head>
-<body>
-<div class="wrap">
-<div style="width: 400px; height: 700px; position: relative; background: #EEF1F5; overflow: hidden; border-radius: 15px; outline: 1px #D7DCE3 solid; outline-offset: -1px">
-<div style="width: 366px; min-height: 672px; padding-left: 25px; padding-right: 25px; padding-top: 24px; padding-bottom: 24px; left: 17px; top: 15px; position: absolute; background: white; overflow: hidden; border-radius: 15px; outline: 1px #D7DCE3 solid; outline-offset: -1px; flex-direction: column; justify-content: flex-start; align-items: flex-start; display: inline-flex">
-<div style="align-self: stretch; color: #113711; font-size: 14px; font-family: Inter; font-weight: 700; line-height: 16.80px; word-wrap: break-word">SAICI</div>
-<div style="align-self: stretch; height: 11px"></div>
-<div style="align-self: stretch; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 4px; display: flex">
-<div style="align-self: stretch; color: #113711; font-size: 20px; font-family: Inter; font-weight: 700; line-height: 24px; word-wrap: break-word">Crear cuenta de egresado</div>
-<div style="align-self: stretch; color: #5F5E5A; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 17.40px; word-wrap: break-word">Completa tus datos para registrarte</div>
-</div>
-<div style="align-self: stretch; padding-top: 8px; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; display: flex">
-<div style="align-self: stretch; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 4px; display: flex">
-<div style="align-self: stretch; color: #444441; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 14.40px; word-wrap: break-word">Nombres</div>
-<div style="align-self: stretch; height: 38px; padding-left: 13px; padding-right: 13px; background: #F7F8FA; overflow: hidden; border-radius: 8px; outline: 1px #C7CCD3 solid; outline-offset: -1px; justify-content: flex-start; align-items: center; display: inline-flex">
-<div style="flex: 1 1 0; color: #9A9A96; font-size: 16px; font-family: Inter; font-weight: 400; line-height: 19.20px; word-wrap: break-word">Ej. Laura Andrea</div>
-</div>
-</div>
-</div>
-<div style="align-self: stretch; padding-top: 8px; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; display: flex">
-<div style="align-self: stretch; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 4px; display: flex">
-<div style="align-self: stretch; color: #444441; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 14.40px; word-wrap: break-word">Apellidos</div>
-<div style="align-self: stretch; height: 38px; padding-left: 13px; padding-right: 13px; background: #F7F8FA; overflow: hidden; border-radius: 8px; outline: 1px #C7CCD3 solid; outline-offset: -1px; justify-content: flex-start; align-items: center; display: inline-flex">
-<div style="flex: 1 1 0; color: #9A9A96; font-size: 16px; font-family: Inter; font-weight: 400; line-height: 19.20px; word-wrap: break-word">Ej. Gomez Ruiz</div>
-</div>
-</div>
-</div>
-<div style="align-self: stretch; padding-top: 8px; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; display: flex">
-<div style="align-self: stretch; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 4px; display: flex">
-<div style="align-self: stretch; color: #444441; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 14.40px; word-wrap: break-word">Correo electronico</div>
-<div style="align-self: stretch; height: 38px; padding-left: 13px; padding-right: 13px; background: #F7F8FA; overflow: hidden; border-radius: 8px; outline: 1px #C7CCD3 solid; outline-offset: -1px; justify-content: flex-start; align-items: center; display: inline-flex">
-<div style="flex: 1 1 0; color: #9A9A96; font-size: 16px; font-family: Inter; font-weight: 400; line-height: 19.20px; word-wrap: break-word">nombre@correo.com</div>
-</div>
-</div>
-</div>
-<div style="align-self: stretch; padding-top: 8px; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; display: flex">
-<div style="align-self: stretch; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 4px; display: flex">
-<div style="align-self: stretch; color: #444441; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 14.40px; word-wrap: break-word">Telefono (10 digitos)</div>
-<div style="align-self: stretch; height: 38px; padding-left: 13px; padding-right: 13px; background: #F7F8FA; overflow: hidden; border-radius: 8px; outline: 1px #C7CCD3 solid; outline-offset: -1px; justify-content: flex-start; align-items: center; display: inline-flex">
-<div style="flex: 1 1 0; color: #9A9A96; font-size: 16px; font-family: Inter; font-weight: 400; line-height: 19.20px; word-wrap: break-word">3001234567</div>
-</div>
-</div>
-</div>
-<div style="align-self: stretch; padding-top: 8px; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; display: flex">
-<div style="align-self: stretch; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 4px; display: flex">
-<div style="align-self: stretch; color: #444441; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 14.40px; word-wrap: break-word">Contrasena (minimo 8 caracteres)</div>
-<div style="align-self: stretch; height: 38px; padding-left: 13px; padding-right: 13px; background: #F7F8FA; overflow: hidden; border-radius: 8px; outline: 1px #C7CCD3 solid; outline-offset: -1px; justify-content: flex-start; align-items: center; display: inline-flex">
-<div style="flex: 1 1 0; color: #9A9A96; font-size: 16px; font-family: Inter; font-weight: 400; line-height: 19.20px; word-wrap: break-word">••••••••</div>
-</div>
-</div>
-</div>
-<div style="align-self: stretch; padding-top: 8px; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; display: flex">
-<div style="align-self: stretch; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 4px; display: flex">
-<div style="align-self: stretch; color: #444441; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 14.40px; word-wrap: break-word">Confirmar contrasena</div>
-<div style="align-self: stretch; height: 38px; padding-left: 13px; padding-right: 13px; background: #F7F8FA; overflow: hidden; border-radius: 8px; outline: 1px #C7CCD3 solid; outline-offset: -1px; justify-content: flex-start; align-items: center; display: inline-flex">
-<div style="flex: 1 1 0; color: #9A9A96; font-size: 16px; font-family: Inter; font-weight: 400; line-height: 19.20px; word-wrap: break-word">••••••••</div>
-</div>
-</div>
-</div>
-<div style="align-self: stretch; padding-top: 10px; overflow: hidden; justify-content: flex-start; align-items: center; gap: 8px; display: inline-flex">
-<div style="width: 15px; height: 15px; background: white; border-radius: 2px; border: 1px #767676 solid"></div>
-<div style="flex: 1 1 0; color: #5F5E5A; font-size: 11px; font-family: Inter; font-weight: 400; line-height: 13.20px; word-wrap: break-word">Acepto el tratamiento de datos personales</div>
-</div>
-<div style="align-self: stretch; height: 33px"></div>
-<div style="align-self: stretch; height: 42px; padding-left: 8px; padding-right: 8px; background: #35AB35; overflow: hidden; border-radius: 7px; outline: 1px #35AB35 solid; outline-offset: -1px; justify-content: center; align-items: center; display: inline-flex">
-<a href="01-login.html" style="color: white; font-size: 14px; font-family: Inter; font-weight: 700; line-height: 16.80px; word-wrap: break-word; text-decoration: none; cursor: pointer">Crear cuenta</a>
-</div>
-<div style="align-self: stretch; height: 17px"></div>
-<div style="align-self: stretch; text-align: center; color: #5F5E5A; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 18px; word-wrap: break-word">Ya tienes una cuenta?</div>
-<a href="01-login.html" style="align-self: stretch; text-align: center; color: #35AB35; font-size: 12px; font-family: Inter; font-weight: 700; line-height: 14.40px; word-wrap: break-word; text-decoration: none; cursor: pointer">Iniciar sesion</a>
-<div style="width: 358px; left: 4px; top: 655px; position: absolute; text-align: center; color: #9A9A96; font-size: 10px; font-family: Inter; font-weight: 400; line-height: 12px; word-wrap: break-word">GUI-01 - Registro | CU-00 Registrar egresado | HU-01, HU-02</div>
-</div>
-</div>
-</div>
+<body data-page="registro">
+<main class="shell">
+  <aside class="brand-panel" aria-hidden="true">
+    <div>
+      <div class="logo">S</div>
+      <h2>SAICI</h2>
+      <p>Reserva de laboratorios para egresados</p>
+    </div>
+    <p class="proto">Prototipo · datos de ejemplo</p>
+  </aside>
+
+  <div class="form-side">
+    <header class="mobile-brand">
+      <span class="logo" aria-hidden="true">S</span>
+      <div><strong>SAICI</strong><span class="tagline">Reserva de laboratorios para egresados</span></div>
+    </header>
+
+    <h1>Crear cuenta de egresado</h1>
+    <p class="lead">Completa tus datos para registrarte. Todos los campos son obligatorios.</p>
+
+    <form id="registro-form" novalidate>
+      <div class="summary" role="alert" tabindex="-1" hidden></div>
+      <div class="field" data-field="nombres">
+        <label for="nombres">Nombres</label>
+        <input class="control" id="nombres" name="nombres" type="text" placeholder="Ej. Laura Andrea" autocomplete="given-name" aria-describedby="nombres-error" >
+        <p class="error" id="nombres-error" hidden></p>
+      </div>
+      <div class="field" data-field="apellidos">
+        <label for="apellidos">Apellidos</label>
+        <input class="control" id="apellidos" name="apellidos" type="text" placeholder="Ej. Gómez Ruiz" autocomplete="family-name" aria-describedby="apellidos-error" >
+        <p class="error" id="apellidos-error" hidden></p>
+      </div>
+      <div class="field" data-field="email">
+        <label for="email">Correo electrónico</label>
+        <input class="control" id="email" name="email" type="email" placeholder="nombre@correo.com" autocomplete="email" aria-describedby="email-error" inputmode="email" autocapitalize="none" spellcheck="false">
+        <p class="error" id="email-error" hidden></p>
+      </div>
+      <div class="field" data-field="telefono">
+        <label for="telefono">Teléfono (10 dígitos)</label>
+        <input class="control" id="telefono" name="telefono" type="tel" placeholder="3001234567" autocomplete="tel" aria-describedby="telefono-hint telefono-error" inputmode="numeric" maxlength="14">
+        <p class="hint" id="telefono-hint">Solo números, sin espacios ni +57.</p>
+        <p class="error" id="telefono-error" hidden></p>
+      </div>
+      <div class="field" data-field="password">
+        <label for="password">Contraseña (mínimo 8 caracteres)</label>
+        <div class="input-wrap">
+          <input class="control has-toggle" id="password" name="password" type="password" placeholder="••••••••" autocomplete="new-password" aria-describedby="password-error" >
+          <button type="button" class="pw-toggle" data-toggle-password="password" data-label="contraseña" aria-pressed="false" aria-label="Mostrar contraseña">Ver</button>
+        </div>
+        <p class="error" id="password-error" hidden></p>
+      </div>
+      <div class="field" data-field="confirm">
+        <label for="confirm">Confirmar contraseña</label>
+        <div class="input-wrap">
+          <input class="control has-toggle" id="confirm" name="confirm" type="password" placeholder="••••••••" autocomplete="new-password" aria-describedby="confirm-error" >
+          <button type="button" class="pw-toggle" data-toggle-password="confirm" data-label="confirmación de contraseña" aria-pressed="false" aria-label="Mostrar confirmación de contraseña">Ver</button>
+        </div>
+        <p class="error" id="confirm-error" hidden></p>
+      </div>
+      <ul class="reqs" aria-label="Requisitos de la contraseña">
+        <li data-req="length"><span class="req-icon" aria-hidden="true"></span><span class="sr-only req-state">Pendiente: </span>Mínimo 8 caracteres</li>
+        <li data-req="match"><span class="req-icon" aria-hidden="true"></span><span class="sr-only req-state">Pendiente: </span>Las dos contraseñas coinciden</li>
+      </ul>
+
+      <div class="field" data-field="terms">
+        <div class="check">
+          <input type="checkbox" id="terms" name="terms" aria-describedby="terms-error">
+          <label for="terms">Acepto el tratamiento de datos personales</label>
+        </div>
+        <p class="error" id="terms-error" hidden></p>
+      </div>
+
+      <button class="btn stack-gap" type="submit" id="btn-submit">Crear cuenta</button>
+    </form>
+
+    <p class="divider-text stack-gap center">¿Ya tienes una cuenta? <a class="link" href="01-login.html">Iniciar sesión</a></p>
+
+    <p class="caption">GUI-01 - Registro | CU-00 Registrar egresado | HU-01, HU-02</p>
+  </div>
+</main>
+<script src="auth.js"></script>
 </body>
 </html>

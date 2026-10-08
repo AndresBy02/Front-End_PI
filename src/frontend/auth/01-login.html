@@ -6,77 +6,58 @@
 <title>Iniciar sesión · SAICI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="login.css">
-<link rel="stylesheet" href="responsive.css">
+<link rel="stylesheet" href="auth.css">
 </head>
-<body>
-<script src="login.js"></script>
-<div class="wrap">
-<div style="width: 400px; height: 700px; position: relative; background: white; overflow: hidden; border-radius: 15px; outline: 1px #D7DCE3 solid; outline-offset: -1px">
-<div style="width: 358px; left: 21px; top: 670px; position: absolute; text-align: center; color: #9A9A96; font-size: 10px; font-family: Inter; font-weight: 400; line-height: 12px; word-wrap: break-word">GUI-02 - Login | CU-01 Iniciar sesion | HU-01</div>
-<div style="width: 318px; left: 41px; top: 46px; position: absolute; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; display: inline-flex">
-<div style="align-self: stretch; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: center; display: flex">
-<div style="width: 56px; height: 56px; background: #35AB35; overflow: hidden; border-radius: 16777200px; justify-content: center; align-items: center; display: inline-flex">
-<div style="color: white; font-size: 20px; font-family: Inter; font-weight: 700; line-height: 24px; word-wrap: break-word">S</div>
-</div>
-<div style="align-self: stretch; height: 4px"></div>
-<div style="align-self: stretch; text-align: center; color: #113711; font-size: 18px; font-family: Inter; font-weight: 700; line-height: 21.60px; word-wrap: break-word">SAICI</div>
-<div style="align-self: stretch; height: 5px"></div>
-<div style="align-self: stretch; text-align: center; color: #5F5E5A; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 14.40px; word-wrap: break-word">Reserva de laboratorios para egresados</div>
-</div>
-<div style="align-self: stretch; height: 22px"></div>
-<div style="align-self: stretch; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 4px; display: flex">
-<a href="01-login.html" style="align-self: stretch; color: #113711; font-size: 20px; font-family: Inter; font-weight: 700; line-height: 24px; word-wrap: break-word; text-decoration: none; cursor: pointer">Iniciar sesion</a>
-<div style="align-self: stretch; color: #5F5E5A; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 17.40px; word-wrap: break-word">Ingresa con tu correo institucional</div>
-</div>
-<div style="align-self: stretch; height: 20px"></div>
+<body data-page="login">
+<main class="shell">
+  <aside class="brand-panel" aria-hidden="true">
+    <div>
+      <div class="logo">S</div>
+      <h2>SAICI</h2>
+      <p>Reserva de laboratorios para egresados</p>
+    </div>
+    <p class="proto">Prototipo · datos de ejemplo</p>
+  </aside>
 
-<form id="login-form">
-<!--Correo electronicoo-->
-<div style="align-self: stretch; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 4px; display: flex">
-<label style="align-self: stretch; color: #444441; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 14.40px; word-wrap: break-word">Correo electrónico</label>
-<div style="align-self: stretch; height: 44px; padding-left: 13px; padding-right: 13px; background: #F7F8FA; overflow: hidden; border-radius: 8px; outline: 1px #C7CCD3 solid; outline-offset: -1px; justify-content: flex-start; align-items: center; display: flex">
-<input type="email" id="email" placeholder="nombre@correo.com" style="flex: 1 1 0; background: transparent; border: none; outline: none; color: #111; font-size: 16px; font-family: Inter; width: 100%;">
-</div>
-</div>
-<div style="align-self: stretch; height: 10px"></div>
+  <div class="form-side">
+    <header class="mobile-brand">
+      <span class="logo" aria-hidden="true">S</span>
+      <div><strong>SAICI</strong><span class="tagline">Reserva de laboratorios para egresados</span></div>
+    </header>
 
-<!--Contraseña-->
-<div style="align-self: stretch; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 4px; display: flex">
-<label style="align-self: stretch; color: #444441; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 14.40px; word-wrap: break-word">Contraseña</label>
-<div style="align-self: stretch; height: 44px; padding-left: 13px; padding-right: 13px; background: #F7F8FA; overflow: hidden; border-radius: 8px; outline: 1px #C7CCD3 solid; outline-offset: -1px; justify-content: flex-start; align-items: center; display: flex">
-<input type="password"  id="password" placeholder="••••••••" style="flex: 1 1 0; background: transparent; border: none; outline: none; color: #111; font-size: 16px; font-family: Inter; width: 100%;">
-<div  id="toggle-password" style="color: #5F5E5A; font-size: 11px; font-family: Inter; font-weight: 400; line-height: 13.20px; word-wrap: break-word; cursor: pointer;">Ver</div>
-</div>
-</div>
-<div style="align-self: stretch; height: 8px"></div>
+    <h1>Iniciar sesión</h1>
+    <p class="lead">Ingresa con tu correo institucional</p>
 
-<!--Olvido contraseña-->
-<a href="03-recuperar-solicitar-codigo.html" style="align-self: stretch; text-align: right; color: #113711; font-size: 12px; font-family: Inter; font-weight: 700; line-height: 14.40px; word-wrap: break-word; text-decoration: none; cursor: pointer">¿Olvidaste tu contraseña?</a>
-<div style="align-self: stretch; height: 17px"></div>
+    <p class="flash" id="flash" role="status" hidden></p>
 
-<!--Entrar-->
-<button type="submit" id="btn-login" style="align-self: stretch; height: 46px; padding-left: 8px; padding-right: 8px; background: #35AB35; overflow: hidden; border-radius: 7px; outline: 1px #35AB35 solid; outline-offset: -1px; justify-content: center; align-items: center; display: flex; text-decoration: none; cursor: pointer; border: none; width: 100%;">
-<div style="color: white; font-size: 14px; font-family: Inter; font-weight: 700; line-height: 16.80px; word-wrap: break-word;">Ingresar</div>
-</button>
+    <form id="login-form" novalidate>
+      <div class="summary" role="alert" tabindex="-1" hidden></div>
+      <div class="field" data-field="email">
+        <label for="email">Correo electrónico</label>
+        <input class="control" id="email" name="email" type="email" placeholder="nombre@correo.com" autocomplete="email" aria-describedby="email-error" inputmode="email" autocapitalize="none" spellcheck="false">
+        <p class="error" id="email-error" hidden></p>
+      </div>
+      <div class="field" data-field="password">
+        <label for="password">Contraseña</label>
+        <div class="input-wrap">
+          <input class="control has-toggle" id="password" name="password" type="password" placeholder="••••••••" autocomplete="current-password" aria-describedby="password-error" >
+          <button type="button" class="pw-toggle" data-toggle-password="password" data-label="contraseña" aria-pressed="false" aria-label="Mostrar contraseña">Ver</button>
+        </div>
+        <p class="error" id="password-error" hidden></p>
+      </div>
+      <div class="row-end"><a class="link" href="03-recuperar-solicitar-codigo.html">¿Olvidaste tu contraseña?</a></div>
+      <button class="btn" type="submit" id="btn-submit">Ingresar</button>
+    </form>
 
-<div id="error-message" style="color: #d32f2f; font-size: 12px; font-family: Inter; margin-top: 8px; text-align: center; display: none;"></div>
+    <p class="demo-note"><strong>Modo demostración.</strong> Escribe cualquier correo válido y cualquier contraseña para entrar. Con un correo que empiece por <code>admin</code> entras al panel administrativo.</p>
 
-</form>
+    <div class="divider" aria-hidden="true">o</div>
+    <p class="divider-text">¿No tienes una cuenta?</p>
+    <a class="btn btn-outline" href="02-registro-egresado.html">Registrarme como egresado</a>
 
-<div style="align-self: stretch; height: 24px"></div>
-<div style="align-self: stretch; padding-top: 27px; padding-bottom: 17px; overflow: hidden; justify-content: flex-start; align-items: center; gap: 20px; display: inline-flex">
-<div style="flex: 1 1 0; height: 1px; background: #E3E6EA"></div>
-<div style="color: #9A9A96; font-size: 11px; font-family: Inter; font-weight: 400; line-height: 13.20px; word-wrap: break-word">o</div>
-<div style="flex: 1 1 0; height: 1px; background: #E3E6EA"></div>
-</div>
-<div style="align-self: stretch; text-align: center; color: #5F5E5A; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 18px; word-wrap: break-word">No tienes una cuenta?</div>
-<div style="align-self: stretch; height: 10px"></div>
-<div style="align-self: stretch; height: 46px; padding-left: 8px; padding-right: 8px; background: white; overflow: hidden; border-radius: 7px; outline: 1px #35AB35 solid; outline-offset: -1px; justify-content: center; align-items: center; display: inline-flex">
-<a href="02-registro-egresado.html" style="color: #35AB35; font-size: 14px; font-family: Inter; font-weight: 700; line-height: 16.80px; word-wrap: break-word; text-decoration: none; cursor: pointer">Registrarme como egresado</a>
-</div>
-</div>
-</div>
-</div>
+    <p class="caption">GUI-02 - Login | CU-01 Iniciar sesión | HU-01</p>
+  </div>
+</main>
+<script src="auth.js"></script>
 </body>
 </html>
