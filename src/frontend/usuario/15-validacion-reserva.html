@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Revisar datos de la reserva · Asistente de reservas · SAICI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="../styles.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="wrap"><div class="app-frame">
+  <main class="app-content demo-screen">
+    <div class="screen-heading">
+      <h1>Revisa los datos de la solicitud</h1>
+      <p>Antes de continuar, completa la información que falta.</p>
+    </div>
+    <ol class="demo-progress" aria-label="Pasos para solicitar una reserva">
+      <li>1. Espacio</li><li>2. Fecha</li><li class="is-current">3. Horario</li><li>4. Revisión</li>
+    </ol>
+    <div class="prototype-notice is-error" role="alert">
+      No se puede continuar: falta el motivo de uso y la hora de finalización es anterior a la hora de inicio. La solicitud no se ha enviado.
+    </div>
+    <section class="demo-card">
+      <h2>Datos por corregir</h2>
+      <ul>
+        <li><strong>Motivo de uso:</strong> describe brevemente la actividad.</li>
+        <li><strong>Horario:</strong> el fin debe ser posterior al inicio.</li>
+        <li><strong>Rango permitido:</strong> de 08:00 a 18:00.</li>
+      </ul>
+    </section>
+    <div class="demo-actions">
+      <a class="demo-link" href="04-asistente-reserva.html">Corregir datos</a>
+      <a class="demo-link is-secondary" href="13-seleccionar-horario.html">Volver a elegir horario</a>
+    </div>
+  </main>
+</div></div>
+<script src="../layout.js"></script>
+</body>
+</html>
