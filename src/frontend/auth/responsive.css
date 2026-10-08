@@ -1,0 +1,42 @@
+@media (max-width: 620px) {
+  body {
+    padding: 0 !important;
+    overflow-x: hidden;
+  }
+
+  .wrap {
+    width: 100% !important;
+    max-width: 400px;
+    margin: 0 auto !important;
+  }
+
+  .wrap > div[style*="width: 400px"] {
+    box-sizing: border-box;
+    width: 100% !important;
+  }
+
+  .wrap > div[style*="width: 400px"] > div[style*="left: 23px"][style*="width: 354px"] {
+    width: calc(100% - 46px) !important;
+  }
+
+  .wrap > div[style*="width: 400px"] > div[style*="left: 41px"][style*="width: 318px"] {
+    width: calc(100% - 82px) !important;
+  }
+
+  .wrap > div[style*="width: 400px"] > div[style*="left: 17px"][style*="width: 366px"] {
+    box-sizing: border-box;
+    width: calc(100% - 34px) !important;
+  }
+
+  .wrap > div[style*="width: 400px"] [style*="left: 21px"][style*="width: 358px"] {
+    width: calc(100% - 42px) !important;
+  }
+
+  .wrap > div[style*="width: 400px"] [style*="left: 4px"][style*="width: 358px"] {
+    width: calc(100% - 8px) !important;
+  }
+
+  [style*="width: 42px"][style*="height: 51px"] {
+    width: clamp(30px, calc((100vw - 100px) / 6), 42px) !important;
+  }
+}

@@ -40,7 +40,8 @@
     { heading: 'Usuario', items: [
       { section: 'usuario', file: '07-historial-reservas.html',  label: 'Historial de reservas' },
       { section: 'usuario', file: '09-registrar-asistencia.html', label: 'Registrar asistencia' },
-      { section: 'usuario', file: '10-historial-asistencia.html', label: 'Historial de asistencia' }
+      { section: 'usuario', file: '10-historial-asistencia.html', label: 'Historial de asistencia' },
+      { section: 'usuario', file: '18-menu.html', label: 'Más opciones' }
     ]},
     { heading: 'Administración', items: [
       { section: 'admin', file: '01-panel.html',               label: 'Panel administrativo' },
@@ -48,7 +49,8 @@
       { section: 'admin', file: '03-gestionar-espacios.html',  label: 'Gestionar espacios' },
       { section: 'admin', file: '04-gestionar-horarios.html',  label: 'Gestionar horarios' },
       { section: 'admin', file: '05-estadisticas-reportes.html', label: 'Estadísticas y reportes' },
-      { section: 'admin', file: '06-usuarios.html',            label: 'Usuarios' }
+      { section: 'admin', file: '06-usuarios.html',            label: 'Usuarios' },
+      { section: 'admin', file: '07-menu.html', label: 'Más opciones' }
     ]}
   ];
   // ----------------------------------------------------------------------

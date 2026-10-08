@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Conflicto de horario · Asistente de reservas · SAICI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="../styles.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="wrap"><div class="app-frame">
+  <main class="app-content demo-screen">
+    <div class="screen-heading">
+      <h1>Ese horario no está disponible</h1>
+      <p>El horario elegido se cruza con una reserva de ejemplo.</p>
+    </div>
+    <ol class="demo-progress" aria-label="Pasos para solicitar una reserva">
+      <li>1. Espacio</li><li>2. Fecha</li><li class="is-current">3. Horario</li><li>4. Revisión</li>
+    </ol>
+    <div class="prototype-notice is-error" role="alert">
+      Conflicto de ejemplo: el intervalo 10:00–12:00 se cruza con una reserva entre 09:00 y 11:00. No se ha creado ni cambiado ninguna reserva.
+    </div>
+    <section class="demo-card">
+      <h2>Prueba una de estas alternativas</h2>
+      <p class="screen-muted">Se conserva el espacio, la fecha y el motivo de uso en este ejemplo.</p>
+      <div class="demo-actions">
+        <a class="demo-link" href="13-seleccionar-horario.html">11:00–13:00 · Elegir</a>
+        <a class="demo-link is-secondary" href="13-seleccionar-horario.html">14:00–16:00 · Elegir</a>
+      </div>
+    </section>
+    <div class="demo-actions">
+      <a class="demo-link is-secondary" href="13-seleccionar-horario.html">Volver a horarios</a>
+      <a class="demo-link is-secondary" href="04-asistente-reserva.html">Volver al asistente</a>
+    </div>
+  </main>
+</div></div>
+<script src="../layout.js"></script>
+</body>
+</html>
