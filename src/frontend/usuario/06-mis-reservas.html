@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
 <meta charset="utf-8"/>
@@ -8,90 +7,120 @@
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="../styles.css" rel="stylesheet"/>
+<link href="reservas.css" rel="stylesheet"/>
 </head>
-<body>
+<body class="rv" data-page="reservas">
 <div class="wrap">
 <div class="app-frame">
 
-
 <div class="app-content">
-<div style="align-self: stretch; padding-bottom: 22px; overflow: hidden; justify-content: flex-start; align-items: flex-start; gap: 16px; display: inline-flex">
-<div style="flex: 1 1 0; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
-<div style="align-self: stretch; color: #193A22; font-size: 23px; font-family: Inter; font-weight: 700; line-height: 27.60px; word-wrap: break-word">Mis reservas</div>
-<div style="align-self: stretch; color: #6B756D; font-size: 13px; font-family: Inter; font-weight: 400; line-height: 19.50px; word-wrap: break-word">Consulta las reservas próximas asociadas a tu cuenta.</div>
+<main class="rv-page">
+
+  <div class="rv-head">
+    <div>
+      <h1 class="rv-title">Mis reservas</h1>
+      <p class="rv-sub">Consulta, edita o cancela las reservas próximas asociadas a tu cuenta.</p>
+    </div>
+    <a class="rv-btn rv-btn--primary" href="02-explorar-espacios.html">Buscar espacio</a>
+  </div>
+
+  <form class="rv-filters" id="form-filtros" role="search" aria-label="Filtrar mis reservas">
+    <div class="rv-field rv-field--wide">
+      <label for="f-texto">Buscar espacio</label>
+      <input class="rv-input" id="f-texto" type="search" placeholder="Ej.: Laboratorio de Redes" autocomplete="off"/>
+    </div>
+    <div class="rv-field">
+      <label for="f-estado">Estado</label>
+      <select class="rv-select" id="f-estado"></select>
+    </div>
+    <div class="rv-field">
+      <label for="f-tipo">Tipo de espacio</label>
+      <select class="rv-select" id="f-tipo"></select>
+    </div>
+    <div class="rv-filters__actions">
+      <button class="rv-btn rv-btn--ghost" type="button" id="btn-limpiar">Limpiar filtros</button>
+    </div>
+  </form>
+
+  <p class="rv-count" id="rv-count" tabindex="-1" aria-live="polite"></p>
+  <div class="rv-list" id="rv-list" role="table" aria-label="Mis reservas"></div>
+
+  <p class="rv-note">Los registros y acciones de esta pantalla son datos de demostración: editar o cancelar no guarda cambios reales.</p>
+</main>
 </div>
-<div style="height: 38px; padding-left: 14px; padding-right: 14px; background: #27823D; overflow: hidden; border-radius: 7px; outline: 1px #27823D solid; outline-offset: -1px; justify-content: center; align-items: center; display: flex">
-<a href="02-explorar-espacios.html" style="color: white; font-size: 12px; font-family: Inter; font-weight: 700; line-height: 14.40px; word-wrap: break-word; text-decoration: none">Buscar espacio</a>
-</div>
-</div>
-<div style="align-self: stretch; background: white; overflow: hidden; border-radius: 10px; outline: 1px #E4EAE4 solid; outline-offset: -1px; flex-direction: column; justify-content: flex-start; align-items: flex-start; display: flex">
-<div style="align-self: stretch; background: #F8FAF8; overflow: hidden; border-bottom: 1px #EDF0ED solid; justify-content: flex-start; align-items: flex-start; display: inline-flex">
-<div style="width: 247px; padding-left: 14px; padding-right: 14px; padding-top: 13px; padding-bottom: 13px; overflow: hidden; justify-content: flex-start; align-items: flex-start; display: flex">
-<div style="color: #657067; font-size: 10px; font-family: Inter; font-weight: 700; line-height: 12px; word-wrap: break-word">Espacio</div>
-</div>
-<div style="width: 137px; padding-left: 14px; padding-right: 14px; padding-top: 13px; padding-bottom: 13px; overflow: hidden; justify-content: flex-start; align-items: flex-start; display: flex">
-<div style="color: #657067; font-size: 10px; font-family: Inter; font-weight: 700; line-height: 12px; word-wrap: break-word">Fecha</div>
-</div>
-<div style="width: 146px; padding-left: 14px; padding-right: 14px; padding-top: 13px; padding-bottom: 13px; overflow: hidden; justify-content: flex-start; align-items: flex-start; display: flex">
-<div style="color: #657067; font-size: 10px; font-family: Inter; font-weight: 700; line-height: 12px; word-wrap: break-word">Horario</div>
-</div>
-<div style="width: 224px; padding-left: 14px; padding-right: 14px; padding-top: 13px; padding-bottom: 13px; overflow: hidden; justify-content: flex-start; align-items: flex-start; display: flex">
-<div style="color: #657067; font-size: 10px; font-family: Inter; font-weight: 700; line-height: 12px; word-wrap: break-word">Estado</div>
-</div>
-<div style="width: 138px; padding-left: 14px; padding-right: 14px; padding-top: 13px; padding-bottom: 13px; overflow: hidden; justify-content: flex-start; align-items: flex-start; display: flex">
-<div style="color: #657067; font-size: 10px; font-family: Inter; font-weight: 700; line-height: 12px; word-wrap: break-word">Acciones</div>
-</div>
-</div>
-<div style="align-self: stretch; overflow: hidden; border-bottom: 1px #EDF0ED solid; justify-content: flex-start; align-items: center; display: inline-flex">
-<div style="width: 247px; align-self: stretch; padding-left: 14px; padding-right: 14px; padding-top: 13px; padding-bottom: 13px; overflow: hidden; justify-content: flex-start; align-items: center; display: flex">
-<div style="color: #38423A; font-size: 11px; font-family: Inter; font-weight: 400; line-height: 13.20px; word-wrap: break-word">Laboratorio de Sistemas 1</div>
-</div>
-<div style="width: 137px; align-self: stretch; padding-left: 14px; padding-right: 14px; padding-top: 13px; padding-bottom: 13px; overflow: hidden; justify-content: flex-start; align-items: center; display: flex">
-<div style="color: #38423A; font-size: 11px; font-family: Inter; font-weight: 400; line-height: 13.20px; word-wrap: break-word">20 oct 2026</div>
-</div>
-<div style="width: 146px; align-self: stretch; padding-left: 14px; padding-right: 14px; padding-top: 13px; padding-bottom: 13px; overflow: hidden; justify-content: flex-start; align-items: center; display: flex">
-<div style="color: #38423A; font-size: 11px; font-family: Inter; font-weight: 400; line-height: 13.20px; word-wrap: break-word">10:00 – 12:00</div>
-</div>
-<div style="width: 224px; align-self: stretch; padding-left: 14px; padding-right: 14px; padding-top: 13px; padding-bottom: 13px; overflow: hidden; justify-content: flex-start; align-items: center; display: flex">
-<div style="padding-left: 8px; padding-right: 8px; padding-top: 5px; padding-bottom: 5px; background: #E8F5E9; overflow: hidden; border-radius: 20px; justify-content: flex-start; align-items: flex-start; display: flex">
-<div style="color: #246D38; font-size: 10px; font-family: Inter; font-weight: 700; line-height: 12px; word-wrap: break-word">Confirmada · ejemplo</div>
+
 </div>
 </div>
-<div style="width: 138px; align-self: stretch; padding-left: 14px; padding-right: 14px; padding-top: 13px; padding-bottom: 13px; overflow: hidden; justify-content: flex-start; align-items: center; display: flex">
-<div style="overflow: hidden; justify-content: flex-start; align-items: flex-start; gap: 4px; display: flex">
-<div style="height: 38px; padding-left: 14px; padding-right: 14px; background: white; overflow: hidden; border-radius: 7px; outline: 1px #27823D solid; outline-offset: -1px; justify-content: center; align-items: center; display: flex">
-<a href="03-detalle-espacio.html" style="color: #247238; font-size: 12px; font-family: Inter; font-weight: 700; line-height: 14.40px; text-decoration: none">Ver</a>
-</div>
-</div>
-</div>
-</div>
-<div style="align-self: stretch; overflow: hidden; border-bottom: 1px #EDF0ED solid; justify-content: flex-start; align-items: center; display: inline-flex">
-<div style="width: 247px; align-self: stretch; padding-left: 14px; padding-right: 14px; padding-top: 13px; padding-bottom: 13px; overflow: hidden; justify-content: flex-start; align-items: center; display: flex">
-<div style="color: #38423A; font-size: 11px; font-family: Inter; font-weight: 400; line-height: 13.20px; word-wrap: break-word">Sala de estudio biblioteca</div>
-</div>
-<div style="width: 137px; align-self: stretch; padding-left: 14px; padding-right: 14px; padding-top: 13px; padding-bottom: 13px; overflow: hidden; justify-content: flex-start; align-items: center; display: flex">
-<div style="color: #38423A; font-size: 11px; font-family: Inter; font-weight: 400; line-height: 13.20px; word-wrap: break-word">24 oct 2026</div>
-</div>
-<div style="width: 146px; align-self: stretch; padding-left: 14px; padding-right: 14px; padding-top: 13px; padding-bottom: 13px; overflow: hidden; justify-content: flex-start; align-items: center; display: flex">
-<div style="color: #38423A; font-size: 11px; font-family: Inter; font-weight: 400; line-height: 13.20px; word-wrap: break-word">14:00 – 16:00</div>
-</div>
-<div style="width: 224px; align-self: stretch; padding-left: 14px; padding-right: 14px; padding-top: 13px; padding-bottom: 13px; overflow: hidden; justify-content: flex-start; align-items: center; display: flex">
-<div style="padding-left: 8px; padding-right: 8px; padding-top: 5px; padding-bottom: 5px; background: #FFF2D6; overflow: hidden; border-radius: 20px; justify-content: flex-start; align-items: flex-start; display: flex">
-<div style="color: #8A5B06; font-size: 10px; font-family: Inter; font-weight: 700; line-height: 12px; word-wrap: break-word">Pendiente · ejemplo</div>
-</div>
-</div>
-<div style="width: 138px; align-self: stretch; padding-left: 14px; padding-right: 14px; padding-top: 13px; padding-bottom: 13px; overflow: hidden; justify-content: flex-start; align-items: center; display: flex">
-<div style="overflow: hidden; justify-content: flex-start; align-items: flex-start; gap: 4px; display: flex">
-<div style="height: 38px; padding-left: 14px; padding-right: 14px; background: white; overflow: hidden; border-radius: 7px; outline: 1px #E7C5C2 solid; outline-offset: -1px; justify-content: center; align-items: center; display: flex">
-<div style="color: #A52B25; font-size: 12px; font-family: Inter; font-weight: 700; line-height: 14.40px; word-wrap: break-word">Cancelar</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div style="align-self: stretch; height: 12px"></div>
-<div style="align-self: stretch; color: #727C73; font-size: 11px; font-family: Inter; font-weight: 400; line-height: 13.20px; word-wrap: break-word">Los registros y acciones de esta tabla son datos de demostración.</div>
-</div></div>
-</div>
-<script src="../layout.js"></script></body>
+
+<!-- Aviso de demostración -->
+<div class="rv-toast-zone" id="rv-toast-zone" role="status" aria-live="polite"></div>
+
+<!-- Ver reserva -->
+<dialog class="rv-dialog" id="dlg-ver" aria-labelledby="ver-titulo">
+  <div class="rv-dialog__form">
+    <div class="rv-dialog__head"><h2 class="rv-dialog__title" id="ver-titulo">Detalle de la reserva</h2></div>
+    <div class="rv-dialog__body"><dl class="rv-dl" id="ver-datos"></dl></div>
+    <div class="rv-dialog__foot"><button class="rv-btn rv-btn--primary" type="button" data-close>Cerrar</button></div>
+  </div>
+</dialog>
+
+<!-- Editar reserva (demostración) -->
+<dialog class="rv-dialog" id="dlg-editar" aria-labelledby="edit-titulo" aria-describedby="edit-desc">
+  <form class="rv-dialog__form" id="form-editar" novalidate>
+    <div class="rv-dialog__head">
+      <h2 class="rv-dialog__title" id="edit-titulo">Editar reserva</h2>
+      <p class="rv-dialog__desc" id="edit-desc">Modifica los datos como demostración. Los cambios no se guardan permanentemente.</p>
+    </div>
+    <div class="rv-dialog__body">
+      <div class="rv-field">
+        <label for="e-espacio">Espacio</label>
+        <select class="rv-select" id="e-espacio"></select>
+      </div>
+      <div class="rv-field">
+        <label for="e-fecha">Fecha</label>
+        <input class="rv-input" id="e-fecha" type="date" aria-describedby="e-fecha-err"/>
+        <p class="rv-error" id="e-fecha-err"></p>
+      </div>
+      <div class="rv-two">
+        <div class="rv-field">
+          <label for="e-inicio">Hora de inicio</label>
+          <input class="rv-input" id="e-inicio" type="time" aria-describedby="e-inicio-err"/>
+          <p class="rv-error" id="e-inicio-err"></p>
+        </div>
+        <div class="rv-field">
+          <label for="e-fin">Hora de finalización</label>
+          <input class="rv-input" id="e-fin" type="time" aria-describedby="e-fin-err"/>
+          <p class="rv-error" id="e-fin-err"></p>
+        </div>
+      </div>
+      <div class="rv-field">
+        <label for="e-motivo">Motivo de uso</label>
+        <select class="rv-select" id="e-motivo"></select>
+      </div>
+    </div>
+    <div class="rv-dialog__foot">
+      <button class="rv-btn rv-btn--ghost" type="button" data-close>Descartar cambios</button>
+      <button class="rv-btn rv-btn--primary" type="submit">Guardar (demostración)</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- Confirmar cancelación -->
+<dialog class="rv-dialog" id="dlg-cancelar" aria-labelledby="cancel-titulo" aria-describedby="cancel-desc">
+  <div class="rv-dialog__form">
+    <div class="rv-dialog__head">
+      <h2 class="rv-dialog__title" id="cancel-titulo">¿Cancelar esta reserva?</h2>
+      <p class="rv-dialog__desc" id="cancel-desc">Vas a cancelar la reserva de demostración:</p>
+    </div>
+    <div class="rv-dialog__body"><strong id="cancel-resumen"></strong></div>
+    <div class="rv-dialog__foot">
+      <button class="rv-btn rv-btn--ghost" type="button" data-close>No, mantener reserva</button>
+      <button class="rv-btn rv-btn--danger-solid" type="button" id="btn-confirmar-cancelar">Sí, cancelar reserva</button>
+    </div>
+  </div>
+</dialog>
+
+<script src="../layout.js"></script>
+<script src="reservas-demo.js"></script>
+</body>
 </html>
