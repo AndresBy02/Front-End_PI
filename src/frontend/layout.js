@@ -27,6 +27,7 @@
     badge: 'PROTOTIPO · DATOS DE EJEMPLO'
   };
   var BRAND = { name: 'SAICI · UCEVA', tagline: 'Espacios universitarios' };
+  var BRAND_LOGO = '../assets/uceva-isotipo.png';
   var LOGIN = '../auth/01-login.html';
 
   // section = carpeta donde vive la pantalla
@@ -81,6 +82,10 @@
     var side = el('div', 'app-sidebar');
 
     var brand = el('div', 'app-brand');
+    var logo = el('img', 'app-brand__logo');
+    logo.src = BRAND_LOGO;
+    logo.alt = 'UCEVA · Unidad Central del Valle del Cauca';
+    brand.appendChild(logo);
     brand.appendChild(el('div', 'app-brand__name', BRAND.name));
     brand.appendChild(el('div', 'app-brand__tagline', BRAND.tagline));
     side.appendChild(brand);

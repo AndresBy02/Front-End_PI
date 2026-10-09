@@ -120,6 +120,17 @@ body {
   gap: 5px;
   display: flex;
 }
+.app-brand__logo {
+  display: block;
+  width: 88px;
+  max-width: 100%;
+  height: 88px;
+  margin: 0 0 7px;
+  border-radius: 50%;
+  object-fit: contain;
+  object-position: center top;
+  background: #fff;
+}
 .app-brand__name {
   color: white;
   font-size: 21px;
@@ -301,6 +312,12 @@ body {
 
   .app-sidebar .app-brand {
     padding-bottom: 0;
+  }
+
+  .app-brand__logo {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 0;
   }
 
   .app-menu-toggle {
