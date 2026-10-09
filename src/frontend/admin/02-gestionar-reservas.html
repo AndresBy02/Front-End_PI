@@ -9,6 +9,15 @@
 <link href="../styles.css" rel="stylesheet"/>
 <style>
   /* Estilos propios de esta pantalla (prefijo rv-) para no afectar a las demás */
+
+  /* Cada bloque ocupa todo el ancho de .app-content */
+  .rv-head, .rv-filters, .rv-bar, .rv-card {
+    align-self: stretch;
+    width: 100%;
+    box-sizing: border-box;
+    min-width: 0;
+  }
+
   .rv-head { padding-bottom: 22px; }
   .rv-title { margin: 0 0 6px; color: #193A22; font: 700 23px/1.2 Inter, sans-serif; }
   .rv-sub { margin: 0; color: #6B756D; font: 400 13px/1.5 Inter, sans-serif; }
@@ -28,7 +37,7 @@
     border: 1px solid #D7DFD7; border-radius: 7px;
     font: 400 12px Inter, sans-serif;
   }
-  .rv-input:focus-visible, .rv-btn:focus-visible, .rv-dialog button:focus-visible {
+  .rv-input:focus-visible, .rv-btn:focus-visible, .rv-clear:focus-visible, .rv-dialog button:focus-visible {
     outline: 2px solid #27823D; outline-offset: 2px;
   }
 
@@ -149,7 +158,7 @@
     </div>
     <div class="rv-field">
       <label for="rv-estado">Estado</label>
-      <select id="rv-estado" class="rv-input">
+      <select id="rv-estado" class="rv-input" autocomplete="off">
         <option value="">Todos</option>
         <option value="pendiente">Pendiente</option>
         <option value="confirmada">Confirmada</option>
@@ -158,11 +167,11 @@
     </div>
     <div class="rv-field">
       <label for="rv-fecha">Fecha</label>
-      <input id="rv-fecha" class="rv-input" type="date"/>
+      <input id="rv-fecha" class="rv-input" type="date" autocomplete="off"/>
     </div>
     <div class="rv-field">
       <label for="rv-espacio">Espacio</label>
-      <select id="rv-espacio" class="rv-input">
+      <select id="rv-espacio" class="rv-input" autocomplete="off">
         <option value="">Todos</option>
       </select>
     </div>
@@ -213,15 +222,16 @@
   'use strict';
 
   /* Datos de demostración: viven solo en memoria. Al recargar la página vuelven a su estado inicial.
-     No hay fetch, XHR ni localStorage: nada se envía ni se guarda. */
+     No hay llamadas al servidor ni almacenamiento del navegador: nada se envía ni se guarda. */
   var reservas = [
-    { id: 1, usuario: 'Laura Gómez',      espacio: 'Laboratorio de Sistemas 1', fecha: '2026-10-20', fechaTxt: '20 oct', hora: '10:00–12:00', estado: 'pendiente' },
-    { id: 2, usuario: 'Andrés Pérez',     espacio: 'Sala de estudio biblioteca', fecha: '2026-10-21', fechaTxt: '21 oct', hora: '14:00–16:00', estado: 'confirmada' },
-    { id: 3, usuario: 'Camila Rojas',     espacio: 'Auditorio principal',        fecha: '2026-10-22', fechaTxt: '22 oct', hora: '08:00–10:00', estado: 'pendiente' },
-    { id: 4, usuario: 'Julián Torres',    espacio: 'Laboratorio de Sistemas 1',  fecha: '2026-10-22', fechaTxt: '22 oct', hora: '15:00–17:00', estado: 'cancelada' },
+    { id: 1, usuario: 'Laura Gómez',         espacio: 'Laboratorio de Sistemas 1',  fecha: '2026-10-20', fechaTxt: '20 oct', hora: '10:00–12:00', estado: 'pendiente' },
+    { id: 2, usuario: 'Andrés Pérez',        espacio: 'Sala de estudio biblioteca', fecha: '2026-10-21', fechaTxt: '21 oct', hora: '14:00–16:00', estado: 'confirmada' },
+    { id: 3, usuario: 'Camila Rojas',        espacio: 'Auditorio principal',        fecha: '2026-10-22', fechaTxt: '22 oct', hora: '08:00–10:00', estado: 'pendiente' },
+    { id: 4, usuario: 'Julián Torres',       espacio: 'Laboratorio de Sistemas 1',  fecha: '2026-10-22', fechaTxt: '22 oct', hora: '15:00–17:00', estado: 'cancelada' },
     { id: 5, usuario: 'María Fernanda Ruiz', espacio: 'Sala de estudio biblioteca', fecha: '2026-10-23', fechaTxt: '23 oct', hora: '09:00–11:00', estado: 'confirmada' },
-    { id: 6, usuario: 'Sergio Martínez',  espacio: 'Auditorio principal',        fecha: '2026-10-24', fechaTxt: '24 oct', hora: '13:00–15:00', estado: 'pendiente' }
+    { id: 6, usuario: 'Sofía Herrera',       espacio: 'Auditorio principal',        fecha: '2026-10-24', fechaTxt: '24 oct', hora: '13:00–15:00', estado: 'pendiente' }
   ];
+  var INICIAL = JSON.stringify(reservas);
   var ESTADOS = { pendiente: 'Pendiente', confirmada: 'Confirmada', cancelada: 'Cancelada' };
 
   var $ = function (id) { return document.getElementById(id); };
@@ -388,7 +398,14 @@
     fSearch.focus();
   });
 
-  render();
+  /* Estado inicial: campos vacíos y datos originales, aunque el navegador intente restaurar los campos */
+  function resetAll(e) {
+    if (e && e.persisted) reservas = JSON.parse(INICIAL);
+    fSearch.value = ''; fEstado.value = ''; fFecha.value = ''; fEspacio.value = '';
+    render();
+  }
+  resetAll();
+  window.addEventListener('pageshow', resetAll);
 })();
 </script>
 </body>
