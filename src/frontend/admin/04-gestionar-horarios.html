@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
 <meta charset="utf-8"/>
@@ -8,88 +7,63 @@
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="../styles.css" rel="stylesheet"/>
+<link href="demo-forms.css" rel="stylesheet"/>
 </head>
 <body>
 <div class="wrap">
 <div class="app-frame">
-
-
-<div class="app-content">
-<div style="align-self: stretch; padding-bottom: 22px; overflow: hidden; justify-content: flex-start; align-items: flex-start; gap: 16px; display: inline-flex">
-<div style="flex: 1 1 0; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
-<div style="align-self: stretch; color: #193A22; font-size: 23px; font-family: Inter; font-weight: 700; line-height: 27.60px; word-wrap: break-word">Gestión de horarios</div>
-<div style="align-self: stretch; color: #6B756D; font-size: 13px; font-family: Inter; font-weight: 400; line-height: 19.50px; word-wrap: break-word">Administración de franjas disponibles por espacio.</div>
+<div class="app-content demo-screen">
+<div class="df-head">
+<div class="screen-heading"><h1>Gestión de horarios</h1><p>Administración de franjas disponibles por espacio.</p></div>
+<button class="demo-link" id="btn-new" type="button">+ Agregar horario</button>
 </div>
-<div style="height: 38px; padding-left: 14px; padding-right: 14px; background: #27823D; overflow: hidden; border-radius: 7px; outline: 1px #27823D solid; outline-offset: -1px; justify-content: center; align-items: center; display: flex">
-<div style="color: white; font-size: 12px; font-family: Inter; font-weight: 700; line-height: 14.40px; word-wrap: break-word">+ Agregar horario</div>
-</div>
-</div>
-<div style="align-self: stretch; padding-left: 14px; padding-right: 14px; padding-top: 12px; padding-bottom: 12px; background: #FFF7DF; overflow: hidden; border-radius: 8px; outline: 1px #F0E2B8 solid; outline-offset: -1px; justify-content: flex-start; align-items: flex-start; display: inline-flex">
-<div style="flex: 1 1 0; color: #6C571E; font-size: 11px; font-family: Inter; font-weight: 400; line-height: 16.50px; word-wrap: break-word">Maqueta de la vista solicitada en los requisitos. Los horarios no están asociados a una disponibilidad real.</div>
-</div>
-<div style="align-self: stretch; height: 18px"></div>
-<div style="align-self: stretch; background: white; overflow: hidden; border-radius: 10px; outline: 1px #E4EAE4 solid; outline-offset: -1px; flex-direction: column; justify-content: flex-start; align-items: flex-start; display: flex">
-<div style="align-self: stretch; background: #F8FAF8; overflow: hidden; border-bottom: 1px #EDF0ED solid; justify-content: flex-start; align-items: flex-start; display: inline-flex">
-<div style="width: 286px; padding-left: 14px; padding-right: 14px; padding-top: 13px; padding-bottom: 13px; overflow: hidden; justify-content: flex-start; align-items: flex-start; display: flex">
-<div style="color: #657067; font-size: 10px; font-family: Inter; font-weight: 700; line-height: 12px; word-wrap: break-word">Espacio</div>
-</div>
-<div style="width: 210px; padding-left: 14px; padding-right: 14px; padding-top: 13px; padding-bottom: 13px; overflow: hidden; justify-content: flex-start; align-items: flex-start; display: flex">
-<div style="color: #657067; font-size: 10px; font-family: Inter; font-weight: 700; line-height: 12px; word-wrap: break-word">Día</div>
-</div>
-<div style="width: 130px; padding-left: 14px; padding-right: 14px; padding-top: 13px; padding-bottom: 13px; overflow: hidden; justify-content: flex-start; align-items: flex-start; display: flex">
-<div style="color: #657067; font-size: 10px; font-family: Inter; font-weight: 700; line-height: 12px; word-wrap: break-word">Apertura</div>
-</div>
-<div style="width: 116px; padding-left: 14px; padding-right: 14px; padding-top: 13px; padding-bottom: 13px; overflow: hidden; justify-content: flex-start; align-items: flex-start; display: flex">
-<div style="color: #657067; font-size: 10px; font-family: Inter; font-weight: 700; line-height: 12px; word-wrap: break-word">Cierre</div>
-</div>
-<div style="width: 150px; padding-left: 14px; padding-right: 14px; padding-top: 13px; padding-bottom: 13px; overflow: hidden; justify-content: flex-start; align-items: flex-start; display: flex">
-<div style="color: #657067; font-size: 10px; font-family: Inter; font-weight: 700; line-height: 12px; word-wrap: break-word">Acciones</div>
-</div>
-</div>
-<div style="align-self: stretch; overflow: hidden; border-bottom: 1px #EDF0ED solid; justify-content: flex-start; align-items: center; display: inline-flex">
-<div style="width: 286px; align-self: stretch; padding-left: 14px; padding-right: 14px; padding-top: 13px; padding-bottom: 13px; overflow: hidden; justify-content: flex-start; align-items: center; display: flex">
-<div style="color: #38423A; font-size: 11px; font-family: Inter; font-weight: 400; line-height: 13.20px; word-wrap: break-word">Laboratorio de Sistemas 1</div>
-</div>
-<div style="width: 210px; align-self: stretch; padding-left: 14px; padding-right: 14px; padding-top: 13px; padding-bottom: 13px; overflow: hidden; justify-content: flex-start; align-items: center; display: flex">
-<div style="color: #38423A; font-size: 11px; font-family: Inter; font-weight: 400; line-height: 13.20px; word-wrap: break-word">Lunes a viernes</div>
-</div>
-<div style="width: 130px; align-self: stretch; padding-left: 14px; padding-right: 14px; padding-top: 13px; padding-bottom: 13px; overflow: hidden; justify-content: flex-start; align-items: center; display: flex">
-<div style="color: #38423A; font-size: 11px; font-family: Inter; font-weight: 400; line-height: 13.20px; word-wrap: break-word">08:00</div>
-</div>
-<div style="width: 116px; align-self: stretch; padding-left: 14px; padding-right: 14px; padding-top: 13px; padding-bottom: 13px; overflow: hidden; justify-content: flex-start; align-items: center; display: flex">
-<div style="color: #38423A; font-size: 11px; font-family: Inter; font-weight: 400; line-height: 13.20px; word-wrap: break-word">18:00</div>
-</div>
-<div style="width: 150px; align-self: stretch; padding-left: 14px; padding-right: 14px; padding-top: 13px; padding-bottom: 13px; overflow: hidden; justify-content: flex-start; align-items: center; display: flex">
-<div style="overflow: hidden; justify-content: flex-start; align-items: flex-start; gap: 4px; display: flex">
-<div style="height: 38px; padding-left: 14px; padding-right: 14px; background: white; overflow: hidden; border-radius: 7px; outline: 1px #27823D solid; outline-offset: -1px; justify-content: center; align-items: center; display: flex">
-<div style="color: #247238; font-size: 12px; font-family: Inter; font-weight: 700; line-height: 14.40px; word-wrap: break-word">Editar</div>
+<div class="prototype-notice">Modo demostración: los formularios no guardan ni modifican información real.</div>
+<div class="df-root" id="root"></div>
 </div>
 </div>
 </div>
-</div>
-<div style="align-self: stretch; overflow: hidden; border-bottom: 1px #EDF0ED solid; justify-content: flex-start; align-items: center; display: inline-flex">
-<div style="width: 286px; align-self: stretch; padding-left: 14px; padding-right: 14px; padding-top: 13px; padding-bottom: 13px; overflow: hidden; justify-content: flex-start; align-items: center; display: flex">
-<div style="color: #38423A; font-size: 11px; font-family: Inter; font-weight: 400; line-height: 13.20px; word-wrap: break-word">Sala de estudio biblioteca</div>
-</div>
-<div style="width: 210px; align-self: stretch; padding-left: 14px; padding-right: 14px; padding-top: 13px; padding-bottom: 13px; overflow: hidden; justify-content: flex-start; align-items: center; display: flex">
-<div style="color: #38423A; font-size: 11px; font-family: Inter; font-weight: 400; line-height: 13.20px; word-wrap: break-word">Lunes a sábado</div>
-</div>
-<div style="width: 130px; align-self: stretch; padding-left: 14px; padding-right: 14px; padding-top: 13px; padding-bottom: 13px; overflow: hidden; justify-content: flex-start; align-items: center; display: flex">
-<div style="color: #38423A; font-size: 11px; font-family: Inter; font-weight: 400; line-height: 13.20px; word-wrap: break-word">09:00</div>
-</div>
-<div style="width: 116px; align-self: stretch; padding-left: 14px; padding-right: 14px; padding-top: 13px; padding-bottom: 13px; overflow: hidden; justify-content: flex-start; align-items: center; display: flex">
-<div style="color: #38423A; font-size: 11px; font-family: Inter; font-weight: 400; line-height: 13.20px; word-wrap: break-word">17:00</div>
-</div>
-<div style="width: 150px; align-self: stretch; padding-left: 14px; padding-right: 14px; padding-top: 13px; padding-bottom: 13px; overflow: hidden; justify-content: flex-start; align-items: center; display: flex">
-<div style="overflow: hidden; justify-content: flex-start; align-items: flex-start; gap: 4px; display: flex">
-<div style="height: 38px; padding-left: 14px; padding-right: 14px; background: white; overflow: hidden; border-radius: 7px; outline: 1px #27823D solid; outline-offset: -1px; justify-content: center; align-items: center; display: flex">
-<div style="color: #247238; font-size: 12px; font-family: Inter; font-weight: 700; line-height: 14.40px; word-wrap: break-word">Editar</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div></div>
-</div>
-<script src="../layout.js"></script></body>
+<script src="../layout.js"></script>
+<script src="demo-forms.js"></script>
+<script>
+var DAYS = { 'Lunes': [1], 'Martes': [2], 'Miércoles': [3], 'Jueves': [4], 'Viernes': [5], 'Sábado': [6],
+  'Lunes a viernes': [1, 2, 3, 4, 5], 'Lunes a sábado': [1, 2, 3, 4, 5, 6] };
+var rows = [
+  { espacio: 'Laboratorio de Sistemas 1', dia: 'Lunes a viernes', apertura: '08:00', cierre: '18:00' },
+  { espacio: 'Sala de estudio biblioteca', dia: 'Lunes a sábado', apertura: '09:00', cierre: '17:00' }
+];
+function mins(t) { var p = t.split(':'); return +p[0] * 60 + +p[1]; }
+DemoCrud({
+  root: '#root', newBtn: '#btn-new', noun: 'horario', rows: rows,
+  rowName: function (r) { return r.espacio + ' · ' + r.dia + ' ' + r.apertura + '–' + r.cierre; },
+  columns: [
+    { key: 'espacio', label: 'Espacio' }, { key: 'dia', label: 'Día' },
+    { key: 'apertura', label: 'Apertura' }, { key: 'cierre', label: 'Cierre' }
+  ],
+  fields: [
+    { id: 'espacio', label: 'Espacio', type: 'select', required: true, wide: true, deps: ['cierre'],
+      options: ['Laboratorio de Sistemas 1', 'Sala de estudio biblioteca', 'Laboratorio de Redes'],
+      requiredMsg: 'Selecciona el espacio.' },
+    { id: 'dia', label: 'Día', type: 'select', required: true, wide: true, deps: ['cierre'], options: Object.keys(DAYS) },
+    { id: 'apertura', label: 'Hora de apertura', type: 'time', required: true, deps: ['cierre'], hint: 'Desde las 06:00.',
+      validate: function (v) { return mins(v) < 360 ? 'La apertura no puede ser antes de las 06:00.' : ''; } },
+    { id: 'cierre', label: 'Hora de cierre', type: 'time', required: true, hint: 'Hasta las 22:00.',
+      validate: function (v, all, cur) {
+        if (mins(v) > 1320) return 'El cierre no puede ser después de las 22:00.';
+        if (!all.apertura) return '';
+        if (mins(v) <= mins(all.apertura)) return 'El cierre debe ser posterior a la apertura (' + all.apertura + ').';
+        if (mins(v) - mins(all.apertura) < 30) return 'La franja debe durar al menos 30 minutos.';
+        if (all.espacio && all.dia) {
+          var clash = rows.filter(function (r) {
+            return r !== cur && r.espacio === all.espacio &&
+              DAYS[r.dia].some(function (d) { return DAYS[all.dia].indexOf(d) > -1; }) &&
+              mins(all.apertura) < mins(r.cierre) && mins(v) > mins(r.apertura);
+          })[0];
+          if (clash) return 'Se cruza con «' + clash.dia + ' ' + clash.apertura + '–' + clash.cierre + '» de este espacio. Cambia el día o las horas.';
+        }
+        return '';
+      } }
+  ]
+});
+</script>
+</body>
 </html>
