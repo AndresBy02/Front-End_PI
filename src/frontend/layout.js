@@ -26,7 +26,7 @@
     subtitle: 'Hola, Laura Andrea (vista de demostración)',
     badge: 'PROTOTIPO · DATOS DE EJEMPLO'
   };
-  var BRAND = { name: 'SAICI', tagline: 'Espacios universitarios' };
+  var BRAND = { name: 'SAICI · UCEVA', tagline: 'Espacios universitarios' };
   var LOGIN = '../auth/01-login.html';
 
   // section = carpeta donde vive la pantalla
@@ -51,6 +51,10 @@
       { section: 'admin', file: '05-estadisticas-reportes.html', label: 'Estadísticas y reportes' },
       { section: 'admin', file: '06-usuarios.html',            label: 'Usuarios' },
       { section: 'admin', file: '07-menu.html', label: 'Más opciones' }
+    ]},
+    { heading: 'Laboratorio', items: [
+      { section: 'laboratorio', file: '01-panel.html', label: 'Panel de laboratorio' },
+      { section: 'laboratorio', file: '02-reservas.html', label: 'Reservas asignadas' }
     ]}
   ];
   // ----------------------------------------------------------------------
@@ -80,14 +84,26 @@
     brand.appendChild(el('div', 'app-brand__name', BRAND.name));
     brand.appendChild(el('div', 'app-brand__tagline', BRAND.tagline));
     side.appendChild(brand);
+    var menuToggle = el('button', 'app-menu-toggle', 'Menú');
+    menuToggle.type = 'button';
+    menuToggle.setAttribute('aria-expanded', 'false');
+    menuToggle.addEventListener('click', function () {
+      var open = side.classList.toggle('is-open');
+      menuToggle.setAttribute('aria-expanded', String(open));
+    });
+    side.appendChild(menuToggle);
 
     NAV.forEach(function (group) {
       //Logica separacion de roles
-      if (section === 'usuario' && group.heading === 'Administración') {
+      if (section === 'usuario' && (group.heading === 'Administración' || group.heading === 'Laboratorio')) {
         return;
       }
 
-      if (section === 'admin' && (group.heading === 'Usuario' || group.heading === null)) {
+      if (section === 'admin' && (group.heading === 'Usuario' || group.heading === null || group.heading === 'Laboratorio')) {
+        return;
+      }
+
+      if (section === 'laboratorio' && (group.heading === 'Usuario' || group.heading === null || group.heading === 'Administración')) {
         return;
       }
       //Fin
