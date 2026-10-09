@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Asistente de reservas · SAICI</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="../styles.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="wrap">
+<div class="app-frame">
+
+
+<div class="app-content demo-screen assistant-start">
+<div style="align-self: stretch; padding-bottom: 22px; overflow: hidden; justify-content: flex-start; align-items: flex-start; gap: 16px; display: inline-flex">
+<div style="flex: 1 1 0; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+<div style="align-self: stretch; color: #193A22; font-size: 23px; font-family: Inter; font-weight: 700; line-height: 27.60px; word-wrap: break-word">Asistente de reservas</div>
+<div style="align-self: stretch; color: #6B756D; font-size: 13px; font-family: Inter; font-weight: 400; line-height: 19.50px; word-wrap: break-word">Selecciona el espacio y el horario que deseas solicitar.</div>
+</div>
+</div>
+<div style="align-self: stretch; padding-left: 14px; padding-right: 14px; padding-top: 12px; padding-bottom: 12px; background: #FFF7DF; overflow: hidden; border-radius: 8px; outline: 1px #F0E2B8 solid; outline-offset: -1px; justify-content: flex-start; align-items: flex-start; display: inline-flex">
+<div style="flex: 1 1 0; color: #6C571E; font-size: 11px; font-family: Inter; font-weight: 400; line-height: 16.50px; word-wrap: break-word">Modo demostración: las selecciones viven solo en memoria mientras recorres estos pasos. No se consulta disponibilidad real ni se guarda una reserva.</div>
+</div>
+<section class="demo-card assistant-entry" aria-labelledby="assistant-selection-title">
+	<h2 id="assistant-selection-title">Selección de la demostración</h2>
+	<dl class="demo-summary">
+		<div><dt>Espacio</dt><dd data-value="space">Pendiente de selección</dd></div>
+		<div><dt>Fecha</dt><dd data-value="date">Pendiente de selección</dd></div>
+		<div><dt>Horario</dt><dd data-value="slot">Pendiente de selección</dd></div>
+	</dl>
+	<div class="demo-actions"><a class="demo-link" href="11-seleccionar-espacio.html">Iniciar recorrido</a></div>
+	<p class="prototype-notice" data-navigation-error role="alert" hidden></p>
+</section>
+<div style="align-self: stretch; height: 18px"></div>
+<div style="align-self: stretch; padding: 20px; background: white; box-shadow: 0px 2px 8px rgba(18, 59, 34, 0.04); overflow: hidden; border-radius: 12px; outline: 1px #E4EAE4 solid; outline-offset: -1px; flex-direction: column; justify-content: flex-start; align-items: flex-start; display: flex">
+<div style="align-self: stretch; padding-bottom: 18px; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 12px; display: flex">
+<div style="align-self: stretch; overflow: hidden; justify-content: flex-start; align-items: flex-start; gap: 12px; display: inline-flex">
+<div style="flex: 1 1 0; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+<div style="align-self: stretch; color: #4D584F; font-size: 11px; font-family: Inter; font-weight: 600; line-height: 13.20px; word-wrap: break-word">Espacio</div>
+<div style="align-self: stretch; height: 40px; padding-left: 11px; padding-right: 11px; background: white; overflow: hidden; border-radius: 7px; outline: 1px #D7DFD7 solid; outline-offset: -1px; justify-content: flex-start; align-items: center; gap: 6px; display: inline-flex">
+<div style="flex: 1 1 0; color: #343B35; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 14.40px; word-wrap: break-word">Selecciona un espacio</div>
+<div style="width: 10px; height: 10px; position: relative; overflow: hidden">
+<div style="width: 5px; height: 2.50px; left: 2.50px; top: 3.75px; position: absolute; outline: 1.50px #343B35 solid; outline-offset: -0.75px"></div>
+</div>
+</div>
+</div>
+<div style="flex: 1 1 0; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+<div style="align-self: stretch; color: #4D584F; font-size: 11px; font-family: Inter; font-weight: 600; line-height: 13.20px; word-wrap: break-word">Fecha</div>
+<div style="align-self: stretch; height: 40px; padding-left: 11px; padding-right: 11px; background: white; overflow: hidden; border-radius: 7px; outline: 1px #D7DFD7 solid; outline-offset: -1px; justify-content: flex-start; align-items: center; gap: 6px; display: inline-flex">
+<div style="flex: 1 1 0; color: #343B35; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 14.40px; word-wrap: break-word">mm/dd/yyyy</div>
+<div style="width: 14px; height: 14px; position: relative; overflow: hidden">
+<div style="width: 10.50px; height: 11.67px; left: 1.75px; top: 1.17px; position: absolute; outline: 1.50px #111111 solid; outline-offset: -0.75px"></div>
+</div>
+</div>
+</div>
+<div style="flex: 1 1 0; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+<div style="align-self: stretch; color: #4D584F; font-size: 11px; font-family: Inter; font-weight: 600; line-height: 13.20px; word-wrap: break-word">Motivo de uso</div>
+<div style="align-self: stretch; height: 40px; padding-left: 11px; padding-right: 11px; background: white; overflow: hidden; border-radius: 7px; outline: 1px #D7DFD7 solid; outline-offset: -1px; justify-content: flex-start; align-items: center; gap: 6px; display: inline-flex">
+<div style="flex: 1 1 0; color: #757575; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 14.40px; word-wrap: break-word">Actividad académica</div>
+</div>
+</div>
+</div>
+<div style="align-self: stretch; overflow: hidden; justify-content: flex-start; align-items: flex-start; gap: 12px; display: inline-flex">
+<div style="flex: 1 1 0; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+<div style="align-self: stretch; color: #4D584F; font-size: 11px; font-family: Inter; font-weight: 600; line-height: 13.20px; word-wrap: break-word">Hora de inicio</div>
+<div style="align-self: stretch; height: 40px; padding-left: 11px; padding-right: 11px; background: white; overflow: hidden; border-radius: 7px; outline: 1px #D7DFD7 solid; outline-offset: -1px; justify-content: flex-start; align-items: center; gap: 6px; display: inline-flex">
+<div style="flex: 1 1 0; color: #343B35; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 14.40px; word-wrap: break-word">--:-- --</div>
+<div style="width: 14px; height: 14px; position: relative; overflow: hidden">
+<div style="width: 11.67px; height: 11.67px; left: 1.17px; top: 1.17px; position: absolute; outline: 1.50px #111111 solid; outline-offset: -0.75px"></div>
+</div>
+</div>
+</div>
+<div style="flex: 1 1 0; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 6px; display: inline-flex">
+<div style="align-self: stretch; color: #4D584F; font-size: 11px; font-family: Inter; font-weight: 600; line-height: 13.20px; word-wrap: break-word">Hora de finalización</div>
+<div style="align-self: stretch; height: 40px; padding-left: 11px; padding-right: 11px; background: white; overflow: hidden; border-radius: 7px; outline: 1px #D7DFD7 solid; outline-offset: -1px; justify-content: flex-start; align-items: center; gap: 6px; display: inline-flex">
+<div style="flex: 1 1 0; color: #343B35; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 14.40px; word-wrap: break-word">--:-- --</div>
+<div style="width: 14px; height: 14px; position: relative; overflow: hidden">
+<div style="width: 11.67px; height: 11.67px; left: 1.17px; top: 1.17px; position: absolute; outline: 1.50px #111111 solid; outline-offset: -0.75px"></div>
+</div>
+</div>
+</div>
+<div style="flex: 1 1 0; height: 1px"></div>
+</div>
+</div>
+<div style="align-self: stretch; overflow: hidden; justify-content: flex-start; align-items: flex-start; gap: 8px; display: inline-flex">
+<div style="height: 38px; padding-left: 14px; padding-right: 14px; background: #27823D; overflow: hidden; border-radius: 7px; outline: 1px #27823D solid; outline-offset: -1px; justify-content: center; align-items: center; display: flex">
+<a href="11-seleccionar-espacio.html" style="color: white; font-size: 12px; font-family: Inter; font-weight: 700; line-height: 14.40px; word-wrap: break-word; text-decoration: none; cursor: pointer">Iniciar recorrido</a>
+</div>
+<div style="height: 38px; padding-left: 14px; padding-right: 14px; background: white; overflow: hidden; border-radius: 7px; outline: 1px #27823D solid; outline-offset: -1px; justify-content: center; align-items: center; display: flex">
+<div style="color: #247238; font-size: 12px; font-family: Inter; font-weight: 700; line-height: 14.40px; word-wrap: break-word">Cancelar</div>
+</div>
+</div>
+<div class="demo-actions">
+<a class="demo-link" href="11-seleccionar-espacio.html">Iniciar recorrido</a>
+<a class="demo-link is-secondary" href="19-menu-asistente-activo.html">Ver menú con el asistente activo</a>
+</div>
+</div>
+</div></div>
+</div>
+<script src="../layout.js"></script><script src="asistente-reserva.js"></script></body>
+</html>

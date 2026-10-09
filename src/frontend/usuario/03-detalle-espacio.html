@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Detalle del espacio · SAICI</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="../styles.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="wrap">
+<div class="app-frame is-scrollable">
+
+<div class="app-content">
+
+  <!-- @jec: Encabezado -->
+  <div style="align-self: stretch; padding-bottom: 22px; gap: 16px; display: flex; align-items: flex-start;">
+    <div style="flex: 1 1 0; display: flex; flex-direction: column; gap: 6px;">
+      <div id="space-name" style="color: #193A22; font-size: 23px; font-weight: 700; line-height: 27.6px;">Espacio</div>
+      <div style="color: #6B756D; font-size: 13px; font-weight: 400; line-height: 19.5px;">Información del espacio antes de iniciar una solicitud.</div>
+    </div>
+
+    <div class="detail-navigation">
+      <a href="01-inicio.html" class="detail-navigation__button">Inicio</a>
+      <a href="02-explorar-espacios.html" class="detail-navigation__button">Volver a espacios</a>
+    </div>
+  </div>
+
+  <!-- Detalle inyectado por JS -->
+  <div id="space-detail" class="space-detail"></div>
+
+  <!-- Disponibilidad de ejemplo -->
+  <div style="align-self: stretch; padding-top: 26px; padding-bottom: 13px; display: flex;">
+    <div style="color: #193A22; font-size: 15px; font-weight: 700; line-height: 18px;">Disponibilidad de ejemplo</div>
+  </div>
+
+  <div style="align-self: stretch; padding: 20px; background: white; box-shadow: 0 2px 8px rgba(18, 59, 34, 0.04); border-radius: 12px; border: 1px solid #E4EAE4;">
+    <div style="color: #68736A; font-size: 12px; line-height: 14.4px;">
+      Selecciona una fecha en el asistente para revisar opciones. Los horarios de esta maqueta no representan disponibilidad real.
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+
+<script src="../spaces.js"></script>
+<script src="../layout.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var api = window.SAICI && window.SAICI.spaces;
+  var detailRoot = document.getElementById('space-detail');
+  var spaceName  = document.getElementById('space-name');
+
+  var id = new URLSearchParams(window.location.search).get('id');
+  var space = api && api.getSpaceById(id);
+
+  if (!space) {
+    spaceName.textContent = 'Espacio no encontrado';
+    detailRoot.innerHTML =
+      '<div class="empty-state">' +
+        '<div class="empty-state__title">No se encontró el espacio solicitado</div>' +
+        '<div class="empty-state__description">' +
+          '<a class="empty-state__link" href="02-explorar-espacios.html">Volver a explorar espacios</a>' +
+        '</div>' +
+      '</div>';
+    return;
+  }
+
+  spaceName.textContent = space.name;
+
+  var isAvailable = space.availability === 'Disponible';
+  var statusClass = isAvailable
+    ? 'space-detail__status space-detail__status--available'
+    : 'space-detail__status space-detail__status--busy';
+
+  var fields = [
+    ['Tipo de espacio',     space.type],
+    ['Ubicación',           space.location],
+    ['Capacidad',           space.capacity + ' personas'],
+    ['Recursos',            space.resources],
+    ['Horario ilustrativo', space.schedule]
+  ].map(function (f) {
+    return '<div>' +
+      '<span class="space-detail__field-label">' + f[0] + ':</span> ' +
+      '<span class="space-detail__field-value">' + f[1] + '</span>' +
+    '</div>';
+  }).join('');
+
+  detailRoot.innerHTML =
+    '<div class="space-detail__media" style="background:' + space.color + '">' +
+      '<div class="space-detail__icon" style="color:' + space.accent + '">' + space.icon + '</div>' +
+    '</div>' +
+    '<div class="space-detail__info">' +
+      '<div class="' + statusClass + '">' + space.status + '</div>' +
+      '<div class="space-detail__fields">' + fields + '</div>' +
+      '<a class="space-detail__cta" href="04-asistente-reserva.html?id=' +
+        encodeURIComponent(space.id) + '">Solicitar reserva</a>' +
+    '</div>';
+})();
+</script>
+</body>
+</html>
