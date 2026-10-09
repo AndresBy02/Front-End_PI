@@ -359,6 +359,56 @@ body {
   background: #27823d;
   color: white;
 }
+.demo-choice {
+  width: 100%;
+  font: inherit;
+  cursor: pointer;
+}
+.demo-choice.is-selected,
+.demo-calendar button.is-selected {
+  border-color: #27823d;
+  background: #e9f5ee;
+  color: #193a22;
+  box-shadow: inset 0 0 0 2px #27823d;
+}
+.demo-calendar button {
+  border: 1px solid #dfe6e2;
+  background: white;
+  cursor: pointer;
+}
+.demo-calendar button:disabled {
+  border-color: transparent;
+  background: transparent;
+  color: #9ba49d;
+  cursor: not-allowed;
+}
+.demo-choice:focus-visible,
+.demo-calendar button:focus-visible {
+  outline: 3px solid #77bf91;
+  outline-offset: 2px;
+}
+.demo-error {
+  margin: 10px 0 0;
+  color: #a52828;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.demo-summary {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.demo-summary > div {
+  padding: 14px;
+  border: 1px solid #e4eae4;
+  border-radius: 8px;
+  background: white;
+}
+.demo-summary dt { color: #647267; font-size: 11px; }
+.demo-summary dd { margin: 6px 0 0; color: #193a22; font-size: 13px; font-weight: 700; }
+.assistant-start > div[style*="height: 18px"],
+.assistant-start > div[style*="padding: 20px"] { display: none !important; }
 .demo-skeleton {
   height: 80px;
   border-radius: 9px;
@@ -438,6 +488,7 @@ body {
   }
   .demo-grid,
   .demo-grid.is-three { grid-template-columns: minmax(0, 1fr); }
+  .demo-summary { grid-template-columns: minmax(0, 1fr); }
   .demo-actions { align-items: stretch; flex-direction: column; }
   .demo-link { width: 100%; }
 }
