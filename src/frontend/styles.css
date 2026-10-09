@@ -36,13 +36,15 @@ body {
   min-height: 100vh;
   box-sizing: border-box;
 }
-.wrap { width: max-content; margin: 0 auto; }
+.wrap { width: min(100%, 1180px); margin: 0 auto; }
 
 /* ---------- Marco de escritorio (1180 × 860) ---------- */
 .app-frame {
-  width: 1180px;
-  height: 860px;
+  width: 100%;
+  min-height: 860px;
+  height: auto;
   padding: 1px;
+  box-sizing: border-box;
   background: var(--frame-bg);
   overflow: hidden;
   border-radius: 18px;
@@ -65,6 +67,17 @@ body {
   align-items: flex-start;
   gap: 22px;
   display: inline-flex;
+}
+
+.app-menu-toggle {
+  display: none;
+  border: 1px solid rgba(255, 255, 255, .35);
+  border-radius: 7px;
+  padding: 8px 10px;
+  background: transparent;
+  color: white;
+  font: 700 12px var(--saici-font);
+  cursor: pointer;
 }
 
 .app-brand {
@@ -215,9 +228,90 @@ body {
 .app-content {
   align-self: stretch;
   padding: 28px;
-  overflow: hidden;
+  overflow: auto;
+  box-sizing: border-box;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   display: flex;
+}
+
+.app-content > * {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.app-content a,
+.app-content button {
+  min-height: 38px;
+}
+
+@media (max-width: 700px) {
+  body {
+    padding: 0;
+  }
+
+  .wrap {
+    width: 100%;
+  }
+
+  .app-frame {
+    min-height: 100vh;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .app-sidebar {
+    width: auto;
+    min-height: 0;
+    padding: 14px 16px;
+    gap: 12px;
+  }
+
+  .app-sidebar .app-brand {
+    padding-bottom: 0;
+  }
+
+  .app-menu-toggle {
+    display: block;
+    align-self: flex-start;
+  }
+
+  .app-sidebar .app-nav,
+  .app-sidebar .app-nav__spacer {
+    display: none;
+  }
+
+  .app-sidebar.is-open .app-nav {
+    display: flex;
+  }
+
+  .app-main {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .app-topbar {
+    height: auto;
+    min-height: 64px;
+    padding: 14px 18px;
+    gap: 12px;
+  }
+
+  .app-badge {
+    display: none;
+  }
+
+  .app-content {
+    padding: 20px 16px 28px;
+  }
+
+  .app-content > div {
+    flex-wrap: wrap;
+  }
+
+  .app-content > div > div {
+    min-width: 0;
+  }
 }

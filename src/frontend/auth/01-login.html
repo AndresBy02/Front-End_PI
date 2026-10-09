@@ -46,7 +46,7 @@
 <label style="align-self: stretch; color: #444441; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 14.40px; word-wrap: break-word">Contraseña</label>
 <div style="align-self: stretch; height: 44px; padding-left: 13px; padding-right: 13px; background: #F7F8FA; overflow: hidden; border-radius: 8px; outline: 1px #C7CCD3 solid; outline-offset: -1px; justify-content: flex-start; align-items: center; display: flex">
 <input type="password" placeholder="••••••••" style="flex: 1 1 0; background: transparent; border: none; outline: none; color: #111; font-size: 16px; font-family: Inter; width: 100%;">
-<div style="color: #5F5E5A; font-size: 11px; font-family: Inter; font-weight: 400; line-height: 13.20px; word-wrap: break-word; cursor: pointer;">Ver</div>
+<button id="toggle-password" type="button" style="padding: 0; border: 0; background: transparent; color: #113711; font-size: 11px; font-family: Inter; font-weight: 700; cursor: pointer;">Ver</button>
 </div>
 </div>
 <div style="align-self: stretch; height: 8px"></div>
@@ -62,6 +62,7 @@
 
 <div style="align-self: stretch; height: 24px"></div>
 <a href="../usuario/01-inicio.html" style="align-self: stretch; text-align: center; color: #111111; font-size: 12px; font-family: Inter; font-weight: 400; line-height: 14.40px; word-wrap: break-word; text-decoration: none; cursor: pointer">Explorar pantallas del prototipo</a>
+<a href="../laboratorio/01-panel.html" style="align-self: stretch; text-align: center; color: #113711; font-size: 12px; font-family: Inter; font-weight: 700; line-height: 14.40px; word-wrap: break-word; text-decoration: none; cursor: pointer">Acceso estudiante de laboratorio</a>
 <div style="align-self: stretch; padding-top: 27px; padding-bottom: 17px; overflow: hidden; justify-content: flex-start; align-items: center; gap: 20px; display: inline-flex">
 <div style="flex: 1 1 0; height: 1px; background: #E3E6EA"></div>
 <div style="color: #9A9A96; font-size: 11px; font-family: Inter; font-weight: 400; line-height: 13.20px; word-wrap: break-word">o</div>
@@ -75,5 +76,15 @@
 </div>
 </div>
 </div>
+<script>
+  document.getElementById('toggle-password').addEventListener('click', function () {
+    var password = document.querySelector('input[type="password"], input[data-password-visible]');
+    if (!password) return;
+    var visible = password.type === 'text';
+    password.type = visible ? 'password' : 'text';
+    password.setAttribute('data-password-visible', '');
+    this.textContent = visible ? 'Ver' : 'Ocultar';
+  });
+</script>
 </body>
 </html>
