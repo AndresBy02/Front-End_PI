@@ -68,13 +68,12 @@ body {
 .uceva-logo {
   display: block;
   flex: none;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
+  width: auto;
+  height: 46px;
   background: #fff;
-  object-fit: cover;
-  object-position: center top;
+  object-fit: contain;
 }
+.mobile-brand > div { padding-left: 12px; border-left: 1px solid #E3E6EA; }
 .mobile-brand strong { display: block; color: var(--green-900); font-size: 18px; line-height: 1.2; }
 .mobile-brand span.tagline { display: block; color: var(--muted); font-size: 12px; }
 
@@ -113,7 +112,7 @@ h1 {
     color: #fff;
     background: linear-gradient(150deg, #174B2A 0%, #368B47 100%);
   }
-  .brand-panel .uceva-logo { width: 80px; height: 80px; }
+  .brand-panel .uceva-logo { width: 100%; max-width: 270px; height: auto; padding: 14px 18px; box-sizing: border-box; border-radius: 14px; }
   .brand-panel h2 { margin: 20px 0 8px; font-size: 32px; line-height: 1.1; font-weight: 800; }
   .brand-panel p { margin: 0; max-width: 28ch; color: #E1EFE3; font-size: 16px; line-height: 1.5; }
   .brand-panel .proto { color: #CFE5D3; font-size: 12px; }
@@ -402,3 +401,6 @@ button.link[disabled] { color: #6B7280; cursor: not-allowed; text-decoration: no
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
 }
+
+/* Botones consecutivos (p. ej. registro y acceso de laboratorio) */
+.btn + .btn { margin-top: 10px; }

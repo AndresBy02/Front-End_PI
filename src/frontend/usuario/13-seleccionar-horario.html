@@ -19,6 +19,8 @@
       <li>1. Espacio</li><li>2. Fecha</li><li class="is-current">3. Horario</li><li>4. Revisión</li>
     </ol>
     <div class="prototype-notice">Los horarios y conflictos son inventados para la demostración. No consultan disponibilidad real.</div>
+    <div class="flow-layout">
+    <div class="flow-main">
     <div class="demo-grid">
       <section class="demo-card">
         <h2>Horarios disponibles</h2>
@@ -39,6 +41,18 @@
     <div class="demo-actions">
       <button class="demo-link" type="button" data-next="15-validacion-reserva.html">Revisar selección</button>
       <a class="demo-link is-secondary" href="12-seleccionar-fecha.html">Cambiar fecha</a>
+    </div>
+    </div>
+    <aside class="flow-aside demo-card" aria-label="Resumen de tu solicitud">
+      <img class="flow-aside__art" src="../assets/ilustraciones/reloj.svg" alt="" width="240" height="180">
+      <h2>Tu solicitud</h2>
+    <dl>
+      <div><dt>Espacio</dt><dd data-value="space">Pendiente de selección</dd></div>
+      <div><dt>Fecha</dt><dd data-value="date">Pendiente de selección</dd></div>
+      <div><dt>Horario</dt><dd data-value="slot">Pendiente de selección</dd></div>
+    </dl>
+      <p class="screen-muted">Elige una franja libre, o prueba un horario en conflicto para ver cómo se avisa.</p>
+    </aside>
     </div>
   </main>
 </div></div>

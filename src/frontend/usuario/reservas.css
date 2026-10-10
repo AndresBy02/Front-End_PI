@@ -202,23 +202,8 @@ dialog.rv-dialog::backdrop { background: rgba(18, 28, 20, .55); }
     min-height: 100vh; border-radius: 0; outline: 0; overflow: visible;
   }
 
-  /* Sidebar → una sola fila superior, desplazable horizontalmente */
-  body.rv .app-sidebar {
-    width: auto; flex-direction: row; align-items: center; justify-content: flex-start;
-    gap: 6px; padding: 8px 10px; overflow-x: auto; overflow-y: hidden;
-    -webkit-overflow-scrolling: touch; scrollbar-width: thin;
-  }
-  body.rv .app-brand { flex: none; align-self: auto; padding: 0 8px 0 4px; gap: 0; }
-  body.rv .app-brand__name { font-size: 18px; line-height: 22px; }
-  body.rv .app-brand__tagline { display: none; }
-  body.rv .app-nav { flex: none; align-self: auto; flex-direction: row; align-items: center; gap: 4px; overflow: visible; }
-  body.rv .app-nav__heading, body.rv .app-nav__spacer { display: none; }
-  body.rv .app-nav__link { flex: none; align-self: auto; padding: 10px 12px; }
-  body.rv .app-nav__text { flex: none; font-size: 13px; line-height: 16px; white-space: nowrap; }
-
   /* Topbar */
   body.rv .app-main { align-self: stretch; display: flex; }
-  body.rv .app-topbar { height: auto; min-height: 56px; padding: 10px 16px; gap: 8px; flex-wrap: wrap; }
 
   body.rv .app-content { padding: 16px; }
   .rv-title { font-size: 21px; }
