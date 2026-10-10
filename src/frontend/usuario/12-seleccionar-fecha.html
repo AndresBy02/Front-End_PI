@@ -19,6 +19,8 @@
       <li>1. Espacio</li><li class="is-current">2. Fecha</li><li>3. Horario</li><li>4. Revisión</li>
     </ol>
     <div class="prototype-notice">La disponibilidad del calendario es de ejemplo; no representa horarios confirmados.</div>
+    <div class="flow-layout">
+    <div class="flow-main">
     <section class="demo-card" aria-labelledby="calendar-title">
       <div class="row between"><h2 id="calendar-title">Octubre de 2026</h2><span class="screen-muted">Formato de fecha: día/mes/año</span></div>
       <div class="demo-calendar" role="group" aria-label="Fechas disponibles de octubre de 2026">
@@ -36,6 +38,18 @@
     <div class="demo-actions">
       <button class="demo-link" type="button" data-next="13-seleccionar-horario.html">Continuar a horario</button>
       <a class="demo-link is-secondary" href="11-seleccionar-espacio.html">Volver a elegir espacio</a>
+    </div>
+    </div>
+    <aside class="flow-aside demo-card" aria-label="Resumen de tu solicitud">
+      <img class="flow-aside__art" src="../assets/ilustraciones/calendario.svg" alt="" width="240" height="180">
+      <h2>Tu solicitud</h2>
+    <dl>
+      <div><dt>Espacio</dt><dd data-value="space">Pendiente de selección</dd></div>
+      <div><dt>Fecha</dt><dd data-value="date">Pendiente de selección</dd></div>
+      <div><dt>Horario</dt><dd data-value="slot">Pendiente de selección</dd></div>
+    </dl>
+      <p class="screen-muted">Toca un día del calendario. Las fechas pasadas no se pueden elegir.</p>
+    </aside>
     </div>
   </main>
 </div></div>

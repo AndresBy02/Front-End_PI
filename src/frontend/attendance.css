@@ -20,7 +20,9 @@
 
 .attendance-shell .app-sidebar {
   box-sizing: border-box;
-  flex: 0 0 230px;
+}
+@media (min-width: 901px) {
+  .attendance-shell .app-sidebar { flex: 0 0 230px; }
 }
 
 .attendance-shell .app-main,
@@ -39,62 +41,11 @@
 }
 
 @media (max-width: 850px) {
-  body.attendance-screen {
-    padding:
-      max(8px, env(safe-area-inset-top))
-      max(8px, env(safe-area-inset-right))
-      max(8px, env(safe-area-inset-bottom))
-      max(8px, env(safe-area-inset-left));
-  }
-
   .app-frame.attendance-shell {
     min-height: calc(100vh - 16px);
     min-height: calc(100dvh - max(16px, env(safe-area-inset-top) + env(safe-area-inset-bottom)));
     flex-direction: column;
     overflow: visible;
-  }
-
-  .attendance-shell .app-sidebar {
-    width: 100%;
-    min-width: 0;
-    flex: none;
-    gap: 10px;
-    padding: 14px;
-    overflow: visible;
-  }
-
-  .attendance-shell .app-brand {
-    padding: 0 4px 6px;
-  }
-
-  .attendance-shell .app-nav {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 4px;
-    overflow: visible;
-  }
-
-  .attendance-shell .app-nav__heading {
-    grid-column: 1 / -1;
-    display: flex;
-  }
-
-  .attendance-shell .app-nav__spacer {
-    display: none;
-  }
-
-  .attendance-shell .app-nav__link {
-    box-sizing: border-box;
-    min-width: 0;
-    width: 100%;
-    padding: 10px 8px;
-    align-items: center;
-  }
-
-  .attendance-shell .app-nav__text {
-    min-width: 0;
-    white-space: normal;
-    overflow-wrap: anywhere;
   }
 
   .attendance-shell .app-main {

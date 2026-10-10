@@ -9,128 +9,76 @@
 <link href="../styles.css" rel="stylesheet"/>
 </head>
 <body>
-<div class="wrap">
-<div class="app-frame is-scrollable">
-
-<div class="app-content">
-
-  <!-- @jec: Hero -->
-  <div style="align-self: stretch; min-height: 150px; padding: 26px; background: linear-gradient(117deg, #174B2A 0%, #368B47 100%); overflow: hidden; border-radius: 14px; justify-content: flex-start; align-items: center; gap: 20px; display: inline-flex">
-    <div style="flex: 1 1 0; overflow: hidden; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 8px; display: inline-flex">
-      <div style="align-self: stretch; color: white; font-size: 24px; font-weight: 700; line-height: 28.8px;">Encuentra tu próximo espacio</div>
-      <div style="align-self: stretch; color: #E1EFE3; font-size: 13px; font-weight: 400; line-height: 15.6px;">Consulta laboratorios y espacios disponibles para tus actividades.</div>
-    </div>
-    <div style="height: 38px; padding: 0 14px; background: #27823D; border-radius: 7px; justify-content: center; align-items: center; display: flex">
-      <a href="02-explorar-espacios.html" style="color: white; font-size: 12px; font-weight: 700; line-height: 14.4px; text-decoration: none;">Explorar espacios</a>
-    </div>
-  </div>
-
-  <div style="align-self: stretch; height: 22px"></div>
-
-  <!-- @jec: Métricas -->
-  <div style="align-self: stretch; justify-content: flex-start; align-items: flex-start; gap: 14px; display: inline-flex">
-    <div style="flex: 1 1 0; padding: 18px; background: white; box-shadow: 0 2px 8px rgba(18, 59, 34, 0.04); border-radius: 12px; border: 1px solid #E4EAE4; display: flex; flex-direction: column; gap: 8px;">
-      <div style="color: #707A71; font-size: 11px; line-height: 13.2px;">Espacios disponibles</div>
-      <div style="color: #193A22; font-size: 23px; font-weight: 700; line-height: 27.6px;">8</div>
-    </div>
-    <div style="flex: 1 1 0; padding: 18px; background: white; box-shadow: 0 2px 8px rgba(18, 59, 34, 0.04); border-radius: 12px; border: 1px solid #E4EAE4; display: flex; flex-direction: column; gap: 8px;">
-      <div style="color: #707A71; font-size: 11px; line-height: 13.2px;">Mis próximas reservas</div>
-      <div style="color: #193A22; font-size: 23px; font-weight: 700; line-height: 27.6px;">2</div>
-    </div>
-    <div style="flex: 1 1 0; padding: 18px; background: white; box-shadow: 0 2px 8px rgba(18, 59, 34, 0.04); border-radius: 12px; border: 1px solid #E4EAE4; display: flex; flex-direction: column; gap: 8px;">
-      <div style="color: #707A71; font-size: 11px; line-height: 13.2px;">Horas de asistencia</div>
-      <div style="color: #193A22; font-size: 23px; font-weight: 700; line-height: 27.6px;">12 h</div>
-    </div>
-  </div>
-
-  <!-- @jec: Título sección -->
-  <div style="align-self: stretch; padding-top: 26px; padding-bottom: 13px; display: flex;">
-    <div style="color: #193A22; font-size: 15px; font-weight: 700; line-height: 18px;">Espacios destacados</div>
-  </div>
-
-  <!-- @jec: Tarjetas destacadas -->
-  <div style="align-self: stretch; justify-content: flex-start; align-items: flex-start; gap: 14px; display: inline-flex">
-
-    <!-- Lab Sistemas 1 -->
-    <div class="space-card" style="flex: 1 1 0;">
-      <div style="height: 105px; background: linear-gradient(135deg, #DCEBDD 0%, #F4F7EB 100%); display: flex; justify-content: center; align-items: center;">
-        <div style="color: #397849; font-size: 34px;">⌘</div>
+<div class="wrap"><div class="app-frame">
+  <main class="app-content demo-screen">
+    <section class="page-hero">
+      <div>
+        <h1>Encuentra tu próximo espacio</h1>
+        <p>Consulta laboratorios y espacios disponibles para tus actividades.</p>
+        <a class="page-hero__cta" href="02-explorar-espacios.html">Explorar espacios</a>
       </div>
-      <div class="space-card__body">
-        <div class="space-card__type">Laboratorio</div>
-        <div class="space-card__title">Laboratorio de Sistemas 1</div>
-        <p class="space-card__location">Edificio de Sistemas · Capacidad: 24 personas</p>
-        <div class="space-card__footer">
-          <div class="space-card__status space-card__status--available">Disponible</div>
-          <a class="space-card__button" href="03-detalle-espacio.html?id=sistemas-1">Ver espacio</a>
+      <img class="page-hero__art" src="../assets/ilustraciones/laboratorio.svg" alt="" width="240" height="180">
+    </section>
+
+    <section class="stat-grid" aria-label="Resumen">
+      <div class="stat-card"><span class="stat-card__label">Espacios disponibles</span><span class="stat-card__value">8</span></div>
+      <div class="stat-card"><span class="stat-card__label">Mis próximas reservas</span><span class="stat-card__value">2</span></div>
+      <div class="stat-card"><span class="stat-card__label">Horas de asistencia</span><span class="stat-card__value">12 h</span></div>
+    </section>
+
+    <h2 class="section-title">Espacios destacados</h2>
+    <div class="spaces-grid">
+      <article class="space-card">
+        <div class="space-card__header"><div class="space-card__icon">⌘</div></div>
+        <div class="space-card__body">
+          <div class="space-card__type">Laboratorio</div>
+          <h3 class="space-card__title">Laboratorio de Sistemas 1</h3>
+          <p class="space-card__location">Edificio de Sistemas · Capacidad: 24 personas</p>
+          <div class="space-card__footer">
+            <div class="space-card__status space-card__status--available">Disponible</div>
+            <a class="space-card__button" href="03-detalle-espacio.html?id=sistemas-1">Ver espacio</a>
+          </div>
         </div>
-      </div>
-    </div>
-
-    <!-- Sala biblioteca -->
-    <div class="space-card" style="flex: 1 1 0;">
-      <div style="height: 105px; background: linear-gradient(135deg, #DCEBDD 0%, #F4F7EB 100%); display: flex; justify-content: center; align-items: center;">
-        <div style="color: #397849; font-size: 34px;">▤</div>
-      </div>
-      <div class="space-card__body">
-        <div class="space-card__type">Sala de estudio</div>
-        <div class="space-card__title">Sala de estudio biblioteca</div>
-        <p class="space-card__location">Biblioteca central · Capacidad: 8 personas</p>
-        <div class="space-card__footer">
-          <div class="space-card__status space-card__status--available">Disponible</div>
-          <a class="space-card__button" href="03-detalle-espacio.html?id=biblioteca-estudio">Ver espacio</a>
+      </article>
+      <article class="space-card">
+        <div class="space-card__header"><div class="space-card__icon">▤</div></div>
+        <div class="space-card__body">
+          <div class="space-card__type">Sala de estudio</div>
+          <h3 class="space-card__title">Sala de estudio biblioteca</h3>
+          <p class="space-card__location">Biblioteca central · Capacidad: 8 personas</p>
+          <div class="space-card__footer">
+            <div class="space-card__status space-card__status--available">Disponible</div>
+            <a class="space-card__button" href="03-detalle-espacio.html?id=biblioteca-estudio">Ver espacio</a>
+          </div>
         </div>
-      </div>
-    </div>
-
-    <!-- Lab Redes -->
-    <div class="space-card" style="flex: 1 1 0;">
-      <div style="height: 105px; background: linear-gradient(135deg, #DCEBDD 0%, #F4F7EB 100%); display: flex; justify-content: center; align-items: center;">
-        <div style="color: #397849; font-size: 34px;">⌘</div>
-      </div>
-      <div class="space-card__body">
-        <div class="space-card__type">Laboratorio</div>
-        <div class="space-card__title">Laboratorio de Redes</div>
-        <p class="space-card__location">Bloque académico · Capacidad: 20 personas</p>
-        <div class="space-card__footer">
-          <div class="space-card__status space-card__status--busy">Ocupado ahora</div>
-          <a class="space-card__button" href="03-detalle-espacio.html?id=redes">Ver espacio</a>
+      </article>
+      <article class="space-card">
+        <div class="space-card__header"><div class="space-card__icon">⌘</div></div>
+        <div class="space-card__body">
+          <div class="space-card__type">Laboratorio</div>
+          <h3 class="space-card__title">Laboratorio de Redes</h3>
+          <p class="space-card__location">Bloque académico · Capacidad: 20 personas</p>
+          <div class="space-card__footer">
+            <div class="space-card__status space-card__status--busy">Ocupado ahora</div>
+            <a class="space-card__button" href="03-detalle-espacio.html?id=redes">Ver espacio</a>
+          </div>
         </div>
-      </div>
+      </article>
     </div>
 
-  </div>
+    <h2 class="section-title">Accesos rápidos</h2>
+    <div class="quick-access-grid">
+      <a href="06-mis-reservas.html" class="quick-access-card"><div class="quick-access-card__title">Mis reservas</div><div class="quick-access-card__description">Revisa tus próximas visitas</div></a>
+      <a href="07-historial-reservas.html" class="quick-access-card"><div class="quick-access-card__title">Historial</div><div class="quick-access-card__description">Consulta reservas anteriores</div></a>
+      <a href="08-perfil.html" class="quick-access-card"><div class="quick-access-card__title">Mi perfil</div><div class="quick-access-card__description">Ver información de la cuenta</div></a>
+    </div>
 
-  <!-- @jec: Título accesos rápidos -->
-  <div style="align-self: stretch; padding-top: 26px; padding-bottom: 13px; display: flex;">
-    <div style="color: #193A22; font-size: 15px; font-weight: 700; line-height: 18px;">Accesos rápidos</div>
-  </div>
-
-  <!-- @jec: Grid accesos rápidos -->
-  <div class="quick-access-grid">
-    <a href="06-mis-reservas.html" class="quick-access-card">
-      <div class="quick-access-card__title">Mis reservas</div>
-      <div class="quick-access-card__description">Revisa tus próximas visitas</div>
-    </a>
-    <a href="07-historial-reservas.html" class="quick-access-card">
-      <div class="quick-access-card__title">Historial</div>
-      <div class="quick-access-card__description">Consulta reservas anteriores</div>
-    </a>
-    <a href="08-perfil.html" class="quick-access-card">
-      <div class="quick-access-card__title">Mi perfil</div>
-      <div class="quick-access-card__description">Ver información de la cuenta</div>
-    </a>
-  </div>
-
-  <!-- Demo: estados de carga y error (compañero) -->
-  <div class="demo-actions" aria-label="Estados de demostración del inicio">
-    <a class="demo-link is-secondary" href="16-inicio-cargando.html">Ver estado de carga</a>
-    <a class="demo-link is-secondary" href="17-error-inicio.html">Ver estado de error</a>
-  </div>
-
-</div>
-</div>
-</div>
+    <div class="demo-actions" aria-label="Estados de demostración del inicio">
+      <a class="demo-link is-secondary" href="16-inicio-cargando.html">Ver estado de carga</a>
+      <a class="demo-link is-secondary" href="17-error-inicio.html">Ver estado de error</a>
+    </div>
+  </main>
+</div></div>
 <script src="../layout.js"></script>
 </body>
 </html>

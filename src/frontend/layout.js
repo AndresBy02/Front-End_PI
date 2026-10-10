@@ -26,15 +26,38 @@
     subtitle: 'Hola, Laura Andrea (vista de demostración)',
     badge: 'PROTOTIPO · DATOS DE EJEMPLO'
   };
-  var BRAND = { name: 'SAICI · UCEVA', tagline: 'Espacios universitarios' };
-  var BRAND_LOGO = '../assets/uceva-isotipo.png';
+  var BRAND = { name: 'SAICI', tagline: 'Reserva de espacios universitarios' };
+  var BRAND_LOGO = '../assets/uceva-imagotipo.png';
   var LOGIN = '../auth/01-login.html';
+
+  // Subtítulo de la barra superior según el rol (se deduce de la carpeta)
+  var SUBTITLES = {
+    usuario: 'Hola, Laura Andrea (vista de demostración)',
+    admin: 'Administración (vista de demostración)',
+    laboratorio: 'Estudiante de laboratorio (vista de demostración)'
+  };
+  // Pantalla de inicio de cada rol: el logo lleva hasta ella
+  var HOME = { usuario: '01-inicio.html', admin: '01-panel.html', laboratorio: '01-panel.html' };
+  // Pantallas que no están en el menú resaltan a la pantalla de la que dependen
+  var PARENT = {
+    '03-detalle-espacio.html': '02-explorar-espacios.html',
+    '05-confirmacion-solicitud.html': '04-asistente-reserva.html',
+    '11-seleccionar-espacio.html': '04-asistente-reserva.html',
+    '12-seleccionar-fecha.html': '04-asistente-reserva.html',
+    '13-seleccionar-horario.html': '04-asistente-reserva.html',
+    '14-conflicto-horario.html': '04-asistente-reserva.html',
+    '15-validacion-reserva.html': '04-asistente-reserva.html',
+    '16-inicio-cargando.html': '01-inicio.html',
+    '17-error-inicio.html': '01-inicio.html',
+    '19-menu-asistente-activo.html': '18-menu.html'
+  };
 
   // section = carpeta donde vive la pantalla
   var NAV = [
     { heading: null, items: [
       { section: 'usuario', file: '01-inicio.html',           label: 'Inicio' },
       { section: 'usuario', file: '02-explorar-espacios.html', label: 'Espacios' },
+      { section: 'usuario', file: '04-asistente-reserva.html', label: 'Solicitar reserva' },
       { section: 'usuario', file: '06-mis-reservas.html',      label: 'Mis reservas' },
       { section: 'usuario', file: '08-perfil.html',            label: 'Perfil' }
     ]},
@@ -74,6 +97,7 @@
   function link(href, label, active) {
     var a = el('a', 'app-nav__link' + (active ? ' is-active' : ''));
     a.href = href;
+    if (active) a.setAttribute('aria-current', 'page');
     a.appendChild(el('span', 'app-nav__text', label));
     return a;
   }
@@ -84,8 +108,14 @@
     var brand = el('div', 'app-brand');
     var logo = el('img', 'app-brand__logo');
     logo.src = BRAND_LOGO;
+    logo.width = 1000;
+    logo.height = 302;
     logo.alt = 'UCEVA · Unidad Central del Valle del Cauca';
-    brand.appendChild(logo);
+    var home = el('a', 'app-brand__home');
+    home.href = HOME[section] || HOME.usuario;
+    home.setAttribute('aria-label', 'Ir al inicio de SAICI');
+    home.appendChild(logo);
+    brand.appendChild(home);
     brand.appendChild(el('div', 'app-brand__name', BRAND.name));
     brand.appendChild(el('div', 'app-brand__tagline', BRAND.tagline));
     side.appendChild(brand);
@@ -97,6 +127,13 @@
       menuToggle.setAttribute('aria-expanded', String(open));
     });
     side.appendChild(menuToggle);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && side.classList.contains('is-open')) {
+        side.classList.remove('is-open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.focus();
+      }
+    });
 
     NAV.forEach(function (group) {
       //Logica separacion de roles
@@ -121,7 +158,7 @@
       }
       group.items.forEach(function (it) {
         var href = it.section === section ? it.file : '../' + it.section + '/' + it.file;
-        nav.appendChild(link(href, it.label, it.section === section && it.file === file));
+        nav.appendChild(link(href, it.label, it.section === section && (it.file === file || PARENT[file] === it.file)));
       });
       side.appendChild(nav);
     });
@@ -129,7 +166,7 @@
     side.appendChild(el('div', 'app-nav__spacer'));
 
     var foot = el('nav', 'app-nav');
-    foot.appendChild(link(LOGIN, 'Volver al acceso', false));
+    foot.appendChild(link(LOGIN, 'Cerrar sesión', false));
     side.appendChild(foot);
     return side;
   }
@@ -138,7 +175,7 @@
     var bar = el('div', 'app-topbar');
     var titles = el('div', 'app-topbar__titles');
     titles.appendChild(el('div', 'app-topbar__title', TOPBAR.title));
-    titles.appendChild(el('div', 'app-topbar__subtitle', TOPBAR.subtitle));
+    titles.appendChild(el('div', 'app-topbar__subtitle', SUBTITLES[section] || TOPBAR.subtitle));
     bar.appendChild(titles);
     var badge = el('div', 'app-badge');
     badge.appendChild(el('div', 'app-badge__text', TOPBAR.badge));
