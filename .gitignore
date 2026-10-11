@@ -1,2 +1,8 @@
 node_modules/
 .env
+
+# Flutter generated files
+src/frontend_flutter/.dart_tool/
+src/frontend_flutter/build/
+src/frontend_flutter/.flutter-plugins
+src/frontend_flutter/.flutter-plugins-dependencies

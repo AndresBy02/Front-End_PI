@@ -10,11 +10,11 @@ CREATE TABLE usuario (
     tipo_usuario varchar(30),
 
 	CONSTRAINT chk_rol_usuario
-		CHECK (rol IN ('ADMINISTRADOR', 'USUARIO')),
+		CHECK (rol IN ('ADMINISTRADOR', 'USUARIO', 'LABORATORIO')),
 
     CONSTRAINT chk_tipo_usuario
 		CHECK (
-            (rol = 'ADMINISTRADOR' AND tipo_usuario IS NULL)
+            (rol IN ('ADMINISTRADOR', 'LABORATORIO') AND tipo_usuario IS NULL)
             OR
             (rol = 'USUARIO'
             AND tipo_usuario IN ('EGRESADO', 'ESTUDIANTE'))
@@ -89,5 +89,23 @@ CREATE TABLE codigos_verificacion (
         FOREIGN KEY (id_usuario)
         REFERENCES usuario(id_usuario)
 );
+-- ==============================================================================
+-- DATOS INICIALES DEL SISTEMA (USUARIOS ADMINISTRADORES Y ESPACIOS)
+-- Contraseñas hasheadas de forma segura con bcrypt (costo 10)
+-- Admin: admin@uceva.edu.co / Admin123456!
+-- Encargado Lab: laboratorio@uceva.edu.co / Lab123456!
+-- ==============================================================================
 
-SELECT * FROM usuario;
+INSERT INTO usuario (nombres, apellidos, email, telefono, contrasena, rol, tipo_usuario)
+VALUES 
+    ('Administrador', 'Principal UCEVA', 'admin@uceva.edu.co', '3000000001', '$2b$10$1siz4cmzbRovu//j82EEKuCkFd9vnrefkUjJlpWT4gOWoOZabAGUq', 'ADMINISTRADOR', NULL),
+    ('Coordinador', 'Laboratorios UCEVA', 'laboratorio@uceva.edu.co', '3000000002', '$2b$10$BtwGCxRhMCLLsGfqYVOa8.s7uF0zsvr.88lbwTYD7Wdd2TQC7cYYC', 'LABORATORIO', NULL)
+ON CONFLICT (email) DO NOTHING;
+
+INSERT INTO laboratorio (nombre, ubicacion, estado, capacidad)
+VALUES 
+    ('Laboratorio de Redes y Telecomunicaciones', 'Edificio de Ingeniería - Bloque B Piso 2', 'DISPONIBLE', 30),
+    ('Laboratorio de Desarrollo de Software', 'Bloque C - Aula 204', 'DISPONIBLE', 25),
+    ('Sala de Cómputo Especializado 301', 'Bloque A - Piso 3', 'DISPONIBLE', 35),
+    ('Laboratorio de Robótica y Automatización', 'Centro de Innovación - Lab 1', 'DISPONIBLE', 20)
+ON CONFLICT DO NOTHING;
