@@ -48,7 +48,7 @@ const obtenerReservas = async (req, res) => {
 
     try {
 
-        const reservas = await reservaService.obtenerReservas();
+        const reservas = await reservaService.obtenerReservas(req.usuario);
 
         return res.status(200).json(reservas);
 
@@ -146,7 +146,7 @@ const cancelarReserva = async (req, res) => {
 
         const { id } = req.params;
 
-        const reserva = await reservaService.cancelarReserva(id, req.usuario.id_usuario);
+        const reserva = await reservaService.cancelarReserva(id, req.usuario.id_usuario, req.usuario.rol);
 
         return res.status(200).json({
             message: 'Reserva cancelada exitosamente',
@@ -163,11 +163,32 @@ const cancelarReserva = async (req, res) => {
     }
 };
 
+const cambiarEstado = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { estado } = req.body;
+
+        if (!estado) {
+            return res.status(400).json({ error: 'El estado es obligatorio' });
+        }
+
+        const reserva = await reservaService.cambiarEstadoReserva(id, estado);
+
+        return res.status(200).json({
+            message: 'Estado de reserva actualizado exitosamente',
+            reserva
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(400).json({ error: error.message });
+    }
+};
 
 module.exports = {
     crearReserva,
     obtenerReservas,
     obtenerReservaPorId,
     editarReserva,
-    cancelarReserva
+    cancelarReserva,
+    cambiarEstado
 };

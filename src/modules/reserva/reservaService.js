@@ -168,10 +168,10 @@ const crearReserva = async({
     }
 };
 
-//Obtener todas las reservas
+//Obtener todas las reservas (filtrado por rol)
 
-const obtenerReservas = async () => {
-    const result = await pool.query(`
+const obtenerReservas = async (usuarioAutenticado) => {
+    let query = `
         SELECT 
             r.id_reserva,
             r.id_usuario,
@@ -187,10 +187,20 @@ const obtenerReservas = async () => {
         FROM reserva AS r
         INNER JOIN usuario AS u ON r.id_usuario = u.id_usuario
         INNER JOIN laboratorio AS l ON r.id_laboratorio = l.id_laboratorio
-        ORDER BY r.fecha DESC, r.hora_inicio DESC
-        `);
+    `;
+    const params = [];
 
-        return result.rows[0];
+    // Si es un usuario regular (estudiante / egresado), solo puede ver sus propias reservas
+    const rol = (usuarioAutenticado?.rol || "").toUpperCase();
+    if (rol !== "ADMINISTRADOR" && rol !== "LABORATORIO") {
+        query += ` WHERE r.id_usuario = $1 `;
+        params.push(usuarioAutenticado.id_usuario);
+    }
+
+    query += ` ORDER BY r.fecha DESC, r.hora_inicio DESC`;
+
+    const result = await pool.query(query, params);
+    return result.rows;
 };
 
 const obtenerReservaPorId = async (id_reserva) => {
@@ -354,29 +364,51 @@ const editarReserva = async (
 };
 
 
-const cancelarReserva = async (id_reserva, id_usuario) => {
+const cancelarReserva = async (id_reserva, id_usuario, rol) => {
+    let query;
+    let params;
+    if ((rol || "").toUpperCase() === 'ADMINISTRADOR') {
+        query = `UPDATE reserva SET estado = 'CANCELADA' WHERE id_reserva = $1 RETURNING *`;
+        params = [id_reserva];
+    } else {
+        query = `UPDATE reserva SET estado = 'CANCELADA' WHERE id_reserva = $1 AND id_usuario = $2 RETURNING *`;
+        params = [id_reserva, id_usuario];
+    }
 
-        const result = await pool.query(    
-            `UPDATE reserva
-            SET estado = 'CANCELADA'
-            WHERE id_reserva = $1 
-            AND id_usuario = $2
-            RETURNING *
-            `, [id_reserva, id_usuario]
-        );
+    const result = await pool.query(query, params);
 
-        if (result.rows.length === 0) {
-            throw new Error('Reserva no encontrada o no puede ser cancelada');
-        }
+    if (result.rows.length === 0) {
+        throw new Error('Reserva no encontrada o no tienes permisos para cancelarla');
+    }
 
-        return result.rows[0];
+    return result.rows[0];
 };
 
+const cambiarEstadoReserva = async (id_reserva, nuevoEstado) => {
+    const estadosValidos = ['PENDIENTE', 'CONFIRMADA', 'CANCELADA', 'FINALIZADA'];
+    const estadoNorm = (nuevoEstado || "").toUpperCase();
+
+    if (!estadosValidos.includes(estadoNorm)) {
+        throw new Error(`Estado no válido. Debe ser uno de: ${estadosValidos.join(', ')}`);
+    }
+
+    const result = await pool.query(
+        `UPDATE reserva SET estado = $1 WHERE id_reserva = $2 RETURNING *`,
+        [estadoNorm, id_reserva]
+    );
+
+    if (result.rows.length === 0) {
+        throw new Error('Reserva no encontrada');
+    }
+
+    return result.rows[0];
+};
 
 module.exports = {
     crearReserva,
     obtenerReservas,
     obtenerReservaPorId,
     editarReserva,
-    cancelarReserva
+    cancelarReserva,
+    cambiarEstadoReserva
 };
