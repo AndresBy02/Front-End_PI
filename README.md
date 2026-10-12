@@ -16,7 +16,7 @@ Si un compañero clona el repositorio, tiene dos formas de ejecutarlo:
 No requiere instalar PostgreSQL ni Node.js manualmente.
 1. Clona el repositorio y entra a la carpeta:
    ```bash
-   git clone <URL_DEL_REPO>
+   git clone https://github.com/AndresBy02/Front-End_PI
    cd Front-End_PI
    ```
 2. Levanta la base de datos (con tablas y horarios automáticos) y el backend con un solo comando:
