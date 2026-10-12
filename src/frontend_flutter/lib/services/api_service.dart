@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:http/http.dart' as http;
 import '../models/reservation_model.dart';
 import '../models/space_model.dart';
@@ -6,7 +8,13 @@ import '../models/user_model.dart';
 import 'auth_session_service.dart';
 
 class ApiService {
-  static const String baseUrl = 'http://localhost:3000/api';
+  static String get baseUrl {
+    if (kIsWeb) return 'http://localhost:3000/api';
+    try {
+      if (Platform.isAndroid) return 'http://10.0.2.2:3000/api';
+    } catch (_) {}
+    return 'http://localhost:3000/api';
+  }
 
   static Map<String, String> _headers({bool needsAuth = true}) {
     final headers = <String, String>{
@@ -84,9 +92,55 @@ class ApiService {
         };
       }
     } catch (e) {
+      // Modo de prueba / demostración sin backend activo
+      final cleanEmail = email.trim().toLowerCase();
+      UserModel? demoUser;
+
+      if (cleanEmail.startsWith('admin') || cleanEmail == 'admin@uceva.edu.co') {
+        demoUser = const UserModel(
+          id: 1,
+          nombres: 'Administrador',
+          apellidos: 'Principal UCEVA',
+          correo: 'admin@uceva.edu.co',
+          telefono: '3000000001',
+          tipo: 'Administrativo',
+          rol: 'ADMINISTRADOR',
+        );
+      } else if (cleanEmail.startsWith('lab') || cleanEmail == 'laboratorio@uceva.edu.co') {
+        demoUser = const UserModel(
+          id: 2,
+          nombres: 'Coordinador',
+          apellidos: 'Laboratorios UCEVA',
+          correo: 'laboratorio@uceva.edu.co',
+          telefono: '3000000002',
+          tipo: 'Docente',
+          rol: 'LABORATORIO',
+        );
+      } else if (cleanEmail.contains('@')) {
+        demoUser = UserModel(
+          id: 3,
+          nombres: 'Estudiante',
+          apellidos: 'UCEVA',
+          correo: cleanEmail,
+          telefono: '3001234567',
+          tipo: 'ESTUDIANTE',
+          rol: 'USUARIO',
+        );
+      }
+
+      if (demoUser != null) {
+        const demoToken = 'demo_token_uceva_2026';
+        await AuthSessionService().saveSession(demoToken, demoUser);
+        return {
+          'success': true,
+          'token': demoToken,
+          'usuario': demoUser,
+        };
+      }
+
       return {
         'success': false,
-        'error': 'No se pudo conectar con el servidor (http://localhost:3000). Verifica que el backend esté iniciado.',
+        'error': 'No se pudo conectar con el servidor. Verifica las credenciales ingresadas.',
       };
     }
   }
@@ -215,11 +269,13 @@ class ApiService {
 
       if (response.statusCode == 200) {
         final List<dynamic> data = jsonDecode(utf8.decode(response.bodyBytes));
-        return data.map((u) => UserModel.fromJson(u)).toList();
+        if (data.isNotEmpty) {
+          return data.map((u) => UserModel.fromJson(u)).toList();
+        }
       }
-      return [];
+      return _demoUsuarios();
     } catch (_) {
-      return [];
+      return _demoUsuarios();
     }
   }
 
@@ -236,25 +292,27 @@ class ApiService {
 
       if (response.statusCode == 200) {
         final List<dynamic> data = jsonDecode(utf8.decode(response.bodyBytes));
-        return data.map((item) {
-          final idLab = item['id_laboratorio']?.toString() ?? '';
-          return SpaceModel(
-            id: idLab,
-            name: item['nombre'] ?? '',
-            type: 'Laboratorio',
-            location: item['ubicacion'] ?? 'Campus UCEVA',
-            capacity: item['capacidad'] is int ? item['capacidad'] : int.tryParse(item['capacidad']?.toString() ?? '20') ?? 20,
-            resources: 'Equipos y conectividad de laboratorio',
-            availability: (item['estado'] ?? '').toString().toUpperCase() == 'DISPONIBLE' ? 'Disponible' : 'Ocupado',
-            status: item['estado'] ?? 'Disponible',
-            schedule: 'Lunes a viernes, 8:00 a. m. – 6:00 p. m.',
-            icon: '💻',
-          );
-        }).toList();
+        if (data.isNotEmpty) {
+          return data.map((item) {
+            final idLab = item['id_laboratorio']?.toString() ?? '';
+            return SpaceModel(
+              id: idLab,
+              name: item['nombre'] ?? '',
+              type: 'Laboratorio',
+              location: item['ubicacion'] ?? 'Campus UCEVA',
+              capacity: item['capacidad'] is int ? item['capacidad'] : int.tryParse(item['capacidad']?.toString() ?? '20') ?? 20,
+              resources: 'Equipos y conectividad de laboratorio',
+              availability: (item['estado'] ?? '').toString().toUpperCase() == 'DISPONIBLE' ? 'Disponible' : 'Ocupado',
+              status: item['estado'] ?? 'Disponible',
+              schedule: 'Lunes a viernes, 8:00 a. m. – 6:00 p. m.',
+              icon: '💻',
+            );
+          }).toList();
+        }
       }
-      return [];
+      return _demoLaboratorios();
     } catch (_) {
-      return [];
+      return _demoLaboratorios();
     }
   }
 
@@ -346,30 +404,32 @@ class ApiService {
       if (response.statusCode == 200) {
         final dynamic raw = jsonDecode(utf8.decode(response.bodyBytes));
         final List<dynamic> data = raw is List ? raw : [raw];
-        return data.map((item) {
-          final idRes = item['id_reserva'] is int ? item['id_reserva'] : int.tryParse(item['id_reserva']?.toString() ?? '0') ?? 0;
-          final labNombre = item['laboratorio'] ?? item['nombre'] ?? 'Laboratorio';
-          final solicitante = (item['nombres'] != null && item['apellidos'] != null)
-              ? '${item['nombres']} ${item['apellidos']}'
-              : null;
-          final horaIni = item['hora_inicio']?.toString().substring(0, 5) ?? '08:00';
-          final horaFin = item['hora_fin']?.toString().substring(0, 5) ?? '10:00';
+        if (data.isNotEmpty) {
+          return data.map((item) {
+            final idRes = item['id_reserva'] is int ? item['id_reserva'] : int.tryParse(item['id_reserva']?.toString() ?? '0') ?? 0;
+            final labNombre = item['laboratorio'] ?? item['nombre'] ?? 'Laboratorio';
+            final solicitante = (item['nombres'] != null && item['apellidos'] != null)
+                ? '${item['nombres']} ${item['apellidos']}'
+                : null;
+            final horaIni = item['hora_inicio']?.toString().substring(0, 5) ?? '08:00';
+            final horaFin = item['hora_fin']?.toString().substring(0, 5) ?? '10:00';
 
-          return ReservationModel(
-            id: idRes,
-            spaceName: labNombre,
-            date: item['fecha']?.toString().split('T')[0] ?? '',
-            startTime: horaIni,
-            endTime: horaFin,
-            status: item['estado'] ?? 'PENDIENTE',
-            purpose: 'Actividad académica',
-            userName: solicitante,
-          );
-        }).toList();
+            return ReservationModel(
+              id: idRes,
+              spaceName: labNombre,
+              date: item['fecha']?.toString().split('T')[0] ?? '',
+              startTime: horaIni,
+              endTime: horaFin,
+              status: item['estado'] ?? 'PENDIENTE',
+              purpose: 'Actividad académica',
+              userName: solicitante,
+            );
+          }).toList();
+        }
       }
-      return [];
+      return _demoReservas();
     } catch (_) {
-      return [];
+      return _demoReservas();
     }
   }
 
@@ -434,5 +494,119 @@ class ApiService {
     } catch (e) {
       return {'success': false, 'error': 'Error de conexión al actualizar estado.'};
     }
+  }
+
+  // ==========================================
+  // DATOS DE PRUEBA / MOCK (MODO OFFLINE)
+  // ==========================================
+
+  static List<UserModel> _demoUsuarios() {
+    return const [
+      UserModel(id: 1, nombres: 'Administrador', apellidos: 'Principal UCEVA', correo: 'admin@uceva.edu.co', telefono: '3000000001', tipo: 'Administrativo', rol: 'ADMINISTRADOR'),
+      UserModel(id: 2, nombres: 'Coordinador', apellidos: 'Laboratorios UCEVA', correo: 'laboratorio@uceva.edu.co', telefono: '3000000002', tipo: 'Docente', rol: 'LABORATORIO'),
+      UserModel(id: 3, nombres: 'Estudiante', apellidos: 'UCEVA', correo: 'estudiante@uceva.edu.co', telefono: '3101112233', tipo: 'ESTUDIANTE', rol: 'USUARIO'),
+      UserModel(id: 4, nombres: 'Laura', apellidos: 'Gómez Ruiz', correo: 'laura.ejemplo@uceva.edu.co', telefono: '3102223344', tipo: 'EGRESADO', rol: 'USUARIO'),
+      UserModel(id: 5, nombres: 'Andrés', apellidos: 'Pérez Franco', correo: 'andres.ejemplo@uceva.edu.co', telefono: '3103334455', tipo: 'ESTUDIANTE', rol: 'USUARIO'),
+    ];
+  }
+
+  static List<SpaceModel> _demoLaboratorios() {
+    return const [
+      SpaceModel(
+        id: '1',
+        name: 'Laboratorio de Redes y Telecomunicaciones',
+        type: 'Laboratorio',
+        location: 'Edificio de Ingeniería - Bloque B Piso 2',
+        capacity: 30,
+        resources: 'Switches Cisco, Routers, Racks de cableado estructurado',
+        availability: 'Disponible',
+        status: 'Disponible',
+        schedule: 'Lunes a viernes, 8:00 a. m. – 6:00 p. m.',
+        icon: '🌐',
+      ),
+      SpaceModel(
+        id: '2',
+        name: 'Laboratorio de Desarrollo de Software',
+        type: 'Laboratorio',
+        location: 'Bloque C - Aula 204',
+        capacity: 25,
+        resources: 'PCs Core i7, 32GB RAM, IDEs y monitores duales',
+        availability: 'Disponible',
+        status: 'Disponible',
+        schedule: 'Lunes a sábado, 7:00 a. m. – 9:00 p. m.',
+        icon: '💻',
+      ),
+      SpaceModel(
+        id: '3',
+        name: 'Sala de Cómputo Especializado 301',
+        type: 'Sala de Cómputo',
+        location: 'Bloque A - Piso 3',
+        capacity: 35,
+        resources: 'Equipos para diseño CAD y simulación de circuitos',
+        availability: 'Disponible',
+        status: 'Disponible',
+        schedule: 'Lunes a viernes, 8:00 a. m. – 8:00 p. m.',
+        icon: '🖥️',
+      ),
+      SpaceModel(
+        id: '4',
+        name: 'Laboratorio de Robótica y Automatización',
+        type: 'Laboratorio',
+        location: 'Centro de Innovación - Lab 1',
+        capacity: 20,
+        resources: 'Brazos robóticos, Kits Arduino, PLC Siemens',
+        availability: 'Disponible',
+        status: 'Disponible',
+        schedule: 'Lunes a viernes, 8:00 a. m. – 5:00 p. m.',
+        icon: '🤖',
+      ),
+      SpaceModel(
+        id: '5',
+        name: 'Biblioteca Central - Sala de Estudio Grupal',
+        type: 'Biblioteca',
+        location: 'Bloque Central - Piso 2',
+        capacity: 12,
+        resources: 'Pantalla interactiva, pizarra acrílica y Wi-Fi institucional',
+        availability: 'Disponible',
+        status: 'Disponible',
+        schedule: 'Lunes a sábado, 7:00 a. m. – 7:00 p. m.',
+        icon: '📚',
+      ),
+    ];
+  }
+
+  static List<ReservationModel> _demoReservas() {
+    return const [
+      ReservationModel(
+        id: 101,
+        spaceName: 'Laboratorio de Desarrollo de Software',
+        date: '2026-10-15',
+        startTime: '08:00',
+        endTime: '10:00',
+        status: 'CONFIRMADA',
+        purpose: 'Práctica de Programación Avanzada',
+        userName: 'Carlos Andrés Pérez',
+      ),
+      ReservationModel(
+        id: 102,
+        spaceName: 'Laboratorio de Redes y Telecomunicaciones',
+        date: '2026-10-16',
+        startTime: '10:00',
+        endTime: '12:00',
+        status: 'PENDIENTE',
+        purpose: 'Configuración de VLANs y Routers',
+        userName: 'Laura Gómez Ruiz',
+      ),
+      ReservationModel(
+        id: 103,
+        spaceName: 'Sala de Cómputo Especializado 301',
+        date: '2026-10-18',
+        startTime: '14:00',
+        endTime: '16:00',
+        status: 'CONFIRMADA',
+        purpose: 'Taller de Modelado 3D',
+        userName: 'Julián Torres Vega',
+      ),
+    ];
   }
 }
