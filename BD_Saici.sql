@@ -99,6 +99,7 @@ CREATE TABLE codigos_verificacion (
 INSERT INTO usuario (nombres, apellidos, email, telefono, contrasena, rol, tipo_usuario)
 VALUES 
     ('Administrador', 'Principal UCEVA', 'admin@uceva.edu.co', '3000000001', '$2b$10$1siz4cmzbRovu//j82EEKuCkFd9vnrefkUjJlpWT4gOWoOZabAGUq', 'ADMINISTRADOR', NULL),
+    ('Estudiante', 'Prueba UCEVA', 'estudiante@uceva.edu.co', '3000000003', '$2b$10$BtwGCxRhMCLLsGfqYVOa8.s7uF0zsvr.88lbwTYD7Wdd2TQC7cYYC', 'ESTUDIANTE', NULL),
     ('Coordinador', 'Laboratorios UCEVA', 'laboratorio@uceva.edu.co', '3000000002', '$2b$10$BtwGCxRhMCLLsGfqYVOa8.s7uF0zsvr.88lbwTYD7Wdd2TQC7cYYC', 'LABORATORIO', NULL)
 ON CONFLICT (email) DO NOTHING;
 
