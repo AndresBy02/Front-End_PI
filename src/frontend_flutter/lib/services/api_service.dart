@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import '../models/reservation_model.dart';
 import '../models/space_model.dart';
@@ -6,7 +7,17 @@ import '../models/user_model.dart';
 import 'auth_session_service.dart';
 
 class ApiService {
-  static const String baseUrl = 'http://localhost:3000/api';
+  // En Web o Desktop se usa localhost:3000.
+  // En el Emulador de Android, localhost es el emulador mismo; la IP del host de la PC es 10.0.2.2.
+  static String get baseUrl {
+    if (kIsWeb) {
+      return 'http://localhost:3000/api';
+    }
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      return 'http://10.0.2.2:3000/api';
+    }
+    return 'http://localhost:3000/api';
+  }
 
   static Map<String, String> _headers({bool needsAuth = true}) {
     final headers = <String, String>{
@@ -86,7 +97,7 @@ class ApiService {
     } catch (e) {
       return {
         'success': false,
-        'error': 'No se pudo conectar con el servidor (http://localhost:3000). Verifica que el backend esté iniciado.',
+        'error': 'No se pudo conectar con el servidor ($baseUrl). Verifica que el backend esté iniciado.',
       };
     }
   }

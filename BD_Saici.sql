@@ -109,3 +109,13 @@ VALUES
     ('Sala de Cómputo Especializado 301', 'Bloque A - Piso 3', 'DISPONIBLE', 35),
     ('Laboratorio de Robótica y Automatización', 'Centro de Innovación - Lab 1', 'DISPONIBLE', 20)
 ON CONFLICT DO NOTHING;
+
+-- 6. Horarios de atención (Lunes a Sábado)
+INSERT INTO horario (dia_semana, hora_apertura, hora_cierre) VALUES
+    (1, '07:00:00', '22:00:00'),
+    (2, '07:00:00', '22:00:00'),
+    (3, '07:00:00', '22:00:00'),
+    (4, '07:00:00', '22:00:00'),
+    (5, '07:00:00', '22:00:00'),
+    (6, '08:00:00', '18:00:00')
+ON CONFLICT DO NOTHING;

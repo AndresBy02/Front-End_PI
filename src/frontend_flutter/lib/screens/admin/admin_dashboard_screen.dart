@@ -45,6 +45,25 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
     });
   }
 
+  Future<void> _updateStatus(int id, String newStatus) async {
+    final result = await ApiService.updateEstadoReserva(id, newStatus);
+    if (!mounted) return;
+
+    if (result['success'] == true) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Reserva #$id actualizada a: $newStatus')),
+      );
+      _loadDashboardData();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(result['error'] ?? 'Error al actualizar reserva.'),
+          backgroundColor: AppColors.error,
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final pendingReservations = _reservas.where((r) => r.status.toUpperCase() == 'PENDIENTE').toList();
@@ -221,28 +240,51 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                               child: Text('No hay solicitudes pendientes en este momento.', style: TextStyle(color: AppColors.textMuted)),
                             )
                           else
-                            SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: DataTable(
-                                headingRowColor: WidgetStateProperty.all(AppColors.frameBg),
-                                columns: const [
-                                  DataColumn(label: Text('Espacio')),
-                                  DataColumn(label: Text('Fecha y Hora')),
-                                  DataColumn(label: Text('Solicitante')),
-                                  DataColumn(label: Text('Motivo')),
-                                  DataColumn(label: Text('Estado')),
-                                ],
-                                rows: pendingReservations.map((r) {
-                                  return DataRow(
-                                    cells: [
-                                      DataCell(Text(r.spaceName, style: const TextStyle(fontWeight: FontWeight.w600))),
-                                      DataCell(Text('${r.date} (${r.startTime} – ${r.endTime})')),
-                                      DataCell(Text(r.userName ?? 'Estudiante')),
-                                      DataCell(Text(r.purpose ?? 'Académico')),
-                                      DataCell(StatusBadge(status: r.status)),
-                                    ],
-                                  );
-                                }).toList(),
+                            Scrollbar(
+                              thumbVisibility: true,
+                              trackVisibility: true,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                padding: const EdgeInsets.only(bottom: 12),
+                                child: DataTable(
+                                  headingRowColor: WidgetStateProperty.all(AppColors.frameBg),
+                                  columns: const [
+                                    DataColumn(label: Text('Espacio')),
+                                    DataColumn(label: Text('Fecha y Hora')),
+                                    DataColumn(label: Text('Solicitante')),
+                                    DataColumn(label: Text('Motivo')),
+                                    DataColumn(label: Text('Estado')),
+                                    DataColumn(label: Text('Acciones')),
+                                  ],
+                                  rows: pendingReservations.map((r) {
+                                    return DataRow(
+                                      cells: [
+                                        DataCell(Text(r.spaceName, style: const TextStyle(fontWeight: FontWeight.w600))),
+                                        DataCell(Text('${r.date} (${r.startTime} – ${r.endTime})')),
+                                        DataCell(Text(r.userName ?? 'Estudiante')),
+                                        DataCell(Text(r.purpose ?? 'Académico')),
+                                        DataCell(StatusBadge(status: r.status)),
+                                        DataCell(
+                                          Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              IconButton(
+                                                icon: const Icon(Icons.check_circle_outline, color: AppColors.accentGreen),
+                                                tooltip: 'Aprobar reserva',
+                                                onPressed: () => _updateStatus(r.id, 'CONFIRMADA'),
+                                              ),
+                                              IconButton(
+                                                icon: const Icon(Icons.cancel_outlined, color: AppColors.error),
+                                                tooltip: 'Rechazar reserva',
+                                                onPressed: () => _updateStatus(r.id, 'CANCELADA'),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  }).toList(),
+                                ),
                               ),
                             ),
                         ],
