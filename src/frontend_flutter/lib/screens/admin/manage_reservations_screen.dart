@@ -105,9 +105,13 @@ class _ManageReservationsScreenState extends State<ManageReservationsScreen> {
                           ),
                         )
                       else
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: DataTable(
+                        Scrollbar(
+                          thumbVisibility: true,
+                          trackVisibility: true,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            padding: const EdgeInsets.only(bottom: 12),
+                            child: DataTable(
                             headingRowColor: WidgetStateProperty.all(AppColors.frameBg),
                             columns: const [
                               DataColumn(label: Text('ID')),
@@ -152,6 +156,7 @@ class _ManageReservationsScreenState extends State<ManageReservationsScreen> {
                             }).toList(),
                           ),
                         ),
+                      ),
                     ],
                   ),
                 ),
