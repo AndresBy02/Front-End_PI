@@ -141,30 +141,67 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                     ),
                     const SizedBox(height: 28),
 
-                    // Métricas reales
-                    Row(
-                      children: [
-                        _buildStatCard(
-                          'Tus Reservas Activas',
-                          '${_reservas.where((r) => r.status.toUpperCase() != "CANCELADA").length}',
-                          Icons.calendar_month_outlined,
-                          AppColors.accentGreen,
-                        ),
-                        const SizedBox(width: 16),
-                        _buildStatCard(
-                          'Laboratorios en Campus',
-                          '${_spaces.length}',
-                          Icons.domain_outlined,
-                          AppColors.primaryGreen,
-                        ),
-                        const SizedBox(width: 16),
-                        _buildStatCard(
-                          'Historial Total',
-                          '${_reservas.length}',
-                          Icons.history_outlined,
-                          AppColors.amberText,
-                        ),
-                      ],
+                    // Métricas reales adaptables
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        final isMobile = constraints.maxWidth < 640;
+                        if (isMobile) {
+                          return Column(
+                            children: [
+                              _buildStatCard(
+                                'Tus Reservas Activas',
+                                '${_reservas.where((r) => r.status.toUpperCase() != "CANCELADA").length}',
+                                Icons.calendar_month_outlined,
+                                AppColors.accentGreen,
+                              ),
+                              const SizedBox(height: 12),
+                              _buildStatCard(
+                                'Laboratorios en Campus',
+                                '${_spaces.length}',
+                                Icons.domain_outlined,
+                                AppColors.primaryGreen,
+                              ),
+                              const SizedBox(height: 12),
+                              _buildStatCard(
+                                'Historial Total',
+                                '${_reservas.length}',
+                                Icons.history_outlined,
+                                AppColors.amberText,
+                              ),
+                            ],
+                          );
+                        }
+                        return Row(
+                          children: [
+                            Expanded(
+                              child: _buildStatCard(
+                                'Tus Reservas Activas',
+                                '${_reservas.where((r) => r.status.toUpperCase() != "CANCELADA").length}',
+                                Icons.calendar_month_outlined,
+                                AppColors.accentGreen,
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: _buildStatCard(
+                                'Laboratorios en Campus',
+                                '${_spaces.length}',
+                                Icons.domain_outlined,
+                                AppColors.primaryGreen,
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: _buildStatCard(
+                                'Historial Total',
+                                '${_reservas.length}',
+                                Icons.history_outlined,
+                                AppColors.amberText,
+                              ),
+                            ),
+                          ],
+                        );
+                      },
                     ),
                     const SizedBox(height: 32),
 
@@ -273,41 +310,46 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
   }
 
   Widget _buildStatCard(String label, String value, IconData icon, Color color) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(18),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: AppColors.surfaceBorder),
-        ),
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Icon(icon, color: color, size: 24),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColors.surfaceBorder),
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(10),
             ),
-            const SizedBox(width: 14),
-            Column(
+            child: Icon(icon, color: color, size: 22),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   value,
                   style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: AppColors.textStrong),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: 2),
                 Text(
                   label,
                   style: const TextStyle(fontSize: 12, color: AppColors.textMuted),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

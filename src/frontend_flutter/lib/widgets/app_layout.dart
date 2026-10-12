@@ -165,7 +165,8 @@ class AppLayout extends StatelessWidget {
       return allowed.contains(userRole) || allowed.contains(userTipo);
     }).toList();
 
-    final isDesktop = MediaQuery.of(context).size.width >= 900;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isDesktop = screenWidth >= 960;
     final roleDescription = user != null ? _formatUserRole(userRole, userTipo) : 'Sesión activa';
 
     if (!isDesktop) {
@@ -175,25 +176,37 @@ class AppLayout extends StatelessWidget {
         appBar: AppBar(
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              Text(
+                title,
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
               Text(
                 subtitle ?? (user != null ? '${user.nombres} · $roleDescription' : roleDescription),
-                style: const TextStyle(fontSize: 12, color: AppColors.textMuted),
+                style: const TextStyle(fontSize: 11, color: AppColors.textMuted),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),
           actions: [
-            Container(
-              margin: const EdgeInsets.only(right: 12),
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-              decoration: BoxDecoration(
-                color: AppColors.accentGreenSoft,
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: Text(
-                userRole.isNotEmpty ? userRole : 'USUARIO',
-                style: const TextStyle(color: AppColors.accentGreenText, fontSize: 11, fontWeight: FontWeight.bold),
+            Padding(
+              padding: const EdgeInsets.only(right: 12),
+              child: Center(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: AppColors.accentGreenSoft,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Text(
+                    userRole.isNotEmpty ? userRole : 'USUARIO',
+                    style: const TextStyle(color: AppColors.accentGreenText, fontSize: 10, fontWeight: FontWeight.bold),
+                  ),
+                ),
               ),
             ),
           ],
@@ -206,12 +219,13 @@ class AppLayout extends StatelessWidget {
       );
     }
 
-    // Escritorio con Marco de 1180px y Sidebar
+    // Escritorio con Marco Fluido y Sidebar
     return Scaffold(
       backgroundColor: AppColors.pageBg,
       body: Center(
         child: Container(
-          width: 1180,
+          constraints: const BoxConstraints(maxWidth: 1240),
+          width: double.infinity,
           margin: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
           decoration: BoxDecoration(
             color: AppColors.frameBg,
@@ -268,27 +282,35 @@ class AppLayout extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: AppColors.topbarTitle,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.topbarTitle,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                subtitle ?? '$userName · $roleDescription',
-                style: const TextStyle(
-                  fontSize: 13,
-                  color: AppColors.topbarSubtitle,
+                const SizedBox(height: 2),
+                Text(
+                  subtitle ?? '$userName · $roleDescription',
+                  style: const TextStyle(
+                    fontSize: 13,
+                    color: AppColors.topbarSubtitle,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
+          const SizedBox(width: 16),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(

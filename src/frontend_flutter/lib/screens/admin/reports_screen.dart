@@ -59,7 +59,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
         onRefresh: _loadMetrics,
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -71,33 +71,73 @@ class _ReportsScreenState extends State<ReportsScreen> {
                   ),
                 )
               else ...[
-                // Resumen de Métricas de Rendimiento
-                Row(
-                  children: [
-                    _buildReportMetric(
-                      'Tasa de Confirmación',
-                      '$tasaConfirmacion%',
-                      '$activas de $totalReservas reservas',
-                      Icons.check_circle_outline,
-                      AppColors.accentGreen,
-                    ),
-                    const SizedBox(width: 16),
-                    _buildReportMetric(
-                      'Total Reservas',
-                      '$totalReservas',
-                      'Registradas en el sistema',
-                      Icons.calendar_month_outlined,
-                      AppColors.primaryGreen,
-                    ),
-                    const SizedBox(width: 16),
-                    _buildReportMetric(
-                      'Canceladas',
-                      '$canceladas',
-                      'Solicitudes declinadas',
-                      Icons.cancel_outlined,
-                      AppColors.amberText,
-                    ),
-                  ],
+                // Resumen de Métricas Adaptable
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    final isMobile = constraints.maxWidth < 680;
+                    if (isMobile) {
+                      return Column(
+                        children: [
+                          _buildReportMetric(
+                            'Tasa de Confirmación',
+                            '$tasaConfirmacion%',
+                            '$activas de $totalReservas reservas',
+                            Icons.check_circle_outline,
+                            AppColors.accentGreen,
+                          ),
+                          const SizedBox(height: 12),
+                          _buildReportMetric(
+                            'Total Reservas',
+                            '$totalReservas',
+                            'Registradas en el sistema',
+                            Icons.calendar_month_outlined,
+                            AppColors.primaryGreen,
+                          ),
+                          const SizedBox(height: 12),
+                          _buildReportMetric(
+                            'Canceladas',
+                            '$canceladas',
+                            'Solicitudes declinadas',
+                            Icons.cancel_outlined,
+                            AppColors.amberText,
+                          ),
+                        ],
+                      );
+                    }
+                    return Row(
+                      children: [
+                        Expanded(
+                          child: _buildReportMetric(
+                            'Tasa de Confirmación',
+                            '$tasaConfirmacion%',
+                            '$activas de $totalReservas reservas',
+                            Icons.check_circle_outline,
+                            AppColors.accentGreen,
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: _buildReportMetric(
+                            'Total Reservas',
+                            '$totalReservas',
+                            'Registradas en el sistema',
+                            Icons.calendar_month_outlined,
+                            AppColors.primaryGreen,
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: _buildReportMetric(
+                            'Canceladas',
+                            '$canceladas',
+                            'Solicitudes declinadas',
+                            Icons.cancel_outlined,
+                            AppColors.amberText,
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
                 const SizedBox(height: 24),
 
@@ -108,7 +148,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(color: AppColors.surfaceBorder),
                   ),
-                  padding: const EdgeInsets.all(24),
+                  padding: const EdgeInsets.all(20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -135,14 +175,18 @@ class _ReportsScreenState extends State<ReportsScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
-                                      '${sp.icon} ${sp.name}',
-                                      style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+                                    Expanded(
+                                      child: Text(
+                                        '${sp.icon} ${sp.name}',
+                                        style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
                                     ),
+                                    const SizedBox(width: 10),
                                     Text(
-                                      '${spaceCountMap[sp.name] ?? 0} reservas registradas',
+                                      '${spaceCountMap[sp.name] ?? 0} reservas',
                                       style: const TextStyle(
                                         color: AppColors.accentGreenText,
                                         fontWeight: FontWeight.bold,
@@ -177,30 +221,46 @@ class _ReportsScreenState extends State<ReportsScreen> {
   }
 
   Widget _buildReportMetric(String title, String val, String subtitle, IconData icon, Color color) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: AppColors.surfaceBorder),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(val, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w800, color: AppColors.textStrong)),
-                Icon(icon, color: color, size: 24),
-              ],
-            ),
-            const SizedBox(height: 6),
-            Text(title, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14, color: AppColors.textStrong)),
-            const SizedBox(height: 2),
-            Text(subtitle, style: const TextStyle(color: AppColors.textMuted, fontSize: 12)),
-          ],
-        ),
+    return Container(
+      padding: const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColors.surfaceBorder),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Text(
+                  val,
+                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w800, color: AppColors.textStrong),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              Icon(icon, color: color, size: 22),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            title,
+            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14, color: AppColors.textStrong),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+          const SizedBox(height: 2),
+          Text(
+            subtitle,
+            style: const TextStyle(color: AppColors.textMuted, fontSize: 12),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ],
       ),
     );
   }
