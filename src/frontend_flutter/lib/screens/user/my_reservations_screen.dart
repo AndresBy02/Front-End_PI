@@ -123,36 +123,42 @@ class _MyReservationsScreenState extends State<MyReservationsScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Wrap(
+                      alignment: WrapAlignment.spaceBetween,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: 12,
+                      runSpacing: 12,
                       children: [
                         // Filtros
-                        Row(
-                          children: filters.map((f) {
-                            final isSel = _selectedFilter == f;
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 8),
-                              child: FilterChip(
-                                label: Text(f),
-                                selected: isSel,
-                                selectedColor: AppColors.accentGreen,
-                                backgroundColor: Colors.white,
-                                labelStyle: TextStyle(
-                                  color: isSel ? Colors.white : AppColors.textBody,
-                                  fontWeight: isSel ? FontWeight.bold : FontWeight.normal,
-                                  fontSize: 12,
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: filters.map((f) {
+                              final isSel = _selectedFilter == f;
+                              return Padding(
+                                padding: const EdgeInsets.only(right: 8),
+                                child: FilterChip(
+                                  label: Text(f),
+                                  selected: isSel,
+                                  selectedColor: AppColors.accentGreen,
+                                  backgroundColor: Colors.white,
+                                  labelStyle: TextStyle(
+                                    color: isSel ? Colors.white : AppColors.textBody,
+                                    fontWeight: isSel ? FontWeight.bold : FontWeight.normal,
+                                    fontSize: 12,
+                                  ),
+                                  onSelected: (val) => setState(() => _selectedFilter = f),
                                 ),
-                                onSelected: (val) => setState(() => _selectedFilter = f),
-                              ),
-                            );
-                          }).toList(),
+                              );
+                            }).toList(),
+                          ),
                         ),
                         ElevatedButton.icon(
                           onPressed: () => Navigator.pushReplacementNamed(context, '/user/wizard'),
                           icon: const Icon(Icons.add, size: 16),
                           label: const Text('Nueva reserva'),
                           style: ElevatedButton.styleFrom(
-                            minimumSize: const Size(150, 36),
+                            minimumSize: const Size(140, 36),
                             padding: const EdgeInsets.symmetric(horizontal: 14),
                           ),
                         ),

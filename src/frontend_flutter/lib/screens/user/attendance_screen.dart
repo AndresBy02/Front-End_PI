@@ -96,7 +96,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
       title: 'Control de Asistencia',
       subtitle: 'Registra tu llegada al espacio y consulta tu historial',
       child: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -107,7 +107,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(color: AppColors.surfaceBorder),
               ),
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -115,9 +115,11 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                     children: [
                       Icon(Icons.qr_code_scanner, color: AppColors.accentGreen, size: 28),
                       SizedBox(width: 10),
-                      Text(
-                        'Registrar Asistencia en Espacio',
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textStrong),
+                      Expanded(
+                        child: Text(
+                          'Registrar Asistencia en Espacio',
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textStrong),
+                        ),
                       ),
                     ],
                   ),
@@ -133,32 +135,58 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                     const Text('No se encontraron espacios universitarios disponibles.')
                   else
                     DropdownButtonFormField<String>(
+                      isExpanded: true,
                       initialValue: _selectedSpace,
                       decoration: const InputDecoration(labelText: 'Espacio en el que estás presente'),
-                      items: _spaces.map((s) => DropdownMenuItem(value: s.name, child: Text(s.name))).toList(),
+                      items: _spaces.map((s) => DropdownMenuItem(
+                        value: s.name,
+                        child: Text(s.name, overflow: TextOverflow.ellipsis),
+                      )).toList(),
                       onChanged: (val) => setState(() => _selectedSpace = val),
                     ),
                   const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: CustomTextField(
-                          label: 'Código de Asistencia (Ej. AST-1234)',
-                          controller: _codeController,
-                          hint: 'Ingresa el código del aula...',
-                          prefixIcon: const Icon(Icons.pin),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 24.0),
-                        child: ElevatedButton(
-                          onPressed: _registerAttendance,
-                          style: ElevatedButton.styleFrom(minimumSize: const Size(160, 48)),
-                          child: const Text('Confirmar llegada'),
-                        ),
-                      ),
-                    ],
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      final isNarrow = constraints.maxWidth < 560;
+                      if (isNarrow) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            CustomTextField(
+                              label: 'Código de Asistencia (Ej. AST-1234)',
+                              controller: _codeController,
+                              hint: 'Ingresa el código del aula...',
+                              prefixIcon: const Icon(Icons.pin),
+                            ),
+                            const SizedBox(height: 14),
+                            ElevatedButton(
+                              onPressed: _registerAttendance,
+                              style: ElevatedButton.styleFrom(minimumSize: const Size(double.infinity, 48)),
+                              child: const Text('Confirmar llegada'),
+                            ),
+                          ],
+                        );
+                      }
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Expanded(
+                            child: CustomTextField(
+                              label: 'Código de Asistencia (Ej. AST-1234)',
+                              controller: _codeController,
+                              hint: 'Ingresa el código del aula...',
+                              prefixIcon: const Icon(Icons.pin),
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          ElevatedButton(
+                            onPressed: _registerAttendance,
+                            style: ElevatedButton.styleFrom(minimumSize: const Size(160, 48)),
+                            child: const Text('Confirmar llegada'),
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ],
               ),
@@ -172,7 +200,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(color: AppColors.surfaceBorder),
               ),
-              padding: const EdgeInsets.all(24),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

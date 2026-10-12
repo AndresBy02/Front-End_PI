@@ -185,7 +185,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       title: 'Perfil de Usuario',
       subtitle: 'Administra tus datos personales y credenciales de acceso',
       child: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
         child: Column(
           children: [
             // TARJETA DE INFORMACIÓN PERSONAL
@@ -195,39 +195,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(color: AppColors.surfaceBorder),
               ),
-              padding: const EdgeInsets.all(28),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
                       CircleAvatar(
-                        radius: 36,
+                        radius: 32,
                         backgroundColor: AppColors.accentGreenSoft,
                         child: Text(
                           (user?.nombres.isNotEmpty ?? false) ? user!.nombres.substring(0, 1).toUpperCase() : 'U',
-                          style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: AppColors.accentGreenText),
+                          style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: AppColors.accentGreenText),
                         ),
                       ),
-                      const SizedBox(width: 20),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            user?.fullName ?? 'Usuario',
-                            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: AppColors.textStrong),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            '${user?.tipo ?? ''} · Rol: ${user?.rol.toUpperCase() ?? ''}',
-                            style: const TextStyle(fontSize: 13, color: AppColors.accentGreenText, fontWeight: FontWeight.w600),
-                          ),
-                          const SizedBox(height: 2),
-                          Text(
-                            user?.correo ?? '',
-                            style: const TextStyle(fontSize: 13, color: AppColors.textMuted),
-                          ),
-                        ],
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              user?.fullName ?? 'Usuario',
+                              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: AppColors.textStrong),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              '${user?.tipo ?? ''} · Rol: ${user?.rol.toUpperCase() ?? ''}',
+                              style: const TextStyle(fontSize: 13, color: AppColors.accentGreenText, fontWeight: FontWeight.w600),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              user?.correo ?? '',
+                              style: const TextStyle(fontSize: 13, color: AppColors.textMuted),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -235,24 +243,46 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                   const Text('Información Personal', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                   const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: CustomTextField(
-                          label: 'Nombres',
-                          controller: _nombresController,
-                          enabled: !_isSavingProfile,
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: CustomTextField(
-                          label: 'Apellidos',
-                          controller: _apellidosController,
-                          enabled: !_isSavingProfile,
-                        ),
-                      ),
-                    ],
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      final isNarrow = constraints.maxWidth < 540;
+                      if (isNarrow) {
+                        return Column(
+                          children: [
+                            CustomTextField(
+                              label: 'Nombres',
+                              controller: _nombresController,
+                              enabled: !_isSavingProfile,
+                            ),
+                            const SizedBox(height: 16),
+                            CustomTextField(
+                              label: 'Apellidos',
+                              controller: _apellidosController,
+                              enabled: !_isSavingProfile,
+                            ),
+                          ],
+                        );
+                      }
+                      return Row(
+                        children: [
+                          Expanded(
+                            child: CustomTextField(
+                              label: 'Nombres',
+                              controller: _nombresController,
+                              enabled: !_isSavingProfile,
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: CustomTextField(
+                              label: 'Apellidos',
+                              controller: _apellidosController,
+                              enabled: !_isSavingProfile,
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   ),
                   const SizedBox(height: 16),
                   CustomTextField(
@@ -269,26 +299,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     enabled: !_isSavingProfile,
                   ),
                   const SizedBox(height: 24),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ElevatedButton.icon(
-                        onPressed: _isSavingProfile ? null : _saveProfile,
-                        icon: _isSavingProfile
-                            ? const SizedBox(
-                                width: 16,
-                                height: 16,
-                                child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
-                              )
-                            : const Icon(Icons.save_outlined, size: 18),
-                        label: Text(_isSavingProfile ? 'Guardando...' : 'Guardar datos personales'),
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: const Size(220, 44),
-                          backgroundColor: AppColors.primaryGreen,
-                          foregroundColor: Colors.white,
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      final isNarrow = constraints.maxWidth < 480;
+                      return Align(
+                        alignment: isNarrow ? Alignment.center : Alignment.centerRight,
+                        child: SizedBox(
+                          width: isNarrow ? double.infinity : null,
+                          child: ElevatedButton.icon(
+                            onPressed: _isSavingProfile ? null : _saveProfile,
+                            icon: _isSavingProfile
+                                ? const SizedBox(
+                                    width: 16,
+                                    height: 16,
+                                    child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
+                                  )
+                                : const Icon(Icons.save_outlined, size: 18),
+                            label: Text(_isSavingProfile ? 'Guardando...' : 'Guardar datos personales'),
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: const Size(200, 44),
+                              backgroundColor: AppColors.primaryGreen,
+                              foregroundColor: Colors.white,
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
+                      );
+                    },
                   ),
                 ],
               ),
@@ -303,7 +339,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(color: AppColors.surfaceBorder),
               ),
-              padding: const EdgeInsets.all(28),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -311,9 +347,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       Icon(Icons.lock_outline, color: AppColors.primaryGreen, size: 22),
                       SizedBox(width: 8),
-                      Text(
-                        'Seguridad y Cambio de Contraseña',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: AppColors.textStrong),
+                      Expanded(
+                        child: Text(
+                          'Seguridad y Cambio de Contraseña',
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: AppColors.textStrong),
+                        ),
                       ),
                     ],
                   ),
@@ -335,56 +373,94 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: CustomTextField(
-                          label: 'Nueva Contraseña (mín. 8 caracteres)',
-                          controller: _newPassController,
-                          obscureText: _obscureNew,
-                          enabled: !_isChangingPassword,
-                          suffixIcon: IconButton(
-                            icon: Icon(_obscureNew ? Icons.visibility_off : Icons.visibility, size: 20),
-                            onPressed: () => setState(() => _obscureNew = !_obscureNew),
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      final isNarrow = constraints.maxWidth < 540;
+                      if (isNarrow) {
+                        return Column(
+                          children: [
+                            CustomTextField(
+                              label: 'Nueva Contraseña (mín. 8 caracteres)',
+                              controller: _newPassController,
+                              obscureText: _obscureNew,
+                              enabled: !_isChangingPassword,
+                              suffixIcon: IconButton(
+                                icon: Icon(_obscureNew ? Icons.visibility_off : Icons.visibility, size: 20),
+                                onPressed: () => setState(() => _obscureNew = !_obscureNew),
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            CustomTextField(
+                              label: 'Confirmar Nueva Contraseña',
+                              controller: _confirmPassController,
+                              obscureText: _obscureConfirm,
+                              enabled: !_isChangingPassword,
+                              suffixIcon: IconButton(
+                                icon: Icon(_obscureConfirm ? Icons.visibility_off : Icons.visibility, size: 20),
+                                onPressed: () => setState(() => _obscureConfirm = !_obscureConfirm),
+                              ),
+                            ),
+                          ],
+                        );
+                      }
+                      return Row(
+                        children: [
+                          Expanded(
+                            child: CustomTextField(
+                              label: 'Nueva Contraseña (mín. 8 caracteres)',
+                              controller: _newPassController,
+                              obscureText: _obscureNew,
+                              enabled: !_isChangingPassword,
+                              suffixIcon: IconButton(
+                                icon: Icon(_obscureNew ? Icons.visibility_off : Icons.visibility, size: 20),
+                                onPressed: () => setState(() => _obscureNew = !_obscureNew),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: CustomTextField(
-                          label: 'Confirmar Nueva Contraseña',
-                          controller: _confirmPassController,
-                          obscureText: _obscureConfirm,
-                          enabled: !_isChangingPassword,
-                          suffixIcon: IconButton(
-                            icon: Icon(_obscureConfirm ? Icons.visibility_off : Icons.visibility, size: 20),
-                            onPressed: () => setState(() => _obscureConfirm = !_obscureConfirm),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: CustomTextField(
+                              label: 'Confirmar Nueva Contraseña',
+                              controller: _confirmPassController,
+                              obscureText: _obscureConfirm,
+                              enabled: !_isChangingPassword,
+                              suffixIcon: IconButton(
+                                icon: Icon(_obscureConfirm ? Icons.visibility_off : Icons.visibility, size: 20),
+                                onPressed: () => setState(() => _obscureConfirm = !_obscureConfirm),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    ],
+                        ],
+                      );
+                    },
                   ),
                   const SizedBox(height: 24),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ElevatedButton.icon(
-                        onPressed: _isChangingPassword ? null : _changePassword,
-                        icon: _isChangingPassword
-                            ? const SizedBox(
-                                width: 16,
-                                height: 16,
-                                child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
-                              )
-                            : const Icon(Icons.key_outlined, size: 18),
-                        label: Text(_isChangingPassword ? 'Actualizando...' : 'Actualizar contraseña'),
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: const Size(220, 44),
-                          backgroundColor: AppColors.primaryGreen,
-                          foregroundColor: Colors.white,
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      final isNarrow = constraints.maxWidth < 480;
+                      return Align(
+                        alignment: isNarrow ? Alignment.center : Alignment.centerRight,
+                        child: SizedBox(
+                          width: isNarrow ? double.infinity : null,
+                          child: ElevatedButton.icon(
+                            onPressed: _isChangingPassword ? null : _changePassword,
+                            icon: _isChangingPassword
+                                ? const SizedBox(
+                                    width: 16,
+                                    height: 16,
+                                    child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
+                                  )
+                                : const Icon(Icons.key_outlined, size: 18),
+                            label: Text(_isChangingPassword ? 'Actualizando...' : 'Actualizar contraseña'),
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: const Size(200, 44),
+                              backgroundColor: AppColors.primaryGreen,
+                              foregroundColor: Colors.white,
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
+                      );
+                    },
                   ),
                 ],
               ),

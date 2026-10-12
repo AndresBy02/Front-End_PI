@@ -102,8 +102,8 @@ class SpaceCard extends StatelessWidget {
               ),
             ],
           ),
-          const Spacer(),
-          const Divider(color: AppColors.surfaceBorder, height: 16),
+          const SizedBox(height: 12),
+          const Divider(color: AppColors.surfaceBorder, height: 14),
           // Action Buttons
           Row(
             children: [
@@ -115,9 +115,12 @@ class SpaceCard extends StatelessWidget {
                     side: const BorderSide(color: AppColors.surfaceBorder),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     minimumSize: const Size(0, 36),
-                    padding: EdgeInsets.zero,
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
                   ),
-                  child: const Text('Detalles', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                  child: const FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text('Detalles', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                  ),
                 ),
               ),
               const SizedBox(width: 8),
@@ -132,9 +135,12 @@ class SpaceCard extends StatelessWidget {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     minimumSize: const Size(0, 36),
                     elevation: 0,
-                    padding: EdgeInsets.zero,
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
                   ),
-                  child: const Text('Reservar', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+                  child: const FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text('Reservar', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+                  ),
                 ),
               ),
             ],

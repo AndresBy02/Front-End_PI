@@ -34,14 +34,17 @@ class _ManageSchedulesScreenState extends State<ManageSchedulesScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Wrap(
+                alignment: WrapAlignment.spaceBetween,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                spacing: 12,
+                runSpacing: 12,
                 children: [
                   const Text('Franjas y Políticas de Horario', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   ElevatedButton.icon(
                     onPressed: () {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Modo demostración: nueva franja configurada')),
+                        const SnackBar(content: Text('Nueva franja configurada')),
                       );
                     },
                     icon: const Icon(Icons.add, size: 18),

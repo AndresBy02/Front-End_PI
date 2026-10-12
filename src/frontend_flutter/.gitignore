@@ -1,0 +1,19 @@
+# Flutter / Dart
+.dart_tool/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+*.dill
+
+# Cookies and Chrome device profiles
+.dart_tool/chrome-device/
+**/Cookies
+**/Session Storage/
+**/Local Storage/
+**/Password_Diagnostics/
+
+# IDE
+.vscode/
+.idea/
+*.iml

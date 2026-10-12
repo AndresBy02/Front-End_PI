@@ -66,45 +66,85 @@ class SpaceDetailScreen extends StatelessWidget {
               ),
               const Divider(color: AppColors.surfaceBorder, height: 32),
 
-              // Detalles en cuadrícula
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: _buildDetailItem(
-                      Icons.location_on_outlined,
-                      'Ubicación en Campus',
-                      space.location,
-                    ),
-                  ),
-                  Expanded(
-                    child: _buildDetailItem(
-                      Icons.people_outline,
-                      'Aforo y Capacidad',
-                      '${space.capacity} personas permitidas',
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: _buildDetailItem(
-                      Icons.schedule_outlined,
-                      'Horario Habitual',
-                      space.schedule,
-                    ),
-                  ),
-                  Expanded(
-                    child: _buildDetailItem(
-                      Icons.devices_outlined,
-                      'Recursos y Equipamiento',
-                      space.resources,
-                    ),
-                  ),
-                ],
+              // Detalles en cuadrícula responsiva
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  final isNarrow = constraints.maxWidth < 600;
+                  if (isNarrow) {
+                    return Column(
+                      children: [
+                        _buildDetailItem(
+                          Icons.location_on_outlined,
+                          'Ubicación en Campus',
+                          space.location,
+                        ),
+                        const SizedBox(height: 16),
+                        _buildDetailItem(
+                          Icons.people_outline,
+                          'Aforo y Capacidad',
+                          '${space.capacity} personas permitidas',
+                        ),
+                        const SizedBox(height: 16),
+                        _buildDetailItem(
+                          Icons.schedule_outlined,
+                          'Horario Habitual',
+                          space.schedule,
+                        ),
+                        const SizedBox(height: 16),
+                        _buildDetailItem(
+                          Icons.devices_outlined,
+                          'Recursos y Equipamiento',
+                          space.resources,
+                        ),
+                      ],
+                    );
+                  }
+                  return Column(
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: _buildDetailItem(
+                              Icons.location_on_outlined,
+                              'Ubicación en Campus',
+                              space.location,
+                            ),
+                          ),
+                          const SizedBox(width: 20),
+                          Expanded(
+                            child: _buildDetailItem(
+                              Icons.people_outline,
+                              'Aforo y Capacidad',
+                              '${space.capacity} personas permitidas',
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: _buildDetailItem(
+                              Icons.schedule_outlined,
+                              'Horario Habitual',
+                              space.schedule,
+                            ),
+                          ),
+                          const SizedBox(width: 20),
+                          Expanded(
+                            child: _buildDetailItem(
+                              Icons.devices_outlined,
+                              'Recursos y Equipamiento',
+                              space.resources,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  );
+                },
               ),
               const SizedBox(height: 28),
 
@@ -135,16 +175,17 @@ class SpaceDetailScreen extends StatelessWidget {
               ),
               const SizedBox(height: 32),
 
-              // Acciones
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+              // Acciones responsivas
+              Wrap(
+                alignment: WrapAlignment.end,
+                spacing: 12,
+                runSpacing: 12,
                 children: [
                   OutlinedButton(
                     onPressed: () => Navigator.pop(context),
                     style: OutlinedButton.styleFrom(minimumSize: const Size(120, 44)),
                     child: const Text('Volver al listado'),
                   ),
-                  const SizedBox(width: 12),
                   ElevatedButton.icon(
                     onPressed: space.isAvailable
                         ? () {

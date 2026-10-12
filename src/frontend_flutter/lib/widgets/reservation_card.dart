@@ -47,20 +47,32 @@ class ReservationCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
-          Row(
+          Wrap(
+            spacing: 16,
+            runSpacing: 6,
+            crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              const Icon(Icons.calendar_today, size: 14, color: AppColors.textMuted),
-              const SizedBox(width: 6),
-              Text(
-                reservation.date,
-                style: const TextStyle(fontSize: 13, color: AppColors.textBody),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.calendar_today, size: 14, color: AppColors.textMuted),
+                  const SizedBox(width: 6),
+                  Text(
+                    reservation.date,
+                    style: const TextStyle(fontSize: 13, color: AppColors.textBody),
+                  ),
+                ],
               ),
-              const SizedBox(width: 16),
-              const Icon(Icons.access_time, size: 14, color: AppColors.textMuted),
-              const SizedBox(width: 6),
-              Text(
-                '${reservation.startTime} – ${reservation.endTime}',
-                style: const TextStyle(fontSize: 13, color: AppColors.textBody),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.access_time, size: 14, color: AppColors.textMuted),
+                  const SizedBox(width: 6),
+                  Text(
+                    '${reservation.startTime} – ${reservation.endTime}',
+                    style: const TextStyle(fontSize: 13, color: AppColors.textBody),
+                  ),
+                ],
               ),
             ],
           ),
@@ -72,29 +84,33 @@ class ReservationCard extends StatelessWidget {
             ),
           ],
           const SizedBox(height: 12),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              OutlinedButton(
-                onPressed: onDetails,
-                style: OutlinedButton.styleFrom(
-                  minimumSize: const Size(90, 32),
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                ),
-                child: const Text('Detalles', style: TextStyle(fontSize: 12)),
-              ),
-              if (canCancel && onCancel != null) ...[
-                const SizedBox(width: 8),
-                TextButton(
-                  onPressed: onCancel,
-                  style: TextButton.styleFrom(
-                    foregroundColor: AppColors.error,
-                    minimumSize: const Size(80, 32),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              alignment: WrapAlignment.end,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                OutlinedButton(
+                  onPressed: onDetails,
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size(90, 32),
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
                   ),
-                  child: const Text('Cancelar', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+                  child: const Text('Detalles', style: TextStyle(fontSize: 12)),
                 ),
+                if (canCancel && onCancel != null)
+                  TextButton(
+                    onPressed: onCancel,
+                    style: TextButton.styleFrom(
+                      foregroundColor: AppColors.error,
+                      minimumSize: const Size(80, 32),
+                    ),
+                    child: const Text('Cancelar', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+                  ),
               ],
-            ],
+            ),
           ),
         ],
       ),

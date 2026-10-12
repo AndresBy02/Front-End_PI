@@ -179,17 +179,52 @@ class _ReservationWizardScreenState extends State<ReservationWizardScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Stepper visual
-                    Row(
-                      children: [
-                        _buildStepIndicator(0, 'Espacio'),
-                        _buildStepLine(0),
-                        _buildStepIndicator(1, 'Fecha'),
-                        _buildStepLine(1),
-                        _buildStepIndicator(2, 'Horario'),
-                        _buildStepLine(2),
-                        _buildStepIndicator(3, 'Confirmación'),
-                      ],
+                    // Stepper visual adaptable
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        final isCompact = constraints.maxWidth < 540;
+                        if (isCompact) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      'Paso ${_currentStep + 1} de 4: ${_getStepTitle(_currentStep)}',
+                                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: AppColors.primaryGreen),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Text('${((_currentStep + 1) / 4 * 100).toInt()}%', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.textMuted)),
+                                ],
+                              ),
+                              const SizedBox(height: 8),
+                              LinearProgressIndicator(
+                                value: (_currentStep + 1) / 4,
+                                backgroundColor: AppColors.surfaceBorder,
+                                color: AppColors.accentGreen,
+                                minHeight: 6,
+                                borderRadius: BorderRadius.circular(3),
+                              ),
+                            ],
+                          );
+                        }
+                        return Row(
+                          children: [
+                            _buildStepIndicator(0, 'Espacio'),
+                            _buildStepLine(0),
+                            _buildStepIndicator(1, 'Fecha'),
+                            _buildStepLine(1),
+                            _buildStepIndicator(2, 'Horario'),
+                            _buildStepLine(2),
+                            _buildStepIndicator(3, 'Confirmación'),
+                          ],
+                        );
+                      },
                     ),
                     const Divider(color: AppColors.surfaceBorder, height: 40),
 
@@ -200,14 +235,17 @@ class _ReservationWizardScreenState extends State<ReservationWizardScreen> {
                     if (_currentStep == 3) _buildSummaryStep(user?.fullName ?? '', user?.correo ?? ''),
 
                     const SizedBox(height: 32),
-                    // Botones de navegación
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    // Botones de navegación adaptables
+                    Wrap(
+                      spacing: 12,
+                      runSpacing: 12,
+                      alignment: WrapAlignment.spaceBetween,
+                      crossAxisAlignment: WrapCrossAlignment.center,
                       children: [
                         if (_currentStep > 0)
                           OutlinedButton(
                             onPressed: _isSubmitting ? null : () => setState(() => _currentStep--),
-                            style: OutlinedButton.styleFrom(minimumSize: const Size(120, 44)),
+                            style: OutlinedButton.styleFrom(minimumSize: const Size(110, 42)),
                             child: const Text('Anterior'),
                           )
                         else
