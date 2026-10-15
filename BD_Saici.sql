@@ -90,16 +90,18 @@ CREATE TABLE codigos_verificacion (
         REFERENCES usuario(id_usuario)
 );
 -- ==============================================================================
--- DATOS INICIALES DEL SISTEMA (USUARIOS ADMINISTRADORES Y ESPACIOS)
+-- DATOS INICIALES DEL SISTEMA (USUARIOS DE PRUEBA Y ESPACIOS)
 -- Contraseñas hasheadas de forma segura con bcrypt (costo 10)
 -- Admin: admin@uceva.edu.co / Admin123456!
 -- Encargado Lab: laboratorio@uceva.edu.co / Lab123456!
+-- Estudiante: estudiante.test@uceva.edu.co / Estudiante123!
 -- ==============================================================================
 
 INSERT INTO usuario (nombres, apellidos, email, telefono, contrasena, rol, tipo_usuario)
 VALUES 
     ('Administrador', 'Principal UCEVA', 'admin@uceva.edu.co', '3000000001', '$2b$10$1siz4cmzbRovu//j82EEKuCkFd9vnrefkUjJlpWT4gOWoOZabAGUq', 'ADMINISTRADOR', NULL),
-    ('Coordinador', 'Laboratorios UCEVA', 'laboratorio@uceva.edu.co', '3000000002', '$2b$10$BtwGCxRhMCLLsGfqYVOa8.s7uF0zsvr.88lbwTYD7Wdd2TQC7cYYC', 'LABORATORIO', NULL)
+    ('Coordinador', 'Laboratorios UCEVA', 'laboratorio@uceva.edu.co', '3000000002', '$2b$10$BtwGCxRhMCLLsGfqYVOa8.s7uF0zsvr.88lbwTYD7Wdd2TQC7cYYC', 'LABORATORIO', NULL),
+    ('Estudiante', 'Prueba UCEVA', 'estudiante.test@uceva.edu.co', '3000000003', '$2b$10$WEHGnjcHQPz4ANAnJRingO3/7JjeGmD6380/mmAAwTJ54lWIT4XuS', 'USUARIO', 'ESTUDIANTE')
 ON CONFLICT (email) DO NOTHING;
 
 INSERT INTO laboratorio (nombre, ubicacion, estado, capacidad)

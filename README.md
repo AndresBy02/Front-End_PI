@@ -19,11 +19,20 @@ No requiere instalar PostgreSQL ni Node.js manualmente.
    git clone <URL_DEL_REPO>
    cd Front-End_PI
    ```
-2. Levanta la base de datos (con tablas y horarios automáticos) y el backend con un solo comando:
+2. Levanta la base de datos (con tablas y horarios automáticos), el backend y pgAdmin con un solo comando:
    ```bash
    docker compose up -d
    ```
    *El backend estará listo y escuchando en:* `http://localhost:3000`
+
+   *pgAdmin estará disponible en:* `http://localhost:5050`
+   Inicia sesión con `admin@saici.com` / `admin`. Para registrar la base de datos, usa:
+   - **Host:** `db`
+   - **Puerto:** `5432`
+   - **Base de datos:** `saici_db`
+   - **Usuario / contraseña:** `postgres` / `postgres`
+
+   Cambia las credenciales predeterminadas de pgAdmin antes de usarlo fuera de un entorno local.
 
 ---
 
