@@ -366,7 +366,7 @@ class AppLayout extends StatelessWidget {
               ),
               const SizedBox(height: 12),
               const Text(
-                'SAICI',
+                'LabAcces',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 16,

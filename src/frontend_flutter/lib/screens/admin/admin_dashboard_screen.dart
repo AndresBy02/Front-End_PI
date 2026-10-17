@@ -70,7 +70,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
 
     return AppLayout(
       currentRoute: '/admin/dashboard',
-      title: 'Panel Administrativo SAICI',
+      title: 'Panel Administrativo LabAcces',
       subtitle: 'Administración UCEVA (vista de control general)',
       child: _isLoading
           ? const Center(child: CircularProgressIndicator())

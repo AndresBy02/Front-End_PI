@@ -67,7 +67,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
 
     return AppLayout(
       currentRoute: '/user/home',
-      title: 'SAICI · Reservas UCEVA',
+      title: 'LabAcces · Reservas UCEVA',
       subtitle: user != null ? 'Bienvenido, ${user.fullName}' : null,
       child: _isLoading
           ? const Center(child: CircularProgressIndicator())
