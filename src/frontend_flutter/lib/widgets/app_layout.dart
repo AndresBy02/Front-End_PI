@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../core/constants/app_colors.dart';
 import '../services/auth_session_service.dart';
+import 'custom_footer.dart';
 
 class NavItem {
   final String title;
@@ -215,7 +216,14 @@ class AppLayout extends StatelessWidget {
           backgroundColor: AppColors.primaryGreen,
           child: _buildSidebarContent(context, allowedNavItems, user, roleDescription),
         ),
-        body: SafeArea(child: child),
+        body: SafeArea(
+          child: Column(
+            children: [
+              Expanded(child: child),
+              const CustomFooter(),
+            ],
+          ),
+        ),
       );
     }
 
@@ -262,6 +270,8 @@ class AppLayout extends StatelessWidget {
                         child: child,
                       ),
                     ),
+                    // Pie de página
+                    const CustomFooter(),
                   ],
                 ),
               ),
