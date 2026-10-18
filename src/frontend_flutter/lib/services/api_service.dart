@@ -235,9 +235,12 @@ class ApiService {
     }
   }
 
-  static Future<List<ScheduleModel>> fetchSchedules() async {
+  static Future<List<ScheduleModel>> fetchSchedules({int? labId}) async {
+    final uri = labId != null
+        ? Uri.parse('$baseUrl/horarios?id_laboratorio=$labId')
+        : Uri.parse('$baseUrl/horarios');
     final response = await http.get(
-      Uri.parse('$baseUrl/horarios'),
+      uri,
       headers: _headers(),
     );
     if (response.statusCode != 200) {
@@ -257,6 +260,7 @@ class ApiService {
     required int weekday,
     required String opensAt,
     required String closesAt,
+    int? labId,
   }) async {
     final response = await http.post(
       Uri.parse('$baseUrl/horarios'),
@@ -265,6 +269,7 @@ class ApiService {
         'dia_semana': weekday,
         'hora_apertura': opensAt,
         'hora_cierre': closesAt,
+        if (labId != null) 'id_laboratorio': labId,
       }),
     );
     if (response.statusCode != 201) {
