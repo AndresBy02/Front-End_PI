@@ -16,30 +16,10 @@ class AppFooter extends StatelessWidget {
       ),
       child: LayoutBuilder(
         builder: (context, constraints) {
-          final bannerHeight =
-              constraints.maxWidth < 560 ? constraints.maxWidth / 3.6 : 150.0;
-
           return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(
-                height: bannerHeight,
-                child: Center(
-                  child: Image.asset(
-                    'assets/images/banner-ingenieria-sistemas.webp',
-                    width: double.infinity,
-                    fit: BoxFit.contain,
-                    errorBuilder: (context, error, stackTrace) => const Text(
-                      'Ingeniería de Sistemas · Acreditación de Alta Calidad',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: AppColors.textStrong,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              const _HeaderMarks(),
               const Divider(height: 20),
               if (constraints.maxWidth >= 560)
                 const Row(
@@ -66,6 +46,59 @@ class AppFooter extends StatelessWidget {
             ],
           );
         },
+      ),
+    );
+  }
+}
+
+class _HeaderMarks extends StatelessWidget {
+  const _HeaderMarks();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Align(
+      alignment: Alignment.centerLeft,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _HeaderMark(
+            assetPath: 'assets/images/uceva-isotipo.png',
+            label: 'UCEVA',
+          ),
+          SizedBox(width: 16),
+          _HeaderMark(
+            assetPath: 'assets/images/ciencias-verdes-isotipo.png',
+            label: 'Ciencias Verdes',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _HeaderMark extends StatelessWidget {
+  final String assetPath;
+  final String label;
+
+  const _HeaderMark({required this.assetPath, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      label: label,
+      image: true,
+      child: SizedBox(
+        width: 64,
+        height: 64,
+        child: Image.asset(
+          assetPath,
+          fit: BoxFit.contain,
+          errorBuilder: (context, error, stackTrace) => const Icon(
+            Icons.image_not_supported_outlined,
+            color: AppColors.textMuted,
+            size: 32,
+          ),
+        ),
       ),
     );
   }
