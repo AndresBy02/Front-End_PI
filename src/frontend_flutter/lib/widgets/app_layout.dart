@@ -165,17 +165,6 @@ class _AppLayoutState extends State<AppLayout> {
     return 'Estudiante UCEVA';
   }
 
-  bool _showMobileFooter = false;
-
-  bool _handleMobileScroll(ScrollMetrics metrics) {
-    if (metrics.axis == Axis.vertical &&
-        metrics.extentAfter <= 0 &&
-        !_showMobileFooter) {
-      setState(() => _showMobileFooter = true);
-    }
-    return false;
-  }
-
   @override
   Widget build(BuildContext context) {
     final session = AuthSessionService();
@@ -251,21 +240,11 @@ class _AppLayoutState extends State<AppLayout> {
               context, allowedNavItems, user, roleDescription),
         ),
         body: SafeArea(
-          child: Column(
-            children: [
-              _buildBanner(),
-              Expanded(
-                child: NotificationListener<ScrollMetricsNotification>(
-                  onNotification: (notification) =>
-                      _handleMobileScroll(notification.metrics),
-                  child: NotificationListener<ScrollNotification>(
-                    onNotification: (notification) =>
-                        _handleMobileScroll(notification.metrics),
-                    child: widget.child,
-                  ),
-                ),
-              ),
-              if (_showMobileFooter) const CustomFooter(),
+          child: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(child: _buildBanner()),
+              SliverToBoxAdapter(child: widget.child),
+              const SliverToBoxAdapter(child: CustomFooter()),
             ],
           ),
         ),
@@ -335,8 +314,8 @@ class _AppLayoutState extends State<AppLayout> {
     final isCompactWebBanner = kIsWeb && screenWidth >= 960;
     return LayoutBuilder(
       builder: (context, constraints) {
-        final bannerWidth = isCompactWebBanner && constraints.maxWidth > 900
-            ? 900.0
+        final bannerWidth = isCompactWebBanner && constraints.maxWidth > 720
+            ? 720.0
             : constraints.maxWidth;
 
         return Container(

@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:frontend_flutter/widgets/app_layout.dart';
 
 void main() {
-  testWidgets('mobile footer appears after the screen reaches its end', (
+  testWidgets('banner and footer scroll with mobile screen content', (
     tester,
   ) async {
     await tester.binding.setSurfaceSize(const Size(390, 800));
@@ -28,16 +28,26 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    final footerTitle = find.text('INFORMACIÓN');
-    expect(footerTitle, findsNothing);
-
-    await tester.drag(
-      find.byType(SingleChildScrollView).first,
-      const Offset(0, -5000),
+    final footerTitle = find.text('INFORMACIÓN', skipOffstage: false);
+    final banner = find.byWidgetPredicate(
+      (widget) =>
+          widget is Image &&
+          widget.semanticLabel ==
+              'Banner de la Facultad de Ingeniería de Sistemas',
+      skipOffstage: false,
     );
+    final scrollable = tester.state<ScrollableState>(
+      find.byType(Scrollable).first,
+    );
+    expect(scrollable.position.pixels, 0);
+    expect(tester.getTopLeft(banner).dy, greaterThanOrEqualTo(0));
+    expect(tester.getTopLeft(footerTitle).dy, greaterThan(800));
+
+    scrollable.position.jumpTo(scrollable.position.maxScrollExtent);
     await tester.pumpAndSettle();
 
-    expect(footerTitle, findsOneWidget);
+    expect(scrollable.position.pixels, greaterThan(0));
+    expect(tester.getTopLeft(banner).dy, lessThan(0));
     expect(tester.getTopLeft(footerTitle).dy, lessThan(800));
     expect(tester.takeException(), isNull);
     await tester.binding.setSurfaceSize(null);
