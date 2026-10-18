@@ -1,7 +1,8 @@
+
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 import '../core/constants/app_colors.dart';
 import '../services/auth_session_service.dart';
+import 'app_page_scroll_view.dart';
 import 'custom_footer.dart';
 
 class NavItem {
@@ -25,6 +26,7 @@ class AppLayout extends StatefulWidget {
   final String title;
   final String? subtitle;
   final Widget child;
+  final bool mobilePageOwnsScroll;
 
   const AppLayout({
     super.key,
@@ -32,6 +34,7 @@ class AppLayout extends StatefulWidget {
     required this.title,
     this.subtitle,
     required this.child,
+    this.mobilePageOwnsScroll = false,
   });
 
   @override
@@ -240,13 +243,15 @@ class _AppLayoutState extends State<AppLayout> {
               context, allowedNavItems, user, roleDescription),
         ),
         body: SafeArea(
-          child: CustomScrollView(
-            slivers: [
-              SliverToBoxAdapter(child: _buildBanner()),
-              SliverToBoxAdapter(child: widget.child),
-              const SliverToBoxAdapter(child: CustomFooter()),
-            ],
-          ),
+          child: widget.mobilePageOwnsScroll
+              ? widget.child
+              : CustomScrollView(
+                  slivers: [
+                    const SliverToBoxAdapter(child: AppBanner()),
+                    SliverToBoxAdapter(child: widget.child),
+                    const SliverToBoxAdapter(child: CustomFooter()),
+                  ],
+                ),
         ),
       );
     }
@@ -286,7 +291,7 @@ class _AppLayoutState extends State<AppLayout> {
               Expanded(
                 child: Column(
                   children: [
-                    _buildBanner(),
+                    const AppBanner(),
                     // Topbar
                     _buildDesktopTopbar(
                         user?.fullName ?? 'Usuario', roleDescription, userRole),
@@ -306,30 +311,6 @@ class _AppLayoutState extends State<AppLayout> {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildBanner() {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final isCompactWebBanner = kIsWeb && screenWidth >= 960;
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final bannerWidth = isCompactWebBanner && constraints.maxWidth > 720
-            ? 720.0
-            : constraints.maxWidth;
-
-        return Container(
-          width: double.infinity,
-          color: const Color(0xFF050506),
-          alignment: Alignment.centerLeft,
-          child: Image.asset(
-            'assets/images/banner_sistemas.jpeg',
-            width: bannerWidth,
-            fit: BoxFit.fitWidth,
-            semanticLabel: 'Banner de la Facultad de Ingeniería de Sistemas',
-          ),
-        );
-      },
     );
   }
 
