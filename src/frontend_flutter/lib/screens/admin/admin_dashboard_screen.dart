@@ -5,6 +5,7 @@ import '../../models/space_model.dart';
 import '../../models/user_model.dart';
 import '../../services/api_service.dart';
 import '../../widgets/app_layout.dart';
+import '../../widgets/horizontal_table_scroll.dart';
 import '../../widgets/status_badge.dart';
 
 class AdminDashboardScreen extends StatefulWidget {
@@ -240,13 +241,9 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                               child: Text('No hay solicitudes pendientes en este momento.', style: TextStyle(color: AppColors.textMuted)),
                             )
                           else
-                            Scrollbar(
-                              thumbVisibility: true,
-                              trackVisibility: true,
-                              child: SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                padding: const EdgeInsets.only(bottom: 12),
-                                child: DataTable(
+                            HorizontalTableScroll(
+                              padding: const EdgeInsets.only(bottom: 12),
+                              child: DataTable(
                                   headingRowColor: WidgetStateProperty.all(AppColors.frameBg),
                                   columns: const [
                                     DataColumn(label: Text('Espacio')),
@@ -284,7 +281,6 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                                       ],
                                     );
                                   }).toList(),
-                                ),
                               ),
                             ),
                         ],

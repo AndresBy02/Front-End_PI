@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import '../core/constants/app_colors.dart';
 import '../services/auth_session_service.dart';
 import 'custom_footer.dart';
@@ -19,7 +20,7 @@ class NavItem {
   });
 }
 
-class AppLayout extends StatelessWidget {
+class AppLayout extends StatefulWidget {
   final String currentRoute;
   final String title;
   final String? subtitle;
@@ -33,6 +34,11 @@ class AppLayout extends StatelessWidget {
     required this.child,
   });
 
+  @override
+  State<AppLayout> createState() => _AppLayoutState();
+}
+
+class _AppLayoutState extends State<AppLayout> {
   static const List<NavItem> allNavItems = [
     // --- ESTUDIANTE / EGRESADO / USUARIO ---
     NavItem(
@@ -139,7 +145,13 @@ class AppLayout extends StatelessWidget {
       title: 'Perfil',
       icon: Icons.person_outline,
       route: '/user/profile',
-      allowedRoles: ['USUARIO', 'ESTUDIANTE', 'EGRESADO', 'ADMINISTRADOR', 'LABORATORIO'],
+      allowedRoles: [
+        'USUARIO',
+        'ESTUDIANTE',
+        'EGRESADO',
+        'ADMINISTRADOR',
+        'LABORATORIO'
+      ],
       section: 'Cuenta',
     ),
   ];
@@ -151,6 +163,17 @@ class AppLayout extends StatelessWidget {
     if (r == 'LABORATORIO') return 'Encargado de Laboratorio';
     if (t == 'EGRESADO') return 'Egresado UCEVA';
     return 'Estudiante UCEVA';
+  }
+
+  bool _showMobileFooter = false;
+
+  bool _handleMobileScroll(ScrollMetrics metrics) {
+    if (metrics.axis == Axis.vertical &&
+        metrics.extentAfter <= 0 &&
+        !_showMobileFooter) {
+      setState(() => _showMobileFooter = true);
+    }
+    return false;
   }
 
   @override
@@ -168,7 +191,8 @@ class AppLayout extends StatelessWidget {
 
     final screenWidth = MediaQuery.of(context).size.width;
     final isDesktop = screenWidth >= 960;
-    final roleDescription = user != null ? _formatUserRole(userRole, userTipo) : 'Sesión activa';
+    final roleDescription =
+        user != null ? _formatUserRole(userRole, userTipo) : 'Sesión activa';
 
     if (!isDesktop) {
       // Móvil / Tablet
@@ -180,14 +204,19 @@ class AppLayout extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                title,
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                widget.title,
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
               Text(
-                subtitle ?? (user != null ? '${user.nombres} · $roleDescription' : roleDescription),
-                style: const TextStyle(fontSize: 11, color: AppColors.textMuted),
+                widget.subtitle ??
+                    (user != null
+                        ? '${user.nombres} · $roleDescription'
+                        : roleDescription),
+                style:
+                    const TextStyle(fontSize: 11, color: AppColors.textMuted),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -198,14 +227,18 @@ class AppLayout extends StatelessWidget {
               padding: const EdgeInsets.only(right: 12),
               child: Center(
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: AppColors.accentGreenSoft,
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Text(
                     userRole.isNotEmpty ? userRole : 'USUARIO',
-                    style: const TextStyle(color: AppColors.accentGreenText, fontSize: 10, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        color: AppColors.accentGreenText,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -214,13 +247,25 @@ class AppLayout extends StatelessWidget {
         ),
         drawer: Drawer(
           backgroundColor: AppColors.primaryGreen,
-          child: _buildSidebarContent(context, allowedNavItems, user, roleDescription),
+          child: _buildSidebarContent(
+              context, allowedNavItems, user, roleDescription),
         ),
         body: SafeArea(
           child: Column(
             children: [
-              Expanded(child: child),
-              const CustomFooter(),
+              _buildBanner(),
+              Expanded(
+                child: NotificationListener<ScrollMetricsNotification>(
+                  onNotification: (notification) =>
+                      _handleMobileScroll(notification.metrics),
+                  child: NotificationListener<ScrollNotification>(
+                    onNotification: (notification) =>
+                        _handleMobileScroll(notification.metrics),
+                    child: widget.child,
+                  ),
+                ),
+              ),
+              if (_showMobileFooter) const CustomFooter(),
             ],
           ),
         ),
@@ -255,19 +300,22 @@ class AppLayout extends StatelessWidget {
               Container(
                 width: 240,
                 color: AppColors.primaryGreen,
-                child: _buildSidebarContent(context, allowedNavItems, user, roleDescription),
+                child: _buildSidebarContent(
+                    context, allowedNavItems, user, roleDescription),
               ),
               // Main Content Area
               Expanded(
                 child: Column(
                   children: [
+                    _buildBanner(),
                     // Topbar
-                    _buildDesktopTopbar(user?.fullName ?? 'Usuario', roleDescription, userRole),
+                    _buildDesktopTopbar(
+                        user?.fullName ?? 'Usuario', roleDescription, userRole),
                     // Content
                     Expanded(
                       child: Container(
                         color: AppColors.frameBg,
-                        child: child,
+                        child: widget.child,
                       ),
                     ),
                     // Pie de página
@@ -282,12 +330,38 @@ class AppLayout extends StatelessWidget {
     );
   }
 
-  Widget _buildDesktopTopbar(String userName, String roleDescription, String roleName) {
+  Widget _buildBanner() {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isCompactWebBanner = kIsWeb && screenWidth >= 960;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final bannerWidth = isCompactWebBanner && constraints.maxWidth > 900
+            ? 900.0
+            : constraints.maxWidth;
+
+        return Container(
+          width: double.infinity,
+          color: const Color(0xFF050506),
+          alignment: Alignment.centerLeft,
+          child: Image.asset(
+            'assets/images/banner_sistemas.jpeg',
+            width: bannerWidth,
+            fit: BoxFit.fitWidth,
+            semanticLabel: 'Banner de la Facultad de Ingeniería de Sistemas',
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildDesktopTopbar(
+      String userName, String roleDescription, String roleName) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       decoration: const BoxDecoration(
         color: Colors.white,
-        border: Border(bottom: BorderSide(color: AppColors.topbarBorder, width: 1)),
+        border:
+            Border(bottom: BorderSide(color: AppColors.topbarBorder, width: 1)),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -298,7 +372,7 @@ class AppLayout extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  title,
+                  widget.title,
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
@@ -309,7 +383,7 @@ class AppLayout extends StatelessWidget {
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  subtitle ?? '$userName · $roleDescription',
+                  widget.subtitle ?? '$userName · $roleDescription',
                   style: const TextStyle(
                     fontSize: 13,
                     color: AppColors.topbarSubtitle,
@@ -326,7 +400,8 @@ class AppLayout extends StatelessWidget {
             decoration: BoxDecoration(
               color: AppColors.accentGreenSoft,
               borderRadius: BorderRadius.circular(6),
-              border: Border.all(color: AppColors.accentGreenText.withValues(alpha: 0.2)),
+              border: Border.all(
+                  color: AppColors.accentGreenText.withValues(alpha: 0.2)),
             ),
             child: Text(
               roleName.isNotEmpty ? 'ROL: $roleName' : 'SESIÓN ACTIVA',
@@ -369,7 +444,10 @@ class AppLayout extends StatelessWidget {
                     SizedBox(width: 8),
                     Text(
                       'UCEVA',
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18),
                     ),
                   ],
                 ),
@@ -407,7 +485,8 @@ class AppLayout extends StatelessWidget {
                   Builder(builder: (_) {
                     currentHeading = item.section;
                     return Padding(
-                      padding: const EdgeInsets.only(left: 12, top: 16, bottom: 6),
+                      padding:
+                          const EdgeInsets.only(left: 12, top: 16, bottom: 6),
                       child: Text(
                         item.section!.toUpperCase(),
                         style: const TextStyle(
@@ -433,7 +512,8 @@ class AppLayout extends StatelessWidget {
             onTap: () async {
               await AuthSessionService().clearSession();
               if (context.mounted) {
-                Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/login', (route) => false);
               }
             },
             borderRadius: BorderRadius.circular(8),
@@ -449,7 +529,10 @@ class AppLayout extends StatelessWidget {
                   SizedBox(width: 10),
                   Text(
                     'Cerrar sesión',
-                    style: TextStyle(color: Colors.white70, fontSize: 13, fontWeight: FontWeight.w600),
+                    style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600),
                   ),
                 ],
               ),
@@ -461,7 +544,7 @@ class AppLayout extends StatelessWidget {
   }
 
   Widget _buildNavItem(BuildContext context, NavItem item) {
-    final isActive = currentRoute == item.route;
+    final isActive = widget.currentRoute == item.route;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 2),
@@ -469,7 +552,7 @@ class AppLayout extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: () {
-            if (currentRoute != item.route) {
+            if (widget.currentRoute != item.route) {
               Navigator.pushReplacementNamed(context, item.route);
             }
           },
@@ -485,7 +568,9 @@ class AppLayout extends StatelessWidget {
                 Icon(
                   item.icon,
                   size: 18,
-                  color: isActive ? Colors.white : AppColors.sidebarText.withValues(alpha: 0.8),
+                  color: isActive
+                      ? Colors.white
+                      : AppColors.sidebarText.withValues(alpha: 0.8),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
