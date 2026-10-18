@@ -15,7 +15,7 @@ The logo is included locally so screens do not rely on the external image host.
 
 - `ciencias-verdes-igsclac.png`: variante con el contenido más ajustado, proporcionada para el proyecto por el equipo.
 - `banner-ingenieria-sistemas.webp`: banner fuente publicado en el sitio oficial de UCEVA: [Ingeniería de Sistemas](https://www.uceva.edu.co/facultad-de-ingenieria/ingenieria-de-sistemas/).
-- `logo-ingenieria-sistemas.png` y `sello-acreditacion-sistemas.png`: recortes locales del banner oficial anterior para presentarlos con altura uniforme en el pie de página.
+- El pie muestra el banner completo para conservar el logo de Ingeniería de Sistemas y el sello de acreditación juntos.
 
 ## Vista previa sin backend
 

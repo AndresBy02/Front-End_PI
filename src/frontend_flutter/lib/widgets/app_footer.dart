@@ -7,46 +7,57 @@ class AppFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final logos = [
-      const _FooterLogo(
-        assetPath: 'assets/images/logo-ingenieria-sistemas.png',
-        label: 'Ingeniería de Sistemas',
-      ),
-      const _FooterLogo(
-        assetPath: 'assets/images/sello-acreditacion-sistemas.png',
-        label: 'Acreditación de alta calidad',
-      ),
-      const _FooterLogo(
-        assetPath: 'assets/images/ciencias-verdes-igsclac.png',
-        label: 'Ciencias Verdes',
-      ),
-    ];
-
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(16, 10, 16, 8),
+      padding: const EdgeInsets.fromLTRB(20, 12, 20, 10),
       decoration: const BoxDecoration(
         color: Colors.white,
         border: Border(top: BorderSide(color: AppColors.topbarBorder)),
       ),
       child: LayoutBuilder(
         builder: (context, constraints) {
-          final logoRow = constraints.maxWidth >= 480
-              ? Row(children: [for (final logo in logos) Expanded(child: logo)])
-              : Wrap(
-                  alignment: WrapAlignment.center,
-                  spacing: 12,
-                  runSpacing: 8,
-                  children: [
-                    for (final logo in logos) SizedBox(width: 110, child: logo),
-                  ],
-                );
+          final bannerHeight =
+              constraints.maxWidth < 560 ? constraints.maxWidth / 3.6 : 150.0;
 
           return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              logoRow,
-              const SizedBox(height: 8),
+              SizedBox(
+                height: bannerHeight,
+                child: Center(
+                  child: Image.asset(
+                    'assets/images/banner-ingenieria-sistemas.webp',
+                    width: double.infinity,
+                    fit: BoxFit.contain,
+                    errorBuilder: (context, error, stackTrace) => const Text(
+                      'Ingeniería de Sistemas · Acreditación de Alta Calidad',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: AppColors.textStrong,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const Divider(height: 20),
+              if (constraints.maxWidth >= 560)
+                const Row(
+                  children: [
+                    Expanded(child: _ScienceBrand()),
+                    SizedBox(width: 24),
+                    Expanded(flex: 2, child: _ContactDetails()),
+                  ],
+                )
+              else
+                const Column(
+                  children: [
+                    _ScienceBrand(),
+                    SizedBox(height: 12),
+                    _ContactDetails(),
+                  ],
+                ),
+              const SizedBox(height: 10),
               const Text(
                 '© 2026 UCEVA · Facultad de Ingeniería de Sistemas',
                 textAlign: TextAlign.center,
@@ -60,36 +71,55 @@ class AppFooter extends StatelessWidget {
   }
 }
 
-class _FooterLogo extends StatelessWidget {
-  final String assetPath;
-  final String label;
-
-  const _FooterLogo({required this.assetPath, required this.label});
+class _ScienceBrand extends StatelessWidget {
+  const _ScienceBrand();
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return SizedBox(
+      height: 112,
+      child: Image.asset(
+        'assets/images/ciencias-verdes-igsclac.png',
+        fit: BoxFit.contain,
+        errorBuilder: (context, error, stackTrace) => const Icon(
+          Icons.eco_outlined,
+          color: AppColors.primaryGreen,
+          size: 48,
+        ),
+      ),
+    );
+  }
+}
+
+class _ContactDetails extends StatelessWidget {
+  const _ContactDetails();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        SizedBox(
-          height: 38,
-          child: Image.asset(
-            assetPath,
-            fit: BoxFit.contain,
-            errorBuilder: (context, error, stackTrace) => const Icon(
-              Icons.account_balance_outlined,
-              color: AppColors.textMuted,
-              size: 28,
-            ),
+        Text(
+          'Información',
+          style: TextStyle(
+            color: AppColors.textStrong,
+            fontSize: 16,
+            fontWeight: FontWeight.w700,
           ),
         ),
-        const SizedBox(height: 3),
-        Text(
-          label,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          textAlign: TextAlign.center,
-          style: const TextStyle(color: AppColors.textMuted, fontSize: 9),
+        SizedBox(height: 8),
+        Row(
+          children: [
+            Icon(Icons.email_outlined, color: AppColors.primaryGreen, size: 18),
+            SizedBox(width: 8),
+            Flexible(
+              child: SelectableText(
+                'igsclac@gmail.com',
+                style: TextStyle(color: AppColors.textMuted, fontSize: 13),
+              ),
+            ),
+          ],
         ),
       ],
     );
