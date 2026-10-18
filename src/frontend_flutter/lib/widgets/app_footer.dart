@@ -129,19 +129,22 @@ class _BrandMarks extends StatelessWidget {
               label: 'UCEVA',
             ),
             const SizedBox(width: 10),
-            Expanded(
-              child: AspectRatio(
-                aspectRatio: 1440 / 399,
-                child: Image.asset(
-                  'assets/images/banner-ingenieria-sistemas.webp',
-                  fit: BoxFit.contain,
-                  errorBuilder: (context, error, stackTrace) => const Center(
-                    child: Text(
-                      'Ingeniería de Sistemas · Acreditación de Alta Calidad',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: AppColors.textStrong,
-                        fontWeight: FontWeight.w700,
+            Flexible(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 150),
+                child: AspectRatio(
+                  aspectRatio: 1440 / 399,
+                  child: Image.asset(
+                    'assets/images/banner-ingenieria-sistemas.webp',
+                    fit: BoxFit.contain,
+                    errorBuilder: (context, error, stackTrace) => const Center(
+                      child: Text(
+                        'Ingeniería de Sistemas · Acreditación de Alta Calidad',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: AppColors.textStrong,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                   ),
