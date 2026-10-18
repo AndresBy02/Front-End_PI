@@ -15,7 +15,9 @@ The logo is included locally so screens do not rely on the external image host.
 
 - `ciencias-verdes-igsclac.png`: variante con el contenido más ajustado, proporcionada para el proyecto por el equipo.
 - `ciencias-verdes-isotipo.png`: recorte local del ave del logo de Ciencias Verdes, sin las siglas ni el texto inferior.
-- El pie combina arriba el isotipo de UCEVA con el ave de Ciencias Verdes; debajo conserva el logo completo de Ciencias Verdes y su correo de contacto.
+- `banner-ingenieria-sistemas.webp`: banner completo de Ingeniería de Sistemas y acreditación de alta calidad, publicado en el sitio oficial de UCEVA: [Ingeniería de Sistemas](https://www.uceva.edu.co/facultad-de-ingenieria/ingenieria-de-sistemas/).
+- El pie pone la información institucional a la izquierda y los logos a la derecha en escritorio; en pantallas estrechas los apila para evitar desbordes.
+- Dirección y teléfono institucional: [Ubicación oficial de UCEVA](https://www.uceva.edu.co/ubicacion/).
 
 ## Vista previa sin backend
 
