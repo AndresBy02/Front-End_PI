@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import '../core/constants/app_colors.dart';
@@ -44,13 +43,21 @@ class AppLayout extends StatefulWidget {
 
 class _AppLayoutState extends State<AppLayout> {
   static const List<NavItem> allNavItems = [
-    // --- ESTUDIANTE / EGRESADO / USUARIO ---
+    // --- INICIO COMPARTIDO ---
     NavItem(
       title: 'Inicio',
       icon: Icons.home_outlined,
-      route: '/user/home',
-      allowedRoles: ['USUARIO', 'ESTUDIANTE', 'EGRESADO'],
+      route: '/home',
+      allowedRoles: [
+        'USUARIO',
+        'ESTUDIANTE',
+        'EGRESADO',
+        'ADMINISTRADOR',
+        'LABORATORIO',
+      ],
     ),
+
+    // --- ESTUDIANTE / EGRESADO / USUARIO ---
     NavItem(
       title: 'Espacios',
       icon: Icons.meeting_room_outlined,
@@ -85,13 +92,6 @@ class _AppLayoutState extends State<AppLayout> {
     ),
 
     // --- ADMINISTRADOR ---
-    NavItem(
-      title: 'Panel administrativo',
-      icon: Icons.dashboard_outlined,
-      route: '/admin/dashboard',
-      allowedRoles: ['ADMINISTRADOR'],
-      section: 'Administración',
-    ),
     NavItem(
       title: 'Gestionar reservas',
       icon: Icons.assignment_turned_in_outlined,
@@ -130,13 +130,6 @@ class _AppLayoutState extends State<AppLayout> {
 
     // --- LABORATORIO ---
     NavItem(
-      title: 'Panel laboratorio',
-      icon: Icons.science_outlined,
-      route: '/lab/dashboard',
-      allowedRoles: ['LABORATORIO'],
-      section: 'Laboratorio',
-    ),
-    NavItem(
       title: 'Reservas asignadas',
       icon: Icons.biotech_outlined,
       route: '/lab/reservations',
@@ -169,6 +162,24 @@ class _AppLayoutState extends State<AppLayout> {
     return 'Estudiante UCEVA';
   }
 
+  bool _isNavItemAllowed(NavItem item, String role, String type) {
+    final allowed = item.allowedRoles.map((value) => value.toUpperCase());
+
+    if (item.route == '/home' || item.route == '/user/profile') {
+      return true;
+    }
+
+    if (role == 'ADMINISTRADOR' || role == 'LABORATORIO') {
+      return allowed.contains(role);
+    }
+
+    if (role == 'USUARIO') {
+      return allowed.contains(role) || allowed.contains(type);
+    }
+
+    return allowed.contains(role) || allowed.contains(type);
+  }
+
   @override
   Widget build(BuildContext context) {
     final session = AuthSessionService();
@@ -177,10 +188,9 @@ class _AppLayoutState extends State<AppLayout> {
     final userTipo = session.currentTipo;
 
     // Filtrar únicamente los ítems permitidos para este usuario
-    final allowedNavItems = allNavItems.where((item) {
-      final allowed = item.allowedRoles.map((r) => r.toUpperCase()).toList();
-      return allowed.contains(userRole) || allowed.contains(userTipo);
-    }).toList();
+    final allowedNavItems = allNavItems
+        .where((item) => _isNavItemAllowed(item, userRole, userTipo))
+        .toList();
 
     final screenWidth = MediaQuery.of(context).size.width;
     final isDesktop = screenWidth >= 960;
@@ -263,9 +273,8 @@ class _AppLayoutState extends State<AppLayout> {
       backgroundColor: AppColors.pageBg,
       body: Center(
         child: Container(
-          constraints: isWebDesktop
-              ? null
-              : const BoxConstraints(maxWidth: 1240),
+          constraints:
+              isWebDesktop ? null : const BoxConstraints(maxWidth: 1240),
           width: double.infinity,
           margin: isWebDesktop
               ? EdgeInsets.zero
@@ -510,7 +519,10 @@ class _AppLayoutState extends State<AppLayout> {
   }
 
   Widget _buildNavItem(BuildContext context, NavItem item) {
-    final isActive = widget.currentRoute == item.route;
+    final isActive = item.route == '/home'
+        ? const {'/user/home', '/admin/dashboard', '/lab/dashboard'}
+            .contains(widget.currentRoute)
+        : widget.currentRoute == item.route;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 2),
