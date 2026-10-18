@@ -69,13 +69,24 @@ CREATE TABLE horario (
     hora_apertura time not null,
     hora_cierre time not null,
     activo boolean not null default true,
+    id_laboratorio integer,
 
     CONSTRAINT chk_dia_semana
         CHECK (dia_semana BETWEEN 1 AND 7),
 
     CONSTRAINT chk_horas
-        CHECK (hora_cierre > hora_apertura)
+        CHECK (hora_cierre > hora_apertura),
+
+    CONSTRAINT fk_horario_laboratorio
+        FOREIGN KEY (id_laboratorio)
+        REFERENCES laboratorio(id_laboratorio)
+        ON DELETE CASCADE
 );
+
+-- Compatibilidad con bases ya creadas antes de asociar franjas a laboratorios.
+ALTER TABLE horario
+    ADD COLUMN IF NOT EXISTS id_laboratorio integer
+    REFERENCES laboratorio(id_laboratorio) ON DELETE CASCADE;
 
 -- Compatibilidad con bases ya creadas antes de agregar el estado del horario.
 ALTER TABLE horario

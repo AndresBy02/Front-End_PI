@@ -5,6 +5,8 @@ import '../../services/api_service.dart';
 import '../../widgets/app_layout.dart';
 import '../../widgets/horizontal_table_scroll.dart';
 
+import '../../models/space_model.dart';
+
 class ManageSchedulesScreen extends StatefulWidget {
   const ManageSchedulesScreen({super.key});
 
@@ -24,6 +26,8 @@ class _ManageSchedulesScreenState extends State<ManageSchedulesScreen> {
   };
 
   List<ScheduleModel> _schedules = [];
+  List<SpaceModel> _spaces = [];
+  int? _selectedLabFilter; // null = Todos
   final Set<int> _updatingSchedules = {};
   bool _isLoading = true;
   String? _loadError;
@@ -31,7 +35,32 @@ class _ManageSchedulesScreenState extends State<ManageSchedulesScreen> {
   @override
   void initState() {
     super.initState();
-    _loadSchedules();
+    _loadInitialData();
+  }
+
+  Future<void> _loadInitialData() async {
+    setState(() {
+      _isLoading = true;
+      _loadError = null;
+    });
+    try {
+      final results = await Future.wait([
+        ApiService.fetchLaboratorios(),
+        ApiService.fetchSchedules(labId: _selectedLabFilter),
+      ]);
+      if (!mounted) return;
+      setState(() {
+        _spaces = results[0] as List<SpaceModel>;
+        _schedules = results[1] as List<ScheduleModel>;
+        _isLoading = false;
+      });
+    } catch (error) {
+      if (!mounted) return;
+      setState(() {
+        _loadError = error.toString().replaceFirst('Exception: ', '');
+        _isLoading = false;
+      });
+    }
   }
 
   Future<void> _loadSchedules() async {
@@ -40,7 +69,7 @@ class _ManageSchedulesScreenState extends State<ManageSchedulesScreen> {
       _loadError = null;
     });
     try {
-      final schedules = await ApiService.fetchSchedules();
+      final schedules = await ApiService.fetchSchedules(labId: _selectedLabFilter);
       if (!mounted) return;
       setState(() {
         _schedules = schedules;
@@ -58,24 +87,19 @@ class _ManageSchedulesScreenState extends State<ManageSchedulesScreen> {
   Future<void> _createSchedule() async {
     final draft = await showDialog<_ScheduleDraft>(
       context: context,
-      builder: (_) => const _ScheduleDialog(),
+      builder: (_) => _ScheduleDialog(spaces: _spaces),
     );
     if (draft == null || !mounted) return;
 
     try {
-      final schedule = await ApiService.createSchedule(
+      await ApiService.createSchedule(
         weekday: draft.weekday,
         opensAt: draft.opensAt,
         closesAt: draft.closesAt,
+        labId: draft.labId,
       );
       if (!mounted) return;
-      setState(() {
-        _schedules = [..._schedules, schedule]
-          ..sort((a, b) {
-            final dayOrder = a.weekday.compareTo(b.weekday);
-            return dayOrder != 0 ? dayOrder : a.opensAt.compareTo(b.opensAt);
-          });
-      });
+      await _loadSchedules();
       _showMessage('La nueva franja quedó guardada.');
     } catch (error) {
       if (!mounted) return;
@@ -155,13 +179,54 @@ class _ManageSchedulesScreenState extends State<ManageSchedulesScreen> {
                     'Franjas y Políticas de Horario',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  ElevatedButton.icon(
-                    onPressed: _isLoading ? null : _createSchedule,
-                    icon: const Icon(Icons.add, size: 18),
-                    label: const Text('Nueva franja'),
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(140, 40),
-                    ),
+                  Wrap(
+                    spacing: 12,
+                    runSpacing: 8,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 240,
+                        child: DropdownButtonFormField<int>(
+                          initialValue: _selectedLabFilter ?? 0,
+                          isExpanded: true,
+                          decoration: const InputDecoration(
+                            labelText: 'Filtrar por laboratorio',
+                            isDense: true,
+                            border: OutlineInputBorder(),
+                          ),
+                          items: [
+                            const DropdownMenuItem<int>(
+                              value: 0,
+                              child: Text('Todos los laboratorios'),
+                            ),
+                            ..._spaces.map(
+                              (space) => DropdownMenuItem<int>(
+                                value: int.tryParse(space.id) ?? 0,
+                                child: Text(
+                                  space.name,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ),
+                          ],
+                          onChanged: (value) {
+                            setState(() {
+                              _selectedLabFilter =
+                                  (value == null || value == 0) ? null : value;
+                            });
+                            _loadSchedules();
+                          },
+                        ),
+                      ),
+                      ElevatedButton.icon(
+                        onPressed: _isLoading ? null : _createSchedule,
+                        icon: const Icon(Icons.add, size: 18),
+                        label: const Text('Nueva franja'),
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(140, 40),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -202,6 +267,7 @@ class _ManageSchedulesScreenState extends State<ManageSchedulesScreen> {
                   child: DataTable(
                     headingRowColor: WidgetStateProperty.all(AppColors.frameBg),
                     columns: const [
+                      DataColumn(label: Text('Laboratorio')),
                       DataColumn(label: Text('Día')),
                       DataColumn(label: Text('Hora apertura')),
                       DataColumn(label: Text('Hora cierre')),
@@ -213,6 +279,19 @@ class _ManageSchedulesScreenState extends State<ManageSchedulesScreen> {
                       );
                       return DataRow(
                         cells: [
+                          DataCell(
+                            Text(
+                              schedule.labName ?? 'Todos los laboratorios',
+                              style: TextStyle(
+                                color: schedule.labName == null
+                                    ? AppColors.textMuted
+                                    : AppColors.textStrong,
+                                fontStyle: schedule.labName == null
+                                    ? FontStyle.italic
+                                    : FontStyle.normal,
+                              ),
+                            ),
+                          ),
                           DataCell(
                             Text(
                               _weekdays[schedule.weekday] ??
@@ -263,16 +342,20 @@ class _ScheduleDraft {
   final int weekday;
   final String opensAt;
   final String closesAt;
+  final int? labId;
 
   const _ScheduleDraft({
     required this.weekday,
     required this.opensAt,
     required this.closesAt,
+    this.labId,
   });
 }
 
 class _ScheduleDialog extends StatefulWidget {
-  const _ScheduleDialog();
+  final List<SpaceModel> spaces;
+
+  const _ScheduleDialog({required this.spaces});
 
   @override
   State<_ScheduleDialog> createState() => _ScheduleDialogState();
@@ -282,6 +365,7 @@ class _ScheduleDialogState extends State<_ScheduleDialog> {
   int _weekday = DateTime.monday;
   TimeOfDay _opensAt = const TimeOfDay(hour: 8, minute: 0);
   TimeOfDay _closesAt = const TimeOfDay(hour: 18, minute: 0);
+  int? _labId; // null = Todos los laboratorios
   String? _validationError;
 
   String _formatTime(TimeOfDay time) =>
@@ -318,6 +402,7 @@ class _ScheduleDialogState extends State<_ScheduleDialog> {
         weekday: _weekday,
         opensAt: _formatTime(_opensAt),
         closesAt: _formatTime(_closesAt),
+        labId: _labId,
       ),
     );
   }
@@ -329,6 +414,30 @@ class _ScheduleDialogState extends State<_ScheduleDialog> {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          DropdownButtonFormField<int>(
+            initialValue: _labId ?? 0,
+            isExpanded: true,
+            decoration: const InputDecoration(
+              labelText: 'Laboratorio',
+              helperText: 'Elige uno o aplica la franja a todos',
+            ),
+            items: [
+              const DropdownMenuItem<int>(
+                value: 0,
+                child: Text('Todos los laboratorios'),
+              ),
+              ...widget.spaces.map(
+                (space) => DropdownMenuItem<int>(
+                  value: int.tryParse(space.id) ?? 0,
+                  child: Text(space.name, overflow: TextOverflow.ellipsis),
+                ),
+              ),
+            ],
+            onChanged: (value) => setState(
+              () => _labId = (value == null || value == 0) ? null : value,
+            ),
+          ),
+          const SizedBox(height: 12),
           DropdownButtonFormField<int>(
             initialValue: _weekday,
             decoration: const InputDecoration(labelText: 'Día de la semana'),

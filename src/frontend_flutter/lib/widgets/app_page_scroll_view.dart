@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'custom_footer.dart';
 
@@ -8,26 +7,20 @@ class AppBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final isCompactWebBanner = kIsWeb && screenWidth >= 960;
+    final isDesktop = screenWidth >= 960;
+    final bannerHeight = isDesktop ? 150.0 : 110.0;
 
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final bannerWidth = isCompactWebBanner && constraints.maxWidth > 560
-            ? 560.0
-            : constraints.maxWidth;
-
-        return Container(
-          width: double.infinity,
-          color: const Color(0xFF050506),
-          alignment: Alignment.centerLeft,
-          child: Image.asset(
-            'assets/images/banner_sistemas.jpeg',
-            width: bannerWidth,
-            fit: BoxFit.fitWidth,
-            semanticLabel: 'Banner de la Facultad de Ingeniería de Sistemas',
-          ),
-        );
-      },
+    return Container(
+      width: double.infinity,
+      height: bannerHeight,
+      color: const Color(0xFF050506),
+      child: Image.asset(
+        'assets/images/banner_sistemas.jpeg',
+        width: double.infinity,
+        height: bannerHeight,
+        fit: BoxFit.fill,
+        semanticLabel: 'Banner de la Facultad de Ingeniería de Sistemas',
+      ),
     );
   }
 }

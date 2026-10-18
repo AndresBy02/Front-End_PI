@@ -202,6 +202,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
 
                       // Acciones Rápidas
                       Container(
+                        width: double.infinity,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(16),
@@ -217,32 +218,6 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                             const SizedBox(height: 14),
                             LayoutBuilder(
                               builder: (context, constraints) {
-                                if (constraints.maxWidth < 420) {
-                                  return Column(
-                                    children: [
-                                      _buildQuickAction(
-                                          context,
-                                          'Gestionar Reservas',
-                                          Icons.assignment,
-                                          '/admin/reservations'),
-                                      const SizedBox(height: 10),
-                                      _buildQuickAction(
-                                          context,
-                                          'Gestionar Espacios',
-                                          Icons.room_preferences,
-                                          '/admin/spaces'),
-                                      const SizedBox(height: 10),
-                                      _buildQuickAction(
-                                          context,
-                                          'Configurar Horarios',
-                                          Icons.schedule,
-                                          '/admin/schedules'),
-                                      const SizedBox(height: 10),
-                                      _buildQuickAction(context, 'Ver Reportes',
-                                          Icons.bar_chart, '/admin/reports'),
-                                    ],
-                                  );
-                                }
                                 if (constraints.maxWidth < 680) {
                                   return Column(
                                     children: [
@@ -324,6 +299,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
 
                       // Solicitudes Pendientes
                       Container(
+                        width: double.infinity,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(16),

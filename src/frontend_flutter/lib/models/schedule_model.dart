@@ -4,6 +4,8 @@ class ScheduleModel {
   final String opensAt;
   final String closesAt;
   final bool active;
+  final int? labId;
+  final String? labName;
 
   const ScheduleModel({
     required this.id,
@@ -11,6 +13,8 @@ class ScheduleModel {
     required this.opensAt,
     required this.closesAt,
     required this.active,
+    this.labId,
+    this.labName,
   });
 
   ScheduleModel copyWith({bool? active}) {
@@ -20,6 +24,8 @@ class ScheduleModel {
       opensAt: opensAt,
       closesAt: closesAt,
       active: active ?? this.active,
+      labId: labId,
+      labName: labName,
     );
   }
 
@@ -30,6 +36,8 @@ class ScheduleModel {
       opensAt: _parseTime(json['hora_apertura']),
       closesAt: _parseTime(json['hora_cierre']),
       active: json['activo'] == true,
+      labId: json['id_laboratorio'] != null ? _parseInt(json['id_laboratorio']) : null,
+      labName: json['nombre_laboratorio']?.toString(),
     );
   }
 
