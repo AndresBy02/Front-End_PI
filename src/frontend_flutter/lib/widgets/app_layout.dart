@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import '../core/constants/app_colors.dart';
 import '../services/auth_session_service.dart';
 import 'app_page_scroll_view.dart';
@@ -183,6 +184,7 @@ class _AppLayoutState extends State<AppLayout> {
 
     final screenWidth = MediaQuery.of(context).size.width;
     final isDesktop = screenWidth >= 960;
+    final isWebDesktop = kIsWeb && isDesktop;
     final roleDescription =
         user != null ? _formatUserRole(userRole, userTipo) : 'Sesión activa';
 
@@ -261,9 +263,13 @@ class _AppLayoutState extends State<AppLayout> {
       backgroundColor: AppColors.pageBg,
       body: Center(
         child: Container(
-          constraints: const BoxConstraints(maxWidth: 1240),
+          constraints: isWebDesktop
+              ? null
+              : const BoxConstraints(maxWidth: 1240),
           width: double.infinity,
-          margin: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+          margin: isWebDesktop
+              ? EdgeInsets.zero
+              : const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
           decoration: BoxDecoration(
             color: AppColors.frameBg,
             borderRadius: BorderRadius.circular(18),

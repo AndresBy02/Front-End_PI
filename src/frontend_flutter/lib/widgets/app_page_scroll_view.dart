@@ -12,8 +12,8 @@ class AppBanner extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        final bannerWidth = isCompactWebBanner && constraints.maxWidth > 720
-            ? 720.0
+        final bannerWidth = isCompactWebBanner && constraints.maxWidth > 560
+            ? 560.0
             : constraints.maxWidth;
 
         return Container(
