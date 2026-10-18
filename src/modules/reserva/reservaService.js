@@ -86,6 +86,7 @@ const crearReserva = async({
         SELECT id_horario
         FROM horario
         WHERE dia_semana = EXTRACT(ISODOW FROM $1::date)
+         AND activo = TRUE
          AND $2::time >= hora_apertura
          AND $3::time <= hora_cierre
         `,
@@ -288,6 +289,7 @@ const editarReserva = async (
                 `SELECT id_horario
                 FROM horario
                 WHERE dia_semana = EXTRACT(ISODOW FROM $1::date)
+                AND activo = TRUE
                 AND $2::time >= hora_apertura
                 AND $3::time <= hora_cierre
                 `, [fecha, horaInicio, horaFin]

@@ -68,6 +68,7 @@ CREATE TABLE horario (
     dia_semana smallint not null,
     hora_apertura time not null,
     hora_cierre time not null,
+    activo boolean not null default true,
 
     CONSTRAINT chk_dia_semana
         CHECK (dia_semana BETWEEN 1 AND 7),
@@ -75,6 +76,10 @@ CREATE TABLE horario (
     CONSTRAINT chk_horas
         CHECK (hora_cierre > hora_apertura)
 );
+
+-- Compatibilidad con bases ya creadas antes de agregar el estado del horario.
+ALTER TABLE horario
+    ADD COLUMN IF NOT EXISTS activo boolean not null default true;
 
 -- Tabla de codigos de verificacion
 CREATE TABLE codigos_verificacion (
@@ -121,3 +126,9 @@ INSERT INTO horario (dia_semana, hora_apertura, hora_cierre) VALUES
     (5, '07:00:00', '22:00:00'),
     (6, '08:00:00', '18:00:00')
 ON CONFLICT DO NOTHING;
+
+INSERT INTO horario (dia_semana, hora_apertura, hora_cierre, activo)
+SELECT 7, '08:00:00', '14:00:00', FALSE
+WHERE NOT EXISTS (
+    SELECT 1 FROM horario WHERE dia_semana = 7
+);

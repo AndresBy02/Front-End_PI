@@ -205,7 +205,7 @@ docker compose up -d
 #### 1. Configurar Base de Datos (PostgreSQL)
 1. Abre tu cliente de PostgreSQL (pgAdmin / TablePlus / DBeaver).
 2. Crea la base de datos: `saici_db`.
-3. Ejecuta el archivo [`BD_Saici.sql`](./BD_Saici.sql) para crear las tablas, usuarios y horarios de atención.
+3. Ejecuta el archivo [`BD_Saici.sql`](./BD_Saici.sql) para crear las tablas, usuarios y horarios de atención. Si la base ya existía, aplica [`migrations/001_horario_activo.sql`](./migrations/001_horario_activo.sql) para habilitar los interruptores de horarios y agregar el domingo desactivado inicialmente.
 
 #### 2. Configurar y Levantar el Backend (Node.js)
 1. En la raíz del proyecto, copia las variables de entorno:
